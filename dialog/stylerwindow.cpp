@@ -6,14 +6,27 @@ StylerWindow::StylerWindow(QWidget *parent) :
     ui(new Ui::StylerWindow)
 {
     ui->setupUi(this);
+	this->styler = Styler::getInstance();
 }
 
 StylerWindow::~StylerWindow()
 {
-	file->close();
-	delete file;
+	if(file){
+		file->close();
+		delete file;
+	}
 
 	delete ui;
+}
+
+StylerWindow *StylerWindow::getInstance(QWidget *parent){
+	static StylerWindow *instance = new StylerWindow(parent);
+	return instance;
+}
+
+void StylerWindow::closeEvent(QCloseEvent *event){
+	this->hide();
+	event->ignore();
 }
 
 void StylerWindow::on_actionFormat_triggered()

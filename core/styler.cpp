@@ -11,6 +11,11 @@ Styler::Styler(){
 	this->optNoComment = true;
 }
 
+Styler *Styler::getInstance(){
+	static Styler *instance = new Styler();
+	return instance;
+}
+
 void Styler::inputCode(QString code){
 	this->code = code;
 }

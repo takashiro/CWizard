@@ -1,53 +1,32 @@
 #include <QtGui/QApplication>
-#include <QSystemTrayIcon>
-#include <QMenu>
-#include <windows.h>
+#include <QTranslator>
 
 #include "core/cwizard.h"
-#include "core/tray.h"
+#include "dialog/mainwindow.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
-	a.setApplicationName("CWizard");
-	a.setApplicationVersion("Elf");
 
-	CWizard cwizard;
+	//初始化CWizard，设置程序名称、版本号以及图标
+	CWizard *cwizard = CWizard::getInstance();
+	a.setApplicationName(cwizard->getAppName());
+	a.setApplicationVersion(cwizard->getAppVersion());
+	a.setWindowIcon(QIcon("image/trayicon.ico"));
 
-	//程序图标
-	QIcon ico = QIcon("image/trayicon.ico");
-	a.setWindowIcon(ico);
+	//加载程序语言
+	QString appLang = cwizard->setting->value("displayLanguage", "zh_CN").toString();
+	QTranslator translator;
+	if(appLang != "en_US"){
+		translator.load("lang/" + appLang + ".qm");
+		a.installTranslator(&translator);
+	}
 
-	//主窗口
-	MainWindow mainWindow;
-	cwizard.setMainWindow(&mainWindow);
-	mainWindow.setWindowFlags(Qt::FramelessWindowHint);
-	mainWindow.setWindowTitle("CWizard");
-	mainWindow.setWindowIcon(ico);
+	//实例化主窗口
+	MainWindow *mainWindow = MainWindow::getInstance();
+	if(cwizard->setting->value("showToolBarOnStart", false).toBool()){
+		mainWindow->show();
+	}
 
-	//程序配置
-	//mainWindow.show();
-
-	//系统托盘菜单
-	QMenu *contextMenu = new QMenu();
-	contextMenu->addAction("Power On");
-	contextMenu->addAction("Popup Bar", &mainWindow, SLOT(show()));
-	contextMenu->addAction("Statistics");
-	contextMenu->addAction("Setting", &mainWindow, SLOT(on_setting_clicked()));
-	QMenu *toolMenu = new QMenu();
-	toolMenu->setTitle("Tools");
-	toolMenu->addAction("CStyler", &mainWindow, SLOT(showStyler()));
-	toolMenu->addAction("About Us");
-	contextMenu->addMenu(toolMenu);
-	contextMenu->addAction("Exit", &mainWindow, SLOT(on_exit_clicked()));
-
-	//系统托盘
-	QSystemTrayIcon trayIcon;
-	trayIcon.setIcon(ico);
-	trayIcon.setToolTip("CWizard (" + cwizard.getVersion() + " Ver.)");
-	trayIcon.setContextMenu(contextMenu);
-	trayIcon.installEventFilter(new Tray(&cwizard));
-	trayIcon.show();
-
+	//结束
     return a.exec();
 }

@@ -1,6 +1,8 @@
 #ifndef STYLERWINDOW_H
 #define STYLERWINDOW_H
 
+/* CStyler小工具的窗口类 */
+
 #include <QMainWindow>
 #include <QEvent>
 
@@ -15,23 +17,25 @@ namespace Ui {
 class StylerWindow : public QMainWindow
 {
     Q_OBJECT
-
-public:
 	Styler *styler;
 
-    explicit StylerWindow(QWidget *parent = 0);
-    ~StylerWindow();
+public:
+	explicit StylerWindow(QWidget *parent = 0);
+	~StylerWindow();
+	static StylerWindow *getInstance(QWidget *parent = 0);
 
-	void resizeEvent(QResizeEvent *);
+	void resizeEvent(QResizeEvent *event);
+	void closeEvent(QCloseEvent *event);
 
 private:
-    Ui::StylerWindow *ui;
-	QFile *file;
+	Ui::StylerWindow *ui;
+	QFile *file;											//当前打开的文件
+
 
 private slots:
-	void on_actionOpen_triggered();
-	void on_actionCompress_triggered();
-	void on_actionFormat_triggered();
+	void on_actionOpen_triggered();		//打开
+	void on_actionCompress_triggered(); //压缩
+	void on_actionFormat_triggered();	//规范化
 };
 
 #endif // STYLERWINDOW_H

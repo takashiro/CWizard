@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>322</width>
-    <height>24</height>
+    <width>360</width>
+    <height>22</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,10 +27,10 @@
      <string>Settings</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="power">
+   <widget class="QPushButton" name="powerOn">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>60</x>
       <y>0</y>
       <width>61</width>
       <height>23</height>
@@ -40,7 +40,7 @@
      <string>Power On</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit">
+   <widget class="QPushButton" name="hide">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -50,13 +50,13 @@
      </rect>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Hide</string>
     </property>
    </widget>
    <widget class="QToolButton" name="tool">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>120</x>
       <y>0</y>
       <width>51</width>
       <height>23</height>
@@ -69,14 +69,27 @@
    <widget class="QPushButton" name="stat">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>0</y>
-      <width>71</width>
+      <width>51</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Statistics</string>
+     <string>Stats</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>

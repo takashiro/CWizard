@@ -23,6 +23,7 @@ public:
 	bool optNoComment;					//去除注释
 
 	Styler();
+	static Styler *getInstance();
 
 	void inputCode(QString code);		//输入原始代码
 	QString formatCode();				//规范化代码
