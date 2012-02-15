@@ -8,7 +8,7 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 
-#include "core/cwizard.h"
+class CWizard;
 
 class Tray: public QSystemTrayIcon
 {

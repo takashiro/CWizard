@@ -8,7 +8,7 @@
 
 #include <QFileDialog>
 
-#include "core/styler.h"
+class Styler;
 
 namespace Ui {
     class StylerWindow;
@@ -25,11 +25,11 @@ public:
 	static StylerWindow *getInstance(QWidget *parent = 0);
 
 	void resizeEvent(QResizeEvent *event);
-	void closeEvent(QCloseEvent *event);
 
 private:
 	Ui::StylerWindow *ui;
-	QFile *file;											//当前打开的文件
+	QFile *file;						//当前打开的文件
+	static const QString extFilters;	//可用扩展名
 
 
 private slots:

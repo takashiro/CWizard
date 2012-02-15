@@ -1,5 +1,7 @@
 #include "styler.h"
 
+#include <QDebug>
+
 Styler::Styler(){
 	this->codeStatus = 0;
 
@@ -8,7 +10,7 @@ Styler::Styler(){
 	this->optCommaBlank = true;
 	this->optBlockAlwaysQuoted = true;
 	this->optFunctionsSplitted = true;
-	this->optNoComment = true;
+	this->optNoComment = false;
 }
 
 Styler *Styler::getInstance(){
@@ -18,6 +20,7 @@ Styler *Styler::getInstance(){
 
 void Styler::inputCode(QString code){
 	this->code = code;
+	this->codeStatus = 0;
 }
 
 QString Styler::formatCode(){
@@ -29,35 +32,32 @@ QString Styler::formatCode(){
 		return "";
 	}
 
-	code = code;
-
 	//保护注释
 	if(optNoComment){
-		code = code.replace(QRegExp("\\/\\/(?:.*?)[\\r\\n]+"), "\r\n").replace(QRegExp("\\/\\*(?:.*?)\\*\\/"), "");
+		code = code.replace(QRegExp("//(?:.*?)[\\r\\n]+"), "\r\n").replace(QRegExp("\\/\\*(?:.*?)\\*\\/"), "");
 	}else{
 		this->ProtectedCmts1.clear();
 		this->ProtectedCmts2.clear();
-		protectQuoted("/*", "*/", this->ProtectedCmts1);
-		protectQuoted("//", "\r\n", this->ProtectedCmts2);
+
+		protectQuoted(QRegExp("/\\*(.*)\\*/"), this->ProtectedCmts1, 2, 2);
+		protectQuoted(QRegExp("//(.*)\\r\\n"), this->ProtectedCmts2, 2, 2);
 	}
 
 	//保护字符串
 	this->ProtectedStrs.clear();
-	protectQuoted("\\\"", "", this->ProtectedStrs);
+	protectQuoted(QRegExp("(?!(?!\\\\)\\\\)\\\"(.*)(?!(?!\\\\)\\\\)\\\""), this->ProtectedStrs, 1, 1);
 
 	code = code.replace("\\t", "");
 
 	//双元运算符
-	code = code.replace(QRegExp("[\\s]*([\\*\\+\\-\\/]{1,2}|\\!\\={1,2}|\\={1,3}|[\\|\\&]{1,2}|\\?|\\:|[\\<\\>]{1,2})[\\s]*"), optBioperator ? " \\1 " : "\\1");
-	code = code.replace(QRegExp("[\\s]+(\\+\\+|\\-\\-)"), "\\1");
-	code = code.replace(QRegExp("(\\+\\+|\\-\\-)[\\s]+"), "\\1");
+	code = code.replace(QRegExp("[\\s]*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|[\\|\\&]{1,2}|\\?|(?!\\:)\\:(?!\\:)|\\<{1,2}|(?!\\-)\\>{1,2})[\\s]*"), optBioperator ? " \\1 " : "\\1");
 
 	//左侧大括号
 	code = code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
 
 	//右侧大括号
-	code = code.replace(QRegExp("[\\s]*\\}[\\s]*"), "\r\n}\r\n");
-	code = code.replace(QRegExp("\\}[\\s]*(else|\\)|catch|finally)"), "}\\1");
+	code = code.replace(QRegExp("\\s*\\}\\s*"), "\r\n}\r\n");
+	code = code.replace(QRegExp("\\}\\s*(else|\\)|catch|finally)"), "}\\1");
 
 	//Block总是括号
 	/*
@@ -66,7 +66,7 @@ QString Styler::formatCode(){
 
 	//函数块分开
 	if(optFunctionsSplitted){
-	code = code.replace(QRegExp("\\}\\s*function"), "}\r\n\r\nfunction");
+		code = code.replace(QRegExp("\\}\\s*function"), "}\r\n\r\nfunction");
 	}
 
 	//return右侧空格
@@ -74,15 +74,18 @@ QString Styler::formatCode(){
 
 	//逗号
 	if(optCommaBlank){
-	code = code.replace(QRegExp("[\\s]*\\,[\\s]*"), ", ");
+		code = code.replace(QRegExp("\\s*\\,\\s*"), ", ");
 	}
 
 	//一句一行
-	code = code.replace(QRegExp("[\\s]*;[\\s]*"), ";\r\n");
-	code = code.replace(QRegExp("for\\(\\s*(.*?)\\s*;\\s*(.*?)\\s*;\\s*(.*?)\\s*\\)"), "for(\\1; \\2; \\3)");
+	code = code.replace(QRegExp("\\s*;\\s*"), ";\r\n");
+	QRegExp rx("for\\([\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*\\)");
+	rx.setMinimal(true);
+	code = code.replace(rx, "for(\\1; \\2; \\3)");
 
 	//块注释空行
 	code = code.replace(QRegExp("\\*\\/[\r\n]*"), "*/\r\n");
+	code = code.replace(QRegExp("(?!\\r\\n)\\r\\n(\\s*//)"), "\\r\\n\\r\\n\\1");
 
 	//缩进
 	QStringList block = code.split("\r\n");
@@ -94,7 +97,7 @@ QString Styler::formatCode(){
 		}
 
 		for(int k = 0; k < indent; k++){
-			block[i] = '\t' + block[i];
+			block[i].prepend('\t');
 		}
 
 		if(block[i].length() >= 1 && block[i].at(block[i].length() - 1) == '{'){
@@ -106,10 +109,10 @@ QString Styler::formatCode(){
 	codeStatus = 1;
 
 	if(!optNoComment){
-		protectQuoted("/*", "*/", this->ProtectedCmts1);
-		protectQuoted("//", "\r\n", this->ProtectedCmts2);
+		restoreQuoted("/*", "*/", this->ProtectedCmts1);
+		restoreQuoted("//", "\r\n", this->ProtectedCmts2);
 	}
-	protectQuoted("\\\"", "", this->ProtectedStrs);
+	restoreQuoted("\"", "\"", this->ProtectedStrs);
 
 	return code;
 }
@@ -136,29 +139,35 @@ QString Styler::compressCode(){
 	return code;
 }
 
-void Styler::protectQuoted(QString lquote, QString rquote, QList<QString> &list){
-	if(rquote == ""){
-		rquote = lquote;
-	}
+QString Styler::getCode() const{
+	return code;
+}
 
-	QRegExp pattern;
-	pattern.setPattern(lquote + "(.*?)" + rquote);
+void Styler::protectQuoted(QRegExp pattern, QStringList &list, int lquoteLength, int rquoteLength){
+	pattern.setMinimal(true);
+
+	int index = -1;
 	int offset = 0;
-	while((offset = code.indexOf(pattern)) >= 0){
-		list << pattern.capturedTexts();
-		code = code.remove(offset + lquote.length(), pattern.matchedLength() - rquote.length());
+	QString capturedText;
+	while((index = pattern.indexIn(code, offset)) != -1){
+		if(pattern.captureCount() > 1){
+			capturedText = pattern.capturedTexts().at(1);
+			list.append(capturedText);
+
+			code.remove(index + lquoteLength, capturedText.length());
+			offset = index + lquoteLength + rquoteLength;
+		}else{
+			break;
+		}
 	}
 }
 
-void Styler::restoreQuoted(QString lquote, QString rquote, QList<QString> &list){
-	if(rquote == ""){
-		rquote = lquote;
-	}
-
+void Styler::restoreQuoted(QString lquote, QString rquote, QStringList &list){
 	QString quote = lquote + rquote;
 	int offset = 0, i = 0;
-	while((offset = code.indexOf(quote)) >= 0){
+	while((offset = code.indexOf(quote, offset)) >= 0 && i < list.length()){
 		code = code.insert(offset + lquote.length(), list.at(i));
+		offset += lquote.length() + list.at(i).length() + rquote.length();
 		i++;
 	}
 }

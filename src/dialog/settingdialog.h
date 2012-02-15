@@ -26,8 +26,6 @@ public:
 	void loadSetting(QSettings *setting);					//加载设置
 	QSettings *getSettingFile();							//获取设置
 
-	void closeEvent(QCloseEvent *event);	//重载关闭事件，点击关闭按钮仅作隐藏
-
 	Ui::SettingDialog *ui;
 
 private slots:

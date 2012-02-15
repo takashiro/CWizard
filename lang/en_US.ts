@@ -33,6 +33,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/dialog/mainwindow.ui" line="66"/>
+        <source>CStyler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/dialog/mainwindow.ui" line="79"/>
         <source>Stats</source>
         <translation type="unfinished"></translation>
@@ -40,11 +45,6 @@
     <message>
         <location filename="../src/dialog/mainwindow.ui" line="92"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/dialog/mainwindow.ui" line="66"/>
-        <source>CStyler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -246,13 +246,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray.cpp" line="16"/>
-        <source>Popup Bar</source>
+        <location filename="../src/ui/tray.cpp" line="12"/>
+        <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/tray.cpp" line="12"/>
-        <source>Statistics</source>
+        <location filename="../src/ui/tray.cpp" line="16"/>
+        <source>Popup Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

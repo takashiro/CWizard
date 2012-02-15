@@ -11,10 +11,11 @@ int main(int argc, char *argv[]){
 	CWizard *cwizard = CWizard::getInstance();
 	a.setApplicationName(cwizard->getAppName());
 	a.setApplicationVersion(cwizard->getAppVersion());
+	a.setQuitOnLastWindowClosed(false);
 	a.setWindowIcon(QIcon("image/trayicon.ico"));
 
 	//加载程序语言
-	QString appLang = cwizard->setting->value("displayLanguage", "zh_CN").toString();
+	QString appLang = cwizard->getSetting("displayLanguage", "zh_CN").toString();
 	QTranslator translator;
 	if(appLang != "en_US"){
 		translator.load("lang/" + appLang + ".qm");
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]){
 
 	//实例化主窗口
 	MainWindow *mainWindow = MainWindow::getInstance();
-	if(cwizard->setting->value("showToolBarOnStart", false).toBool()){
+	if(cwizard->getSetting("displayToolBarOnStart", false).toBool()){
 		mainWindow->show();
 	}
 

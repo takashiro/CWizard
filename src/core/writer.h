@@ -2,12 +2,12 @@
 #define WRITER_H
 
 #include <QString>
-
 #include <windows.h>
 
 class Writer{
 public:
 	Writer();
+	~Writer();
 	static Writer *getInstance();
 
 	void setHook(char args = Writer::keyHookEnabled);		//开启全局钩子
@@ -29,8 +29,8 @@ public:
 	static bool isBioperator(QChar vkCode);
 
 	//一些用于方便阅读的常量
-	static const char keyHookEnabled = 0x1;		//开启键盘钩子
-	static const char mouseHookEnabled = 0x2;	//开启鼠标钩子
+	static const char keyHookEnabled;		//开启键盘钩子
+	static const char mouseHookEnabled;		//开启鼠标钩子
 
 private:
 	HHOOK keyHook;

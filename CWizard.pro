@@ -10,26 +10,34 @@ TARGET = CWizard
 TEMPLATE = app
 
 
-SOURCES += main.cpp \
-	core/styler.cpp \
-    core/cwizard.cpp \
-	core/writer.cpp \
-    dialog/stylerwindow.cpp \
-	dialog/settingdialog.cpp \
-	dialog/mainwindow.cpp \
-    ui/tray.cpp
+SOURCES += src/main.cpp \
+	src/core/styler.cpp \
+	src/core/cwizard.cpp \
+	src/core/writer.cpp \
+	src/dialog/stylerwindow.cpp \
+	src/dialog/settingdialog.cpp \
+	src/dialog/mainwindow.cpp \
+	src/ui/tray.cpp \
+    src/dialog/aboutusdialog.cpp
 
-HEADERS  += core/styler.h \
-	core/cwizard.h \
-	core/writer.h \
-	dialog/mainwindow.h \
-    dialog/stylerwindow.h \
-    dialog/settingdialog.h \
-    ui/tray.h
+HEADERS  += src/core/styler.h \
+	src/core/cwizard.h \
+	src/core/writer.h \
+	src/dialog/mainwindow.h \
+	src/dialog/stylerwindow.h \
+	src/dialog/settingdialog.h \
+	src/ui/tray.h \
+    src/dialog/aboutusdialog.h
 
-FORMS    += dialog/settingdialog.ui \
-    dialog/mainwindow.ui \
-    dialog/stylerwindow.ui
+FORMS    += src/dialog/settingdialog.ui \
+	src/dialog/mainwindow.ui \
+	src/dialog/stylerwindow.ui \
+    src/dialog/aboutusdialog.ui
 
-TRANSLATIONS	+= lang/zh_CN.ts \
+TRANSLATIONS	+= lang/en_US.ts \
+	lang/zh_CN.ts \
 	lang/ja_JP.ts
+
+RC_FILE  += CWizard.rc
+
+INCLUDEPATH += src

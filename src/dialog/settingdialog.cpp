@@ -1,3 +1,4 @@
+
 #include <QPushButton>
 
 #include "dialog/settingdialog.h"
@@ -96,13 +97,8 @@ void SettingDialog::saveSetting(){
 	}
 }
 
-void SettingDialog::closeEvent(QCloseEvent *event){
-	this->hide();
-	event->ignore();
-}
-
 void SettingDialog::on_buttonBox_clicked(QAbstractButton* button){
-	/*if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Apply){
-		this->saveSetting();
-	}*/
+	if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Apply){
+		saveSetting();
+	}
 }

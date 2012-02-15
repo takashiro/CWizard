@@ -3,6 +3,9 @@
 #include <QDebug>
 #include <iostream>
 
+const char Writer::keyHookEnabled = 0x01;
+const char Writer::mouseHookEnabled = 0x02;
+
 Writer::Writer(){
 	this->keyHook = NULL;
 	this->mouseHook = NULL;
@@ -11,6 +14,16 @@ Writer::Writer(){
 
 	this->keyboardHooked = false;
 	this->mouseHooked = false;
+}
+
+Writer::~Writer(){
+	if(isKeyboardHooked()){
+		unsetHook(Writer::keyHookEnabled);
+	}
+
+	if(isMouseHooked()){
+		unsetHook(Writer::mouseHookEnabled);
+	}
 }
 
 Writer *Writer::getInstance(){
@@ -56,20 +69,17 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 		return CallNextHookEx(instance->keyHook, nCode, wParam, lParam);
 	}
 
+	/*HWND currentbox = GetFocus();
+	char buf[255];
+	*((LPWORD) buf) = 255;
+	SendMessage(currentbox, EM_GETLINE, 0, (LPARAM) buf);
+	qWarning(buf);*/
+
 	//在WH_KEYBOARD_LL模式下lParam 是指向KBDLLHOOKSTRUCT类型地址
 	KBDLLHOOKSTRUCT *pkbhs = (KBDLLHOOKSTRUCT *) lParam;
 
 	if(pkbhs->vkCode == VK_RETURN){
 		instance->currentLine.clear();
-	}else{
-		instance->currentLine.append(QChar::fromAscii(pkbhs->vkCode));
-		std::string str;
-		str += pkbhs->vkCode;
-		qWarning(str.c_str());
-
-		if(Writer::isBioperator(pkbhs->vkCode)){
-			inputChar(VK_SPACE);
-		}
 	}
 
 	return 0;

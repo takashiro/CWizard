@@ -3,6 +3,11 @@
 #include "ui_mainwindow.h"
 
 #include "core/cwizard.h"
+#include "core/writer.h"
+#include "dialog/stylerwindow.h"
+#include "dialog/settingdialog.h"
+#include "dialog/aboutusdialog.h"
+#include "ui/tray.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,24 +18,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	CWizard *cwizard = CWizard::getInstance();
 
-	toolMenu = new QMenu();
-	toolMenu->addAction(tr("CStyler"));
-	toolMenu->addAction(tr("About Us"));
-
-	stylerWindow = StylerWindow::getInstance(this);
+	stylerWindow = StylerWindow::getInstance();
 	settingDialog = SettingDialog::getInstance(this);
-	settingDialog->loadSetting(cwizard->setting);
+	settingDialog->loadSetting(cwizard->getSetting());
 
 	tray = Tray::getInstance(this);
 	connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
 	tray->show();
+
+	aboutusDialog = NULL;
 }
 
 MainWindow::~MainWindow(){
 	delete ui;
 
-	if(toolMenu){
-		delete toolMenu;
+	if(stylerWindow){
+		delete stylerWindow;
 	}
 }
 
@@ -81,12 +84,16 @@ void MainWindow::on_setting_clicked(){
 	settingDialog->show();
 }
 
-void MainWindow::on_tool_clicked(){
-	toolMenu->show();
+void MainWindow::showStyler() const{
+	stylerWindow->show();
 }
 
-void MainWindow::showStyler(){
-	stylerWindow->show();
+void MainWindow::showAboutus(){
+	if(aboutusDialog == NULL){
+		aboutusDialog = new AboutusDialog(this);
+	}
+
+	aboutusDialog->show();
 }
 
 void MainWindow::on_hide_clicked(){
@@ -112,4 +119,9 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason){
 	if(reason == QSystemTrayIcon::DoubleClick){
 		this->toggleShow();
 	}
+}
+
+void MainWindow::on_cstyler_clicked()
+{
+	stylerWindow->show();
 }

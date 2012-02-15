@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CStyler</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">
@@ -67,40 +67,47 @@
      <height>19</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile_F">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File(&amp;F)</string>
+     <string>File</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuEdit_E">
+   <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Edit(&amp;E)</string>
+     <string>Edit</string>
     </property>
     <addaction name="actionFormat"/>
     <addaction name="actionCompress"/>
    </widget>
-   <widget class="QMenu" name="menuHelp_H">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help(&amp;H)</string>
+     <string>Help</string>
+    </property>
+    <addaction name="actionContextHelp"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
     </property>
    </widget>
-   <addaction name="menuFile_F"/>
-   <addaction name="menuEdit_E"/>
-   <addaction name="menuHelp_H"/>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Open(&amp;O)</string>
+    <string>Open</string>
    </property>
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save(&amp;S)</string>
+    <string>Save</string>
    </property>
   </action>
   <action name="actionSaveAs">
@@ -121,6 +128,11 @@
   <action name="actionCompress">
    <property name="text">
     <string>Compress</string>
+   </property>
+  </action>
+  <action name="actionContextHelp">
+   <property name="text">
+    <string>Context Help</string>
    </property>
   </action>
  </widget>

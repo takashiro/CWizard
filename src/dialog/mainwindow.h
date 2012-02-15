@@ -7,11 +7,11 @@
 #include <QEvent>
 #include <QMouseEvent>
 #include <QMenu>
-#include <windows.h>
+#include <QSystemTrayIcon>
 
-#include "dialog/settingdialog.h"
-#include "dialog/stylerwindow.h"
-#include "ui/tray.h"
+class SettingDialog;
+class StylerWindow;
+class Tray;
 
 namespace Ui {
     class MainWindow;
@@ -32,24 +32,27 @@ public:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
 
-	SettingDialog *settingDialog;					//设置对话框
-	StylerWindow *stylerWindow;						//CStyler小工具窗口
-	Tray *tray;										//系统托盘
-
 private:
     Ui::MainWindow *ui;
 
 	QMenu *toolMenu;
 	QPoint dragPosition;
 
+	SettingDialog *settingDialog;					//设置对话框
+	StylerWindow *stylerWindow;						//CStyler小工具窗口
+	QDialog *aboutusDialog;							//关于我们
+	Tray *tray;										//系统托盘
+
+
 private slots:
+	void on_cstyler_clicked();
 	void on_powerOn_clicked();
 	void on_hide_clicked();
-	void on_tool_clicked();
 	void on_exit_clicked();
     void on_setting_clicked();
 
-	void showStyler();
+	void showStyler() const;
+	void showAboutus();
 	void trayActivated(QSystemTrayIcon::ActivationReason reason);
 };
 
