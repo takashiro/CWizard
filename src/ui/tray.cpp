@@ -6,7 +6,7 @@ Tray::Tray(QWidget *mainWindow){
 	setParent(mainWindow);
 
 	//ÏµÍ³ÍÐÅÌ²Ëµ¥
-	QMenu *contextMenu = new QMenu(mainWindow);
+	contextMenu = new QMenu();
 
 	powerOnAction = contextMenu->addAction(tr("Power On"), mainWindow, SLOT(on_powerOn_clicked()));
 	contextMenu->addAction(tr("Statistics"));
@@ -40,6 +40,10 @@ Tray::Tray(QWidget *mainWindow){
 	setContextMenu(contextMenu);
 
 	isFirstBoot = true;
+}
+
+Tray::~Tray(){
+	delete contextMenu;
 }
 
 Tray *Tray::getInstance(QWidget *parent){

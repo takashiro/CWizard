@@ -199,7 +199,7 @@
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="94"/>
         <source>Settings</source>
-        <translation>设置(&amp;H)</translation>
+        <translation>设置(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="105"/>
