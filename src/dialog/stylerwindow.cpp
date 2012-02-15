@@ -1,5 +1,6 @@
 #include "stylerwindow.h"
 #include "ui_stylerwindow.h"
+#include "settingdialog.h"
 
 #include "core/styler.h"
 
@@ -80,4 +81,10 @@ void StylerWindow::on_actionOpen_triggered(){
 
 	ui->plainTextEdit->setPlainText(QString::fromLocal8Bit(file->readAll()));
 	ui->plainTextEdit->moveCursor(QTextCursor::Start);
+}
+
+void StylerWindow::on_actionSettings_triggered()
+{
+	SettingDialog *dialog = SettingDialog::getInstance();
+	dialog->show();
 }

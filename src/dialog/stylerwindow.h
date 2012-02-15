@@ -33,7 +33,8 @@ private:
 
 
 private slots:
-	void on_actionOpen_triggered();		//打开
+	void on_actionSettings_triggered();
+ void on_actionOpen_triggered();		//打开
 	void on_actionCompress_triggered(); //压缩
 	void on_actionFormat_triggered();	//规范化
 };
