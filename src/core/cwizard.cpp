@@ -4,6 +4,7 @@
 
 const QString CWizard::appName = "CWizard";
 const QString CWizard::appVersion = "Elf";
+const QString CWizard::orgName = "Unicorz";
 
 CWizard::CWizard()
 {
@@ -51,4 +52,8 @@ QString CWizard::getAppName() const{
 
 QString CWizard::getAppVersion() const{
 	return appVersion;
+}
+
+QString CWizard::getOrgName() const{
+	return orgName;
 }

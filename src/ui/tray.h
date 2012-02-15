@@ -16,11 +16,13 @@ class Tray: public QSystemTrayIcon
 
 private:
 	QAction *powerOnAction;							//【开启/关闭改写】菜单项
+	bool isFirstBoot;
 
 public:
 	Tray(QWidget *parent = 0);						//构造函数
 	static Tray *getInstance(QWidget *parent = 0);	//返回该类的唯一对象
 
+	void show();									//显示托盘
 	void setPowerOnText(bool on = true);			//设置【开启/关闭改写】菜单项的文字
 };
 

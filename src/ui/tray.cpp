@@ -1,5 +1,5 @@
-#include "tray.h"
 
+#include "tray.h"
 #include "core/cwizard.h"
 
 Tray::Tray(QWidget *mainWindow){
@@ -38,6 +38,8 @@ Tray::Tray(QWidget *mainWindow){
 	//ÏµÍ³ÍÐÅÌÍ¼±ê
 	setIcon(QIcon("image/trayicon.ico"));
 	setContextMenu(contextMenu);
+
+	isFirstBoot = true;
 }
 
 Tray *Tray::getInstance(QWidget *parent){
@@ -50,5 +52,14 @@ void Tray::setPowerOnText(bool on){
 		powerOnAction->setText(tr("Power Off"));
 	}else{
 		powerOnAction->setText(tr("Power On"));
+	}
+}
+
+void Tray::show(){
+	QSystemTrayIcon::show();
+
+	if(isFirstBoot){
+		showMessage(toolTip(), tr("Welcome to ") + toolTip(), Information, 2000);
+		isFirstBoot = false;
 	}
 }

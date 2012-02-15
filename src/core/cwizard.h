@@ -12,6 +12,7 @@ class CWizard{
 private:
 	static const QString appName;		//应用名称
 	static const QString appVersion;	//应用版本
+	static const QString orgName;		//开发组织名称
 
 	QSettings *setting;					//设置
 	Styler *styler;						//Styler类，代码规范化类
@@ -29,6 +30,7 @@ public:
 
 	QString getAppName() const;			//返回应用名称
 	QString getAppVersion() const;		//返回应用版本
+	QString getOrgName() const;			//返回开发组织名称
 };
 
 #endif // CWIZARD_H

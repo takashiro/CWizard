@@ -11,6 +11,7 @@ int main(int argc, char *argv[]){
 	CWizard *cwizard = CWizard::getInstance();
 	a.setApplicationName(cwizard->getAppName());
 	a.setApplicationVersion(cwizard->getAppVersion());
+	a.setOrganizationName(cwizard->getOrgName());
 	a.setQuitOnLastWindowClosed(false);
 	a.setWindowIcon(QIcon("image/trayicon.ico"));
 
