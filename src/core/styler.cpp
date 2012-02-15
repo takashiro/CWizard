@@ -32,6 +32,8 @@ QString Styler::formatCode(){
 		return "";
 	}
 
+	QRegExp rx;
+
 	//保护注释
 	if(optNoComment){
 		code = code.replace(QRegExp("//(?:.*?)[\\r\\n]+"), "\r\n").replace(QRegExp("\\/\\*(?:.*?)\\*\\/"), "");
@@ -50,7 +52,12 @@ QString Styler::formatCode(){
 	code = code.replace("\\t", "");
 
 	//双元运算符
-	code = code.replace(QRegExp("[\\s]*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|[\\|\\&]{1,2}|\\?|(?!\\:)\\:(?!\\:)|\\<{1,2}|(?!\\-)\\>{1,2})[\\s]*"), optBioperator ? " \\1 " : "\\1");
+	code = code.replace(QRegExp("\\s*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|\\|{1,2}|\\?|(?!\\:)\\:(?!\\:))\\s*"), optBioperator ? " \\1 " : "\\1");
+	rx.setPattern("(?!#.*)\\s*(\\<{1,2}|(?!\\-)\\>{1,2})\\s*");
+	rx.setMinimal(true);
+	code = code.replace(rx, optBioperator ? " \\1 " : "\\1");
+	//rx.setPattern("\\s*(\\&)\\s*");
+	//code = code.replace(rx, optBioperator ? " \\1 " : "\\1");
 
 	//左侧大括号
 	code = code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
@@ -79,13 +86,13 @@ QString Styler::formatCode(){
 
 	//一句一行
 	code = code.replace(QRegExp("\\s*;\\s*"), ";\r\n");
-	QRegExp rx("for\\([\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*\\)");
+	rx.setPattern("for\\([\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*\\)");
 	rx.setMinimal(true);
 	code = code.replace(rx, "for(\\1; \\2; \\3)");
 
 	//块注释空行
 	code = code.replace(QRegExp("\\*\\/[\r\n]*"), "*/\r\n");
-	code = code.replace(QRegExp("(?!\\r\\n)\\r\\n(\\s*//)"), "\\r\\n\\r\\n\\1");
+	code = code.replace(QRegExp("\\r\\n(\\s*//)"), "\r\n\r\n\\1");
 
 	//缩进
 	QStringList block = code.split("\r\n");

@@ -4,7 +4,8 @@
 #include "core/styler.h"
 
 const QString StylerWindow::extFilters =
-		tr("C/C++/Java/C#").append(" (*.h *.c *.cpp *.cs *.java);;")
+		tr("All Types").append(" (*.h *.c *.cpp *.cs *.java *.php *.php3 *php4 *.php5 *.asp *.aspx *.js *.txt);;")
+	  + tr("C/C++/Java/C#").append(" (*.h *.c *.cpp *.cs *.java);;")
 	  + tr("PHP").append(" (*.php *.php3 *php4 *.php5);;")
 	  + tr("ASP").append(" (*.asp *.aspx);;")
 	  + tr("Javascript").append(" (*.js);;")
@@ -41,21 +42,21 @@ StylerWindow *StylerWindow::getInstance(QWidget *parent){
 void StylerWindow::on_actionFormat_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
+
 	styler->inputCode(code);
 	code = styler->formatCode();
 
-	this->ui->plainTextEdit->clear();
-	this->ui->plainTextEdit->appendPlainText(code);
+	this->ui->plainTextEdit->setPlainText(code);
 }
 
 void StylerWindow::on_actionCompress_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
+
 	styler->inputCode(code);
 	code = styler->compressCode();
 
-	this->ui->plainTextEdit->clear();
-	this->ui->plainTextEdit->appendPlainText(code);
+	this->ui->plainTextEdit->setPlainText(code);
 }
 
 void StylerWindow::resizeEvent(QResizeEvent *event){
@@ -77,9 +78,6 @@ void StylerWindow::on_actionOpen_triggered(){
 	file->setFileName(filePath);
 	file->open(QFile::ReadWrite);
 
-	ui->plainTextEdit->clear();
-	QString fileContent = QString::fromLocal8Bit(file->readAll());
-
-	ui->plainTextEdit->appendPlainText(fileContent);
+	ui->plainTextEdit->setPlainText(QString::fromLocal8Bit(file->readAll()));
 	ui->plainTextEdit->moveCursor(QTextCursor::Start);
 }
