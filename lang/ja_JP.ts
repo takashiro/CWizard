@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ja_JP" sourcelanguage="en_US">
 <context>
     <name>AboutusDialog</name>
     <message>
@@ -159,6 +159,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/dialog/settingdialog.ui" line="353"/>
+        <source>Show CStyler on start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/dialog/settingdialog.cpp" line="16"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
@@ -193,19 +198,19 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="120"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="245"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="165"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="63"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
@@ -237,7 +242,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="177"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -253,13 +258,13 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="209"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="221"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
         <source>Compress</source>
         <translation type="unfinished"></translation>
     </message>
@@ -325,32 +330,32 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="358"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Tips</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="12"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="11"/>
         <source>All Types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="19"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="18"/>
         <source>Plain Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="20"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="19"/>
         <source>Any Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="180"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="176"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="204"/>
         <source>Save File</source>
         <translation type="unfinished"></translation>
     </message>

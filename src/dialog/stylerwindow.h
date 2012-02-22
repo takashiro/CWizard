@@ -3,8 +3,6 @@
 
 /* CStyler小工具的窗口类 */
 
-#include "ui/highlighter.h"
-
 #include <QMainWindow>
 #include <QEvent>
 #include <QFileDialog>
@@ -27,7 +25,6 @@ private:
 	QSettings *setting;					//配置信息
 
 	Styler *styler;
-	Highlighter *highlighter;
 
 public:
 	explicit StylerWindow(QWidget *parent = 0);

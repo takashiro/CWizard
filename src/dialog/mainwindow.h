@@ -45,6 +45,10 @@ private:
 
 	static MainWindow *instance;
 
+public slots:
+    void showStyler() const;
+    void showAboutus();
+
 private slots:
 	void on_cstyler_clicked();
 	void on_powerOn_clicked();
@@ -52,8 +56,6 @@ private slots:
 	void on_exit_clicked();
     void on_setting_clicked();
 
-	void showStyler() const;
-	void showAboutus();
 	void trayActivated(QSystemTrayIcon::ActivationReason reason);
 };
 

@@ -159,6 +159,11 @@
         <translation>自动检查可用的更新</translation>
     </message>
     <message>
+        <location filename="../src/dialog/settingdialog.ui" line="353"/>
+        <source>Show CStyler on start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/dialog/settingdialog.cpp" line="16"/>
         <source>OK</source>
         <translation>确定</translation>
@@ -193,19 +198,19 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="120"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
         <source>Help</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="245"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
         <source>Settings</source>
         <translation>设置(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="165"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="63"/>
         <source>Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
@@ -237,7 +242,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="177"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
         <source>Save</source>
         <translation>保存(&amp;S)</translation>
     </message>
@@ -253,13 +258,13 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="209"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
         <source>Format</source>
         <translation>规范化(&amp;F)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="221"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
         <source>Compress</source>
         <translation>压缩(&amp;C)</translation>
     </message>
@@ -325,32 +330,32 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="358"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Tips</source>
         <translation>规范提示</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="12"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="11"/>
         <source>All Types</source>
         <translation>所有类型</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="19"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="18"/>
         <source>Plain Text</source>
         <translation>纯文本</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="20"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="19"/>
         <source>Any Files</source>
         <translation>任何文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="180"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="176"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="204"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>

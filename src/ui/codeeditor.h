@@ -10,7 +10,7 @@ class QSize;
 class QWidget;
 
 class LineNumberArea;
-
+class Highlighter;
 
 class CodeEditor : public QPlainTextEdit
 {
@@ -32,6 +32,7 @@ private slots:
 
 private:
     QWidget *lineNumberArea;
+    Highlighter *highlighter;
 };
 
 

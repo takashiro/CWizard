@@ -48,7 +48,7 @@
        </font>
       </property>
       <property name="tabStopWidth">
-       <number>20</number>
+       <number>26</number>
       </property>
      </widget>
     </item>
@@ -363,7 +363,7 @@
   <customwidget>
    <class>CodeEditor</class>
    <extends>QPlainTextEdit</extends>
-   <header>codeeditor.h</header>
+   <header>ui/codeeditor.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

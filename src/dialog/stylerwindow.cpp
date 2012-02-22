@@ -92,9 +92,6 @@ StylerWindow::StylerWindow(QWidget *parent) :
 	//信号与槽的链接
 	//connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(hide()));
 
-	//设置高亮显示
-    highlighter = new Highlighter(ui->plainTextEdit->document());
-
 	setting->endGroup();
 }
 
@@ -170,7 +167,7 @@ void StylerWindow::openFile(QString filePath){
 	if(filePath.isNull()){
 		dirPath = recentPaths.length() > 0 ? recentPaths.back() : "";
 	}else if(info.isDir()){
-		dirPath = info.absolutePath();
+        dirPath = info.absoluteFilePath();
 		filePath.clear();
 	}
 

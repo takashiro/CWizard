@@ -64,6 +64,7 @@ void SettingDialog::loadSetting(QSettings *setting){
 	ui->nomenclature_skipUpperCase->setChecked(setting->value("nomenclature/skipUpperCase", true).toBool());
 
 	ui->displayToolBarOnStart->setChecked(setting->value("displayToolBarOnStart", false).toBool());
+    ui->showStylerOnStart->setChecked(setting->value("showStylerOnStart", false).toBool());
 
 	QString displayLanguage = setting->value("displayLanguage", "en_US").toString();
 	if(displayLanguage == "en_US"){
@@ -92,6 +93,7 @@ void SettingDialog::saveSetting(){
 	setting->setValue("nomenclature/skipUpperCase", ui->nomenclature_skipUpperCase->isChecked());
 
 	setting->setValue("displayToolBarOnStart", ui->displayToolBarOnStart->isChecked());
+    setting->setValue("showStylerOnStart", ui->showStylerOnStart->isChecked());
 
 	switch(ui->displayLanguage->currentIndex()){
 	case 0:

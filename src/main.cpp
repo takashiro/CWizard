@@ -29,6 +29,11 @@ int main(int argc, char *argv[]){
 		w.show();
 	}
 
+    //ÊÇ·ñÏÔÊ¾Styler
+    if(cwizard.getSetting("showStylerOnStart", false).toBool()){
+        w.showStyler();
+    }
+
 	//½áÊø
     return a.exec();
 }
