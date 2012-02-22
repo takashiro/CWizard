@@ -1,6 +1,6 @@
 #include "styler.h"
 
-#include <QDebug>
+const QString Styler::varRegExp = "((?:[a-zA-Z0-9_\\x7f-\\xff]+)(?:\\[[a-zA-Z0-9_\\-\\.\\\"\\'\\[\\]\\$\\x7f-\\xff]+\\])*)";
 
 Styler::Styler(){
 	this->codeStatus = 0;
@@ -11,6 +11,8 @@ Styler::Styler(){
 	this->optBlockAlwaysQuoted = true;
 	this->optFunctionsSplitted = true;
 	this->optNoComment = false;
+
+	this->mode = CPP;
 }
 
 Styler *Styler::getInstance(){
@@ -38,26 +40,25 @@ QString Styler::formatCode(){
 	if(optNoComment){
 		code = code.replace(QRegExp("//(?:.*?)[\\r\\n]+"), "\r\n").replace(QRegExp("\\/\\*(?:.*?)\\*\\/"), "");
 	}else{
-		this->ProtectedCmts1.clear();
-		this->ProtectedCmts2.clear();
+		this->protectedLine["cmt1"].clear();
+		this->protectedLine["cmt2"].clear();
 
-		protectQuoted(QRegExp("/\\*(.*)\\*/"), this->ProtectedCmts1, 2, 2);
-		protectQuoted(QRegExp("//(.*)\\r\\n"), this->ProtectedCmts2, 2, 2);
+		protectQuoted(QRegExp("/\\*([.\\r\\n]*)\\*/"), this->protectedLine["cmt1"], 2, 2);
+		protectQuoted(QRegExp("//(.*)\\r\\n"), this->protectedLine["cmt2"], 2, 2);
 	}
 
 	//±£»¤×Ö·û´®
-	this->ProtectedStrs.clear();
-	protectQuoted(QRegExp("(?!(?!\\\\)\\\\)\\\"(.*)(?!(?!\\\\)\\\\)\\\""), this->ProtectedStrs, 1, 1);
+	this->protectedLine["str"].clear();
+	protectQuoted(QRegExp("\"(.*)\""), this->protectedLine["str"], 1, 1);
 
 	code = code.replace("\\t", "");
 
 	//Ë«ÔªÔËËã·û
-	code = code.replace(QRegExp("\\s*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|\\|{1,2}|\\?|(?!\\:)\\:(?!\\:))\\s*"), optBioperator ? " \\1 " : "\\1");
-	rx.setPattern("(?!#.*)\\s*(\\<{1,2}|(?!\\-)\\>{1,2})\\s*");
-	rx.setMinimal(true);
-	code = code.replace(rx, optBioperator ? " \\1 " : "\\1");
-	//rx.setPattern("\\s*(\\&)\\s*");
-	//code = code.replace(rx, optBioperator ? " \\1 " : "\\1");
+	code = code
+		.replace(QRegExp("\\s*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|\\|{1,2}|\\?|\\:|\\<{1,2}|\\>{1,2})\\s*"), optBioperator ? " \\1 " : "\\1")
+		.replace(" :  : ", "::")
+		.replace("- > ", "->")
+	;
 
 	//×ó²à´óÀ¨ºÅ
 	code = code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
@@ -115,11 +116,11 @@ QString Styler::formatCode(){
 	code = block.join("\r\n");
 	codeStatus = 1;
 
-	if(!optNoComment){
-		restoreQuoted("/*", "*/", this->ProtectedCmts1);
-		restoreQuoted("//", "\r\n", this->ProtectedCmts2);
-	}
-	restoreQuoted("\"", "\"", this->ProtectedStrs);
+	//if(!optNoComment){
+	//	restoreQuoted("/*", "*/", this->protectedLine["cmt1"]);
+	//	restoreQuoted("//", "\r\n", this->protectedLine["cmt2"]);
+	//}
+	//restoreQuoted("\"", "\"", this->protectedLine["str"]);
 
 	return code;
 }
@@ -177,4 +178,8 @@ void Styler::restoreQuoted(QString lquote, QString rquote, QStringList &list){
 		offset += lquote.length() + list.at(i).length() + rquote.length();
 		i++;
 	}
+}
+
+void Styler::setMode(FileExt ext){
+	this->mode = ext;
 }

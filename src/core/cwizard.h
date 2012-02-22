@@ -8,7 +8,7 @@
 class Styler;
 class Writer;
 
-class CWizard{
+class CWizard{	
 private:
 	static const QString appName;		//应用名称
 	static const QString appVersion;	//应用版本
@@ -18,6 +18,8 @@ private:
 	Styler *styler;						//Styler类，代码规范化类
 	Writer *writer;						//Writer类，代码改写类
 
+	static CWizard *instance;
+
 public:
 	CWizard();							//构造函数
 	~CWizard();							//析构函数
@@ -25,12 +27,17 @@ public:
 
 	QSettings *getSetting() const;
 	QVariant getSetting(const QString &key, const QVariant &defaultValue = QVariant()) const;
+	void setSetting(const QString &key, const QVariant &value = QVariant());
 	Styler *getStyler() const;
 	Writer *getWriter() const;
 
 	QString getAppName() const;			//返回应用名称
 	QString getAppVersion() const;		//返回应用版本
 	QString getOrgName() const;			//返回开发组织名称
+
+	void setAutoStart() const;			//程序自启动
 };
+
+extern CWizard *Wizard;
 
 #endif // CWIZARD_H

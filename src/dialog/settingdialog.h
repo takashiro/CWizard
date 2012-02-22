@@ -28,10 +28,11 @@ public:
 
 	Ui::SettingDialog *ui;
 
+public slots:
+	void saveSetting();						//保存设置，该槽已经与本类的accepted()信号相连
+
 private slots:
 	void on_buttonBox_clicked(QAbstractButton* button);		//标准按钮组对应的槽
-
-	void saveSetting();						//保存设置，该槽已经与本类的accepted()信号相连
 };
 
 #endif // SETTINGDIALOG_H

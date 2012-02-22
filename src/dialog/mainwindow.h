@@ -24,7 +24,7 @@ class MainWindow: public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);		//构造函数
 	~MainWindow();									//析构函数
-	static MainWindow *getInstance();				//获取该类的唯一对象
+	static MainWindow *getInstance();
 
 	void toggleShow();								//交替显示/隐藏浮动工具栏
 
@@ -43,6 +43,7 @@ private:
 	QDialog *aboutusDialog;							//关于我们
 	Tray *tray;										//系统托盘
 
+	static MainWindow *instance;
 
 private slots:
 	void on_cstyler_clicked();

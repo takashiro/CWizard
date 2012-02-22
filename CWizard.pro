@@ -18,7 +18,9 @@ SOURCES += src/main.cpp \
 	src/dialog/settingdialog.cpp \
 	src/dialog/mainwindow.cpp \
 	src/ui/tray.cpp \
-    src/dialog/aboutusdialog.cpp
+    src/dialog/aboutusdialog.cpp \
+    src/core/stats.cpp \
+    src/ui/highlighter.cpp
 
 HEADERS  += src/core/styler.h \
 	src/core/cwizard.h \
@@ -27,7 +29,9 @@ HEADERS  += src/core/styler.h \
 	src/dialog/stylerwindow.h \
 	src/dialog/settingdialog.h \
 	src/ui/tray.h \
-    src/dialog/aboutusdialog.h
+    src/dialog/aboutusdialog.h \
+    src/core/stats.h \
+    src/ui/highlighter.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \

@@ -2,31 +2,39 @@
 #include "styler.h"
 #include "writer.h"
 
+#include <QApplication>
+
+CWizard *CWizard::instance = NULL;
+CWizard *Wizard = NULL;
+
 const QString CWizard::appName = "CWizard";
 const QString CWizard::appVersion = "Elf";
 const QString CWizard::orgName = "Unicorz";
 
 CWizard::CWizard()
 {
+	if(instance != NULL){
+		qWarning("Multiple CWizard constructed");
+	}
+
 	styler = Styler::getInstance();
 	setting = new QSettings("config.ini", QSettings::IniFormat);
 	writer = Writer::getInstance();
+
+	Wizard = instance = this;
+
+	setAutoStart();
 }
 
 CWizard::~CWizard(){
-	if(setting){
-		delete setting;
-	}
-	if(styler){
-		delete styler;
-	}
-	if(writer){
-		delete writer;
-	}
+	setAutoStart();
+
+	delete setting;
+	delete styler;
+	delete writer;
 }
 
 CWizard *CWizard::getInstance(){
-	static CWizard *instance = new CWizard();
 	return instance;
 }
 
@@ -36,6 +44,10 @@ QSettings *CWizard::getSetting() const{
 
 QVariant CWizard::getSetting(const QString &key, const QVariant &defaultValue) const{
 	return this->setting->value(key, defaultValue);
+}
+
+void CWizard::setSetting(const QString &key, const QVariant &value){
+	this->setting->setValue(key, value);
 }
 
 Styler *CWizard::getStyler() const{
@@ -56,4 +68,17 @@ QString CWizard::getAppVersion() const{
 
 QString CWizard::getOrgName() const{
 	return orgName;
+}
+
+void CWizard::setAutoStart() const{
+#ifdef Q_WS_WIN
+	static const QString key = "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run";
+
+	QSettings reg(key, QSettings::NativeFormat);
+	if(getSetting("autoStart").toBool()){
+		reg.setValue("CWizard", qApp->applicationFilePath().replace("/", "\\"));
+	}else{	
+		reg.remove("CWizard");
+	}
+#endif
 }

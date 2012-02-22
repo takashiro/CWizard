@@ -8,6 +8,7 @@ SettingDialog::SettingDialog(QWidget *parent) :
     QDialog(parent),
 	ui(new Ui::SettingDialog)
 {
+
 	ui->setupUi(this);
 
 	connect(this, SIGNAL(accepted()), this, SLOT(saveSetting()));
@@ -30,18 +31,19 @@ SettingDialog *SettingDialog::getInstance(QWidget *parent){
 void SettingDialog::loadSetting(QSettings *setting){
 	this->setting = setting;
 
-	ui->syntax_bioperator->setChecked(setting->value("syntax_bioperator", true).toBool());
-	ui->syntax_alwaysQuoteBlocks->setChecked(setting->value("syntax_alwaysQuoteBlocks", true).toBool());
-	ui->syntax_leftBraceNewLine->setChecked(setting->value("syntax_leftBraceNewLine", false).toBool());
-	ui->syntax_noComments->setChecked(setting->value("syntax_noComents", false).toBool());
-	ui->syntax_spaceAfterComma->setChecked(setting->value("syntax_commaBlank", true).toBool());
-	ui->syntax_splitFunctions->setChecked(setting->value("syntax_functionsSplitted", true).toBool());
+	setting->beginGroup("syntax");
+	ui->syntax_bioperator->setChecked(setting->value("bioperator", true).toBool());
+	ui->syntax_alwaysQuoteBlocks->setChecked(setting->value("alwaysQuoteBlocks", true).toBool());
+	ui->syntax_leftBraceNewLine->setChecked(setting->value("leftBraceNewLine", false).toBool());
+	ui->syntax_noComments->setChecked(setting->value("noComents", false).toBool());
+	ui->syntax_spaceAfterComma->setChecked(setting->value("commaBlank", true).toBool());
+	ui->syntax_splitFunctions->setChecked(setting->value("functionsSplitted", true).toBool());
 
 	ui->syntax_nomenclature->setId(ui->nomenclature_camelCase, 0);
 	ui->syntax_nomenclature->setId(ui->nomenclature_underline, 1);
 	ui->syntax_nomenclature->setId(ui->nomenclature_pascal, 2);
 	ui->syntax_nomenclature->setId(ui->nomenclature_hungary, 3);
-	int nomenclature_id = setting->value("syntax_nomenclature", 0).toInt();
+	int nomenclature_id = setting->value("nomenclature", 0).toInt();
 	switch(nomenclature_id){
 	case 0:
 		ui->nomenclature_camelCase->setChecked(true);
@@ -57,7 +59,9 @@ void SettingDialog::loadSetting(QSettings *setting){
 		break;
 	default:;
 	}
-	ui->nomenclature_skipUpperCase->setChecked(setting->value("nomenclature_skipUpperCase", true).toBool());
+	setting->endGroup();
+
+	ui->nomenclature_skipUpperCase->setChecked(setting->value("nomenclature/skipUpperCase", true).toBool());
 
 	ui->displayToolBarOnStart->setChecked(setting->value("displayToolBarOnStart", false).toBool());
 
@@ -69,18 +73,23 @@ void SettingDialog::loadSetting(QSettings *setting){
 	}else if(displayLanguage == "ja_JP"){
 		ui->displayLanguage->setCurrentIndex(2);
 	}
+
+	ui->autoStart->setChecked(setting->value("autoStart").toBool());
+	ui->autoUpdate->setChecked(setting->value("autoUpdate").toBool());
 }
 
 void SettingDialog::saveSetting(){
-	setting->setValue("syntax_bioperator", ui->syntax_bioperator->isChecked());
-	setting->setValue("syntax_alwaysQuoteBlocks", ui->syntax_alwaysQuoteBlocks->isChecked());
-	setting->setValue("syntax_leftBraceNewLine", ui->syntax_leftBraceNewLine->isChecked());
-	setting->setValue("syntax_noComents", ui->syntax_noComments->isChecked());
-	setting->setValue("syntax_commaBlank", ui->syntax_spaceAfterComma->isChecked());
-	setting->setValue("syntax_functionsSplitted", ui->syntax_splitFunctions->isChecked());
+	setting->beginGroup("syntax");
+	setting->setValue("bioperator", ui->syntax_bioperator->isChecked());
+	setting->setValue("alwaysQuoteBlocks", ui->syntax_alwaysQuoteBlocks->isChecked());
+	setting->setValue("leftBraceNewLine", ui->syntax_leftBraceNewLine->isChecked());
+	setting->setValue("noComents", ui->syntax_noComments->isChecked());
+	setting->setValue("commaBlank", ui->syntax_spaceAfterComma->isChecked());
+	setting->setValue("functionsSplitted", ui->syntax_splitFunctions->isChecked());
+	setting->setValue("nomenclature", ui->syntax_nomenclature->checkedId());
+	setting->endGroup();
 
-	setting->setValue("syntax_nomenclature", ui->syntax_nomenclature->checkedId());
-	setting->setValue("nomenclature_skipUpperCase", ui->nomenclature_skipUpperCase->isChecked());
+	setting->setValue("nomenclature/skipUpperCase", ui->nomenclature_skipUpperCase->isChecked());
 
 	setting->setValue("displayToolBarOnStart", ui->displayToolBarOnStart->isChecked());
 
@@ -95,6 +104,9 @@ void SettingDialog::saveSetting(){
 		setting->setValue("displayLanguage", QString("ja_JP"));
 		break;
 	}
+
+	setting->setValue("autoStart", ui->autoStart->isChecked());
+	setting->setValue("autoUpdate", ui->autoUpdate->isChecked());
 }
 
 void SettingDialog::on_buttonBox_clicked(QAbstractButton* button){

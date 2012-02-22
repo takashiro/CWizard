@@ -1,7 +1,6 @@
 #include "writer.h"
 
 #include <QDebug>
-#include <iostream>
 
 const char Writer::keyHookEnabled = 0x01;
 const char Writer::mouseHookEnabled = 0x02;

@@ -32,8 +32,7 @@ Tray::Tray(QWidget *mainWindow){
 	contextMenu->addAction(tr("Exit"), mainWindow, SLOT(on_exit_clicked()));
 
 	//系统托盘提示
-	CWizard *cwizard = CWizard::getInstance();
-	setToolTip(cwizard->getAppName() + " " + cwizard->getAppVersion());
+	setToolTip(Wizard->getAppName() + " " + Wizard->getAppVersion());
 
 	//系统托盘图标
 	setIcon(QIcon("image/trayicon.ico"));
@@ -63,7 +62,7 @@ void Tray::show(){
 	QSystemTrayIcon::show();
 
 	if(isFirstBoot){
-		showMessage(toolTip(), tr("Welcome to ") + toolTip(), Information, 2000);
+		showMessage(Wizard->getAppName(), tr("Welcome to ") + toolTip(), Information, 2000);
 		isFirstBoot = false;
 	}
 }

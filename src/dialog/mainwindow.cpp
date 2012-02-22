@@ -9,36 +9,41 @@
 #include "dialog/aboutusdialog.h"
 #include "ui/tray.h"
 
+MainWindow *MainWindow::instance = NULL;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
+	if(instance != NULL){
+		qWarning("Multiple MainWindow Constructed");
+	}else{
+		instance = this;
+	}
+
     ui->setupUi(this);
 
 	this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-	CWizard *cwizard = CWizard::getInstance();
-
 	stylerWindow = StylerWindow::getInstance();
 	settingDialog = SettingDialog::getInstance(this);
-	settingDialog->loadSetting(cwizard->getSetting());
+	settingDialog->loadSetting(Wizard->getSetting());
 
 	tray = Tray::getInstance(this);
 	connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
 	tray->show();
 
 	aboutusDialog = NULL;
+
+	move(Wizard->getSetting("popupBar/position", QPoint(0, 0)).toPoint());
 }
 
 MainWindow::~MainWindow(){
+	Wizard->setSetting("popupBar/position", this->pos());
 	delete ui;
-
-	if(stylerWindow){
-		delete stylerWindow;
-	}
+	delete stylerWindow;
 }
 
 MainWindow *MainWindow::getInstance(){
-	static MainWindow *instance = new MainWindow();
 	return instance;
 }
 
@@ -123,5 +128,9 @@ void MainWindow::trayActivated(QSystemTrayIcon::ActivationReason reason){
 
 void MainWindow::on_cstyler_clicked()
 {
-	stylerWindow->show();
+	if(stylerWindow->isHidden()){
+		stylerWindow->show();
+	}else{
+		stylerWindow->hide();
+	}
 }

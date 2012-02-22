@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QMap>
 
 class Styler{
 private:
@@ -10,8 +11,15 @@ private:
 	QStringList abnormalList;
 	char codeStatus;								//0 原始 1 展开 2 压缩
 
-	QStringList ProtectedStrs;						//保护字符串
-	QStringList ProtectedCmts1, ProtectedCmts2;		//保护注释
+
+	//变量命名方式
+	enum Nomenclature {CamelCase, UnderlineSplitted, Pascal, Hungary};
+	Nomenclature nomenclature;
+
+	enum FileExt{PHP, Javascript, CPP, Java};
+	FileExt mode;
+
+	QMap<QString, QStringList> protectedLine;		//保护字符串/注释
 
 public:
 	bool optBioperator;					//双元运算符两边空格
@@ -21,9 +29,6 @@ public:
 	bool optFunctionsSplitted;			//函数间空行
 	bool optNoComment;					//去除注释
 
-	//变量命名方式
-	enum Nomenclature {CamelCase, UnderlineSplitted, Pascal, Hungary};
-
 	Styler();
 	static Styler *getInstance();
 
@@ -31,12 +36,15 @@ public:
 	QString formatCode();				//规范化代码
 	QString compressCode();				//压缩代码
 	QString getCode() const;
+	void setMode(FileExt ext);			//文件格式
 
 private:
 	void protectQuoted(QRegExp pattern, QStringList &list, int lquoteLength, int rquoteLength);		//保护注释、字符串等
 	void restoreQuoted(QString lquote, QString rquote, QStringList &list);			//还原被保护的注释、字符串等
 
 	void convertNomenclature(Styler::Nomenclature from, Styler::Nomenclature to);	//转换标识符命名方式
+
+	static const QString varRegExp;
 };
 
 #endif // STYLER_H
