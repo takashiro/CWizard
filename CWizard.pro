@@ -20,7 +20,8 @@ SOURCES += src/main.cpp \
 	src/ui/tray.cpp \
     src/dialog/aboutusdialog.cpp \
     src/core/stats.cpp \
-    src/ui/highlighter.cpp
+    src/ui/highlighter.cpp \
+    src/ui/codeeditor.cpp
 
 HEADERS  += src/core/styler.h \
 	src/core/cwizard.h \
@@ -31,7 +32,8 @@ HEADERS  += src/core/styler.h \
 	src/ui/tray.h \
     src/dialog/aboutusdialog.h \
     src/core/stats.h \
-    src/ui/highlighter.h
+    src/ui/highlighter.h \
+    src/ui/codeeditor.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \

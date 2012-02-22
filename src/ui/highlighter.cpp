@@ -22,7 +22,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 					<< "\\bvirtual\\b" << "\\btypedef\\b" << "\\bunsigned\\b"
 					<< "\\benum\\b" << "\\bint\\b" << "\\boperator\\b"
 					<< "\\btemplate\\b" << "\\bfunction\\b" << "\\busing\\b"
-					<< "\\bif\\b" << "\\belse\\b" << "\\belseif\\b"
+                    << "\\bif\\b" << "\\belse\\b" << "\\belseif\\b"
 					<< "\\bswitch\\b" << "\\bcase\\b" << "\\bbreak\\b"
 					<< "\\bcontinue\\b" << "\\bfor\\b" << "\\bwhile\\b"
                     << "\\bforever\\b" << "\\btry\\b" << "\\bcatch\\b"
@@ -76,7 +76,7 @@ void Highlighter::highlightBlock(const QString &text)
 		int length = expression.matchedLength();
 
 		while (index >= 0) {
-			setFormat(index, length, rule.format);
+            setFormat(index, length, rule.format);
 			index = expression.indexIn(text, index + length);
 		}
 	}
@@ -124,7 +124,7 @@ void Highlighter::highlightBlock(const QString &text)
 		}
 		setFormat(startIndex, commentLength, multiLineCommentFormat);
 		startIndex = commentStartExpression.indexIn(text, startIndex + commentLength);
-	}
+    }
 }
 
 

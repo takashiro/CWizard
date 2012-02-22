@@ -51,6 +51,7 @@ QString Styler::formatCode(){
 	this->protectedLine["str"].clear();
 	protectQuoted(QRegExp("\"(.*)\""), this->protectedLine["str"], 1, 1);
 
+    //去除原有Tab
 	code = code.replace("\\t", "");
 
 	//双元运算符
