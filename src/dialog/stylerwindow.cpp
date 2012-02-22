@@ -93,7 +93,7 @@ StylerWindow::StylerWindow(QWidget *parent) :
 	//connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(hide()));
 
 	//ÉèÖÃ¸ßÁÁÏÔÊ¾
-	highlighter = new Highlighter(ui->plainTextEdit->document());
+    highlighter = new Highlighter(ui->plainTextEdit->document());
 
 	setting->endGroup();
 }
