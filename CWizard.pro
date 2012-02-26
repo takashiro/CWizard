@@ -21,7 +21,9 @@ SOURCES += src/main.cpp \
     src/dialog/aboutusdialog.cpp \
     src/core/stats.cpp \
     src/ui/highlighter.cpp \
-    src/ui/codeeditor.cpp
+    src/ui/codeeditor.cpp \
+    src/ui/unicornstyle.cpp \
+    src/ui/statgraphics.cpp
 
 HEADERS  += src/core/styler.h \
 	src/core/cwizard.h \
@@ -33,7 +35,9 @@ HEADERS  += src/core/styler.h \
     src/dialog/aboutusdialog.h \
     src/core/stats.h \
     src/ui/highlighter.h \
-    src/ui/codeeditor.h
+    src/ui/codeeditor.h \
+    src/ui/unicornstyle.h \
+    src/ui/statgraphics.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \

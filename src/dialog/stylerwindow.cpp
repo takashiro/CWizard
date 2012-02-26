@@ -91,6 +91,12 @@ StylerWindow::StylerWindow(QWidget *parent) :
 
 	//信号与槽的链接
 	//connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(hide()));
+    connect(ui->actionCut, SIGNAL(triggered()), ui->plainTextEdit, SLOT(cut()));
+    connect(ui->actionCopy, SIGNAL(triggered()), ui->plainTextEdit, SLOT(copy()));
+    connect(ui->actionPaste, SIGNAL(triggered()), ui->plainTextEdit, SLOT(paste()));
+    connect(ui->actionSelectAll, SIGNAL(triggered()), ui->plainTextEdit, SLOT(selectAll()));
+    connect(ui->actionUndo, SIGNAL(triggered()), ui->plainTextEdit, SLOT(undo()));
+    connect(ui->actionRedo, SIGNAL(triggered()), ui->plainTextEdit, SLOT(redo()));
 
 	setting->endGroup();
 }
@@ -165,7 +171,7 @@ void StylerWindow::openFile(QString filePath){
 
 	//打开当前路径或者当前文件
 	if(filePath.isNull()){
-		dirPath = recentPaths.length() > 0 ? recentPaths.back() : "";
+		dirPath = recentPaths.length() > 0 ? recentPaths.first() : "";
 	}else if(info.isDir()){
         dirPath = info.absoluteFilePath();
 		filePath.clear();
@@ -295,4 +301,8 @@ void StylerWindow::saveHistory(){
 	}
 
 	setting->endGroup();
+}
+
+void StylerWindow::on_actionToHTML_triggered(){
+
 }

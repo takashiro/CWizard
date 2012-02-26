@@ -53,7 +53,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 	highlightingRules.append(rule);
 
     precompileFormat.setForeground(Qt::darkBlue);
-    rule.pattern = QRegExp("\\b#[a-z]+\\b");
+    rule.pattern = QRegExp("#[a-z]+");
     rule.format = precompileFormat;
     highlightingRules.append(rule);
 
@@ -91,7 +91,7 @@ void Highlighter::highlightBlock(const QString &text)
 		}
 
 		if(!inQuotation){
-			if(text.at(i) == '"' || text.at(i) == '\'' || text.at(i) == '`'){
+            if(text.at(i) == '"' || text.at(i) == '\'' || text.at(i) == '`'){
 				quotationStart = i;
 				inQuotation = true;
 				edge = text.at(i);

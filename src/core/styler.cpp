@@ -10,7 +10,6 @@ Styler::Styler(){
 	this->optCommaBlank = true;
 	this->optBlockAlwaysQuoted = true;
 	this->optFunctionsSplitted = true;
-	this->optNoComment = false;
 
 	this->mode = CPP;
 }
@@ -20,7 +19,7 @@ Styler *Styler::getInstance(){
 	return instance;
 }
 
-void Styler::inputCode(QString code){
+void Styler::inputCode(QString &code){
 	this->code = code;
 	this->codeStatus = 0;
 }
@@ -36,37 +35,28 @@ QString Styler::formatCode(){
 
 	QRegExp rx;
 
-	//保护注释
-	if(optNoComment){
-		code = code.replace(QRegExp("//(?:.*?)[\\r\\n]+"), "\r\n").replace(QRegExp("\\/\\*(?:.*?)\\*\\/"), "");
-	}else{
-		this->protectedLine["cmt1"].clear();
-		this->protectedLine["cmt2"].clear();
-
-		protectQuoted(QRegExp("/\\*([.\\r\\n]*)\\*/"), this->protectedLine["cmt1"], 2, 2);
-		protectQuoted(QRegExp("//(.*)\\r\\n"), this->protectedLine["cmt2"], 2, 2);
-	}
-
-	//保护字符串
-	this->protectedLine["str"].clear();
-	protectQuoted(QRegExp("\"(.*)\""), this->protectedLine["str"], 1, 1);
+	//保护注释 保护字符串
+	protectQuoted();
 
     //去除原有Tab
-	code = code.replace("\\t", "");
+	code.replace("\\t", "");
 
 	//双元运算符
-	code = code
+	code
 		.replace(QRegExp("\\s*((?![\\*/])\\*(?![\\*/])|\\+{1,2}|\\-{1,2}(?!\\>)|(?!/)/|\\!\\={1,2}|\\={1,3}|\\|{1,2}|\\?|\\:|\\<{1,2}|\\>{1,2})\\s*"), optBioperator ? " \\1 " : "\\1")
 		.replace(" :  : ", "::")
 		.replace("- > ", "->")
-	;
+		.replace(" ++", "++")
+		.replace(" --", "--")
+		.replace(QRegExp("\\b(public|private|protected)( slots| signals)?\\s*\\:\\s*"), "\\1\\2:\r\n")
+	;	
 
 	//左侧大括号
-	code = code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
+	code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
 
 	//右侧大括号
-	code = code.replace(QRegExp("\\s*\\}\\s*"), "\r\n}\r\n");
-	code = code.replace(QRegExp("\\}\\s*(else|\\)|catch|finally)"), "}\\1");
+	code.replace(QRegExp("\\s*\\}\\s*"), "\r\n}\r\n");
+	code.replace(QRegExp("\\}\\s*(else|\\)|catch|finally)"), "}\\1");
 
 	//Block总是括号
 	/*
@@ -75,31 +65,31 @@ QString Styler::formatCode(){
 
 	//函数块分开
 	if(optFunctionsSplitted){
-		code = code.replace(QRegExp("\\}\\s*function"), "}\r\n\r\nfunction");
+		code.replace(QRegExp("\\}\\s*function"), "}\r\n\r\nfunction");
 	}
 
 	//return右侧空格
-	code = code.replace(QRegExp("return[ \\t]*"), "return ");
+	code.replace(QRegExp("return[ \\t]*"), "return ");
 
 	//逗号
 	if(optCommaBlank){
-		code = code.replace(QRegExp("\\s*\\,\\s*"), ", ");
+		code.replace(QRegExp("\\s*\\,\\s*"), ", ");
 	}
 
 	//一句一行
-	code = code.replace(QRegExp("\\s*;\\s*"), ";\r\n");
-	rx.setPattern("for\\([\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*;[\\s\\t\\r\\n]*(.*)[\\s\\t\\r\\n]*\\)");
+	code.replace(QRegExp("\\s*;\\s*"), ";\r\n");
+	rx.setPattern("for\\(\\s*(.*)\\s*;\\s*(.*)\\s*;\\s*(.*)\\s*\\)");
 	rx.setMinimal(true);
-	code = code.replace(rx, "for(\\1; \\2; \\3)");
+	rx.setPatternSyntax(QRegExp::RegExp2);
+	code.replace(rx, "for(\\1; \\2; \\3)");
 
 	//块注释空行
-	code = code.replace(QRegExp("\\*\\/[\r\n]*"), "*/\r\n");
-	code = code.replace(QRegExp("\\r\\n(\\s*//)"), "\r\n\r\n\\1");
+	code.replace(QRegExp("\\*\\/[\r\n]*"), "*/\r\n");
+	code.replace(QRegExp("\\r\\n(\\s*//)"), "\r\n\r\n\\1");
 
 	//缩进
 	QStringList block = code.split("\r\n");
 	int indent = 0;
-
 	for(int i = 0; i < block.length(); i++){
 		if(block[i].length() >= 1 && block[i].indexOf("}") != -1){
 			indent--;
@@ -109,20 +99,29 @@ QString Styler::formatCode(){
 			block[i].prepend('\t');
 		}
 
-		if(block[i].length() >= 1 && block[i].at(block[i].length() - 1) == '{'){
+		if(block[i].length() >= 1 && block[i].endsWith('{')){
 			indent++;
+
+			if(i >= 1 && block[i - 1].length() >= 1 && block[i - 1].indexOf("}") != -1){
+				block[i].prepend("\r\n");
+				for(int k = 0; k < indent; k++){
+					block[i].prepend('\t');
+				}
+			}
 		}
 	}
-
 	code = block.join("\r\n");
+	code.replace(QRegExp("\\t(public|private|protected)( slots| signals)?\\:"), "\\1\\2:");
+
+	//修正预编译语句
+	rx.setPattern(" *#([a-z]+)\\s*\\< (.*) \\>\\s*");
+	rx.setPatternSyntax(QRegExp::RegExp2);
+	code.replace(rx, "#\\1 <\\2>\r\n");
+
+	//恢复被保护的字符串
+	restoreQuoted();
+
 	codeStatus = 1;
-
-	//if(!optNoComment){
-	//	restoreQuoted("/*", "*/", this->protectedLine["cmt1"]);
-	//	restoreQuoted("//", "\r\n", this->protectedLine["cmt2"]);
-	//}
-	//restoreQuoted("\"", "\"", this->protectedLine["str"]);
-
 	return code;
 }
 
@@ -131,18 +130,16 @@ QString Styler::compressCode(){
 		return code;
 	}
 
-	code = code;
-
 	//双元运算符
-	code = code.replace(QRegExp("[\\s]*([\\*\\n+\\-\\/\\=]{1})[\\s]*"), "\\1");
+	code.replace(QRegExp("[\\s]*([\\*\\n+\\-\\/\\=]{1})[\\s]*"), "\\1");
 	//左侧大括号
-	code = code.replace(QRegExp("[\\s]*\\{[\\s]*"), "{");
+	code.replace(QRegExp("[\\s]*\\{[\\s]*"), "{");
 	//一句一行
-	code = code.replace(QRegExp("[\\s]*;[\\s]*"), ";");
+	code.replace(QRegExp("[\\s]*;[\\s]*"), ";");
 	//右侧大括号
-	code = code.replace(QRegExp("[\\s]*\\}[\\s]*"), "}");
+	code.replace(QRegExp("[\\s]*\\}[\\s]*"), "}");
 	//缩进
-	code = code.replace("\\t", "").replace("\\r", "").replace("\\n", "");
+	code.replace("\\t", "").replace("\\r", "").replace("\\n", "");
 
 	codeStatus = 2;
 	return code;
@@ -152,35 +149,97 @@ QString Styler::getCode() const{
 	return code;
 }
 
-void Styler::protectQuoted(QRegExp pattern, QStringList &list, int lquoteLength, int rquoteLength){
-	pattern.setMinimal(true);
-
-	int index = -1;
-	int offset = 0;
-	QString capturedText;
-	while((index = pattern.indexIn(code, offset)) != -1){
-		if(pattern.captureCount() > 1){
-			capturedText = pattern.capturedTexts().at(1);
-			list.append(capturedText);
-
-			code.remove(index + lquoteLength, capturedText.length());
-			offset = index + lquoteLength + rquoteLength;
-		}else{
-			break;
-		}
+void Styler::protectQuoted(){
+	protectedLine["str"].clear();
+	if(!optNoComment){
+		protectedLine["cmt"].clear();
 	}
-}
 
-void Styler::restoreQuoted(QString lquote, QString rquote, QStringList &list){
-	QString quote = lquote + rquote;
-	int offset = 0, i = 0;
-	while((offset = code.indexOf(quote, offset)) >= 0 && i < list.length()){
-		code = code.insert(offset + lquote.length(), list.at(i));
-		offset += lquote.length() + list.at(i).length() + rquote.length();
-		i++;
+	bool inQuotation = false;
+	QChar ch = '"';
+	int offset = 0, length = 0;
+	bool inBlockComment = false;
+
+	for(int i = 0; i < code.length(); i++){
+		if(!inQuotation){
+			if(code.at(i) == '"' || code.at(i) == '\'' || code.at(i) == '`'){
+				inQuotation = true;
+				ch = code.at(i);
+				offset = i + 1;
+			}else if(code.at(i) == '/'){
+				if(code.at(i + 1) == '*'){
+					inBlockComment = true;
+					goto InComment;
+				}else if(code.at(i + 1) == '/'){
+					inBlockComment = false;
+					goto InComment;
+				}
+				continue;
+				InComment:
+				inQuotation = true;
+				ch = '/';
+				offset = i + 2;
+			}
+		}else{
+			if(ch != '/'){
+				if(code.at(i) == '\\'){
+					i++;
+					continue;
+				}
+
+				if(code.at(i) == ch){
+					length = i - offset;
+					protectedLine["str"].append(code.mid(offset, length));
+					code.remove(offset, length);
+					i -= length;
+					inQuotation = false;
+				}
+			}else{
+				if(inBlockComment){
+					if(code.at(i) == '*' && code.at(i + 1) == '/'){
+						length = i - offset;
+
+						protectedLine["cmt"].append(code.mid(offset, length));
+						code = code.remove(offset, length);
+						i -= length;
+						inQuotation = false;
+					}
+				}else{
+					if(code.at(i) == '\n'){
+						length = i - offset;
+
+						protectedLine["cmt"].append(code.mid(offset, length));
+						code.remove(offset, length);
+						i -= length;
+						inQuotation = false;
+					}
+				}
+			}
+		}
 	}
 }
 
 void Styler::setMode(FileExt ext){
 	this->mode = ext;
+}
+
+
+void Styler::restoreQuoted(){
+	int index = 0;
+	const QRegExp quotation("\"\"|''|``");
+	while((index = code.indexOf(quotation, index)) != -1){
+		QString &str = protectedLine["str"].first();
+		code.insert(index + 1, str);
+		index += str.length() + 2;
+		protectedLine["str"].removeFirst();
+	}
+
+	index = 0;
+	const QRegExp comment("/\\*\\*/|//\n");
+	while((index = code.indexOf(comment, index)) != -1){
+		QString &str = protectedLine["cmt"].first();
+		code.insert(index + 2, str);
+		index += str.length() + 4;
+		protectedLine["cmt"].removeFirst();
+	}
 }

@@ -44,6 +44,7 @@ private slots:
 	void on_actionLockToolBar_triggered(bool checked);
 	void on_actionFullScreen_triggered();
 	void on_actionExit_triggered();
+    void on_actionToHTML_triggered();
 };
 
 class Action: public QWidgetAction{

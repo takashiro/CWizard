@@ -32,15 +32,15 @@ public:
 	Styler();
 	static Styler *getInstance();
 
-	void inputCode(QString code);		//输入原始代码
+	void inputCode(QString &code);		//输入原始代码
 	QString formatCode();				//规范化代码
 	QString compressCode();				//压缩代码
 	QString getCode() const;
 	void setMode(FileExt ext);			//文件格式
 
 private:
-	void protectQuoted(QRegExp pattern, QStringList &list, int lquoteLength, int rquoteLength);		//保护注释、字符串等
-	void restoreQuoted(QString lquote, QString rquote, QStringList &list);			//还原被保护的注释、字符串等
+	void protectQuoted();
+	void restoreQuoted();
 
 	void convertNomenclature(Styler::Nomenclature from, Styler::Nomenclature to);	//转换标识符命名方式
 

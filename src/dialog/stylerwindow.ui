@@ -111,6 +111,9 @@
     <addaction name="actionPaste"/>
     <addaction name="actionSelectAll"/>
     <addaction name="separator"/>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
     <addaction name="actionSearch"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
@@ -135,6 +138,7 @@
     <property name="title">
      <string>Tools</string>
     </property>
+    <addaction name="actionToHTML"/>
     <addaction name="actionEditorLists"/>
     <addaction name="separator"/>
    </widget>
@@ -356,6 +360,27 @@
   <action name="actionTips">
    <property name="text">
     <string>Tips</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionToHTML">
+   <property name="text">
+    <string>To HTML</string>
    </property>
   </action>
  </widget>
