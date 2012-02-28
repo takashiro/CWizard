@@ -39,6 +39,7 @@ private slots:
 	void on_actionSettings_triggered();
 	void on_actionOpen_triggered();						//打开文件
 	void on_actionSave_triggered();						//保存文件
+	void on_actionClose_triggered();
 	void on_actionCompress_triggered();					//压缩
 	void on_actionFormat_triggered();					//规范化
 	void on_actionLockToolBar_triggered(bool checked);

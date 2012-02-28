@@ -5,7 +5,6 @@
 Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 	: QSyntaxHighlighter(parent)
 {
-	this->filemode = mode;
 	HighlightingRule rule;
 
 	keywordFormat.setForeground(QColor(0x80, 0x80, 0x00));
@@ -25,9 +24,10 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
                     << "\\bif\\b" << "\\belse\\b" << "\\belseif\\b"
 					<< "\\bswitch\\b" << "\\bcase\\b" << "\\bbreak\\b"
 					<< "\\bcontinue\\b" << "\\bfor\\b" << "\\bwhile\\b"
-                    << "\\bforever\\b" << "\\btry\\b" << "\\bcatch\\b"
-                    << "\\bfinally\\b" << "\\breturn\\n" << "\\btypeof\\b"
-                    << "\\binstanceof\\b" << "\\binclude\\b" << "\\brequire\\b";
+					<< "\\bforeach\\b" << "\\bforever\\b" << "\\btry\\b"
+					<< "\\bcatch\\b" << "\\bfinally\\b" << "\\breturn\\n"
+					<< "\\btypeof\\b" << "\\binstanceof\\b" << "\\binclude(?:\\_once)?\\b"
+					<< "\\brequire(?:\\_once)?\\b" << "\\bbool\\b";
 	foreach(const QString &pattern, keywordPatterns){
 		rule.pattern = QRegExp(pattern);
 		rule.format = keywordFormat;
@@ -44,87 +44,91 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 	rule.format = classFormat;
 	highlightingRules.append(rule);
 
-	quotationFormat.setForeground(Qt::darkGreen);
-
-	functionFormat.setFontItalic(false);
-	functionFormat.setForeground(Qt::black);
-	rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-	rule.format = functionFormat;
-	highlightingRules.append(rule);
-
     precompileFormat.setForeground(Qt::darkBlue);
     rule.pattern = QRegExp("#[a-z]+");
     rule.format = precompileFormat;
     highlightingRules.append(rule);
 
+	quotationFormat.setForeground(Qt::darkGreen);
 	singleLineCommentFormat.setForeground(Qt::darkGreen);
-	rule.pattern = QRegExp("//[^\n]*");
-	rule.format = singleLineCommentFormat;
-	highlightingRules.append(rule);
-
 	multiLineCommentFormat.setForeground(Qt::darkGreen);
 
-	commentStartExpression = QRegExp("/\\*");
-	commentEndExpression = QRegExp("\\*/");
+	setFileMode(mode);
+	setCurrentBlockState(0);
 }
 
-void Highlighter::highlightBlock(const QString &text)
-{
+void Highlighter::highlightBlock(const QString &text){
 	foreach(const HighlightingRule &rule, highlightingRules){
 		QRegExp expression(rule.pattern);
 		int index = expression.indexIn(text);
 		int length = expression.matchedLength();
 
 		while (index >= 0) {
-            setFormat(index, length, rule.format);
+			setFormat(index, length, rule.format);
 			index = expression.indexIn(text, index + length);
+			length = expression.matchedLength();
 		}
 	}
 
-	int quotationStart = 0, quotationEnd = 0;
-	QChar edge = '"';
-	bool inQuotation = false;
+	int blockState = previousBlockState();
+	blockState = (blockState >= 1 && blockState <= 6) ? blockState : 0;
+	setCurrentBlockState(blockState);
+	int offset = 0;
+	static const char quoteChar[4] = {'"', '\'', '`', '/'};
+
 	for(int i = 0; i < text.length(); i++){
-		if(inQuotation && text.at(i) == '\\'){
-			i++;
-			continue;
-		}
-
-		if(!inQuotation){
-            if(text.at(i) == '"' || text.at(i) == '\'' || text.at(i) == '`'){
-				quotationStart = i;
-				inQuotation = true;
-				edge = text.at(i);
+		if(blockState <= 0){
+			switch(text.at(i).toAscii()){
+			case '"':setCurrentBlockState(1);break;		//处于双引号字符串状态
+			case '\'':setCurrentBlockState(2);break;	//处于单引号字符串状态
+			case '`':setCurrentBlockState(3);break;		//处于反引号字符串状态
+			case '/':									//处于注释/正则表达式状态
+				if(text.at(i + 1) == '*'){
+					setCurrentBlockState(5);	//块注释
+				}else if(text.at(i + 1) == '/'){
+					setCurrentBlockState(6);	//行注释
+				}else if(filemode == Javascript){
+					setCurrentBlockState(4);	//JS正则
+				}
+				break;
+			default:setCurrentBlockState(0);
+			}
+			if(currentBlockState() != 0){
+				offset = i;
 			}
 
 		}else{
-			if(text.at(i) == edge){
-				quotationEnd = i;
-				inQuotation = false;
-				setFormat(quotationStart, quotationEnd - quotationStart + 1, quotationFormat);
+			if(blockState >= 1 && blockState <= 4){
+				if(text.at(i) == '\\'){
+					i++;
+					continue;
+				}
+				if(text.at(i) == quoteChar[blockState - 1]){
+					setFormat(offset, i - offset + 1, quotationFormat);
+					setCurrentBlockState(0);
+				}
+			}else if(blockState == 5){
+				if(text.at(i) == '*' && text.at(i + 1) == '/'){
+					setFormat(offset, i - offset + 2, multiLineCommentFormat);
+					setCurrentBlockState(0);
+					i++;
+				}
+			}else if(blockState == 6){
+				if(i == text.length() - 1){
+					setFormat(offset, i - offset + 1, singleLineCommentFormat);
+					setCurrentBlockState(0);
+				}
 			}
 		}
+
+		blockState = currentBlockState();
 	}
 
-	setCurrentBlockState(0);
-	int startIndex = 0;
-	if(previousBlockState() != 1){
-		startIndex = commentStartExpression.indexIn(text);
+	if(blockState >= 1 && blockState <= 4){
+		setFormat(offset, text.length() - offset, quotationFormat);
+	}else if(blockState == 5){
+		setFormat(offset, text.length() - offset, multiLineCommentFormat);
 	}
-
-	while(startIndex >= 0){
-		int endIndex = commentEndExpression.indexIn(text, startIndex);
-		int commentLength;
-		if(endIndex == -1){
-			setCurrentBlockState(1);
-			commentLength = text.length() - startIndex;
-		}else{
-			commentLength = endIndex - startIndex
-							+ commentEndExpression.matchedLength();
-		}
-		setFormat(startIndex, commentLength, multiLineCommentFormat);
-		startIndex = commentStartExpression.indexIn(text, startIndex + commentLength);
-    }
 }
 
 
@@ -133,5 +137,16 @@ Highlighter::FileMode Highlighter::fileMode() const{
 }
 
 void Highlighter::setFileMode(FileMode mode){
-	this->filemode = mode;
+	filemode = mode;
+
+	HighlightingRule rule;
+
+	//PHP
+	if(filemode == PHP){
+		rule.pattern = QRegExp("\\$\\_[a-zA-Z0-9_\\x7f-\\xff]+");
+		rule.format.setForeground(Qt::darkBlue);
+		highlightingRules.append(rule);
+	}
+
+	rehighlight();
 }

@@ -32,7 +32,7 @@ public:
 	Styler();
 	static Styler *getInstance();
 
-	void inputCode(QString &code);		//输入原始代码
+	void inputCode(QString code);		//输入原始代码
 	QString formatCode();				//规范化代码
 	QString compressCode();				//压缩代码
 	QString getCode() const;

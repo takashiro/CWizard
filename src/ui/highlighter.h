@@ -36,14 +36,11 @@ private:
 
 	QVector<HighlightingRule> highlightingRules;
 
-	QRegExp commentStartExpression, commentEndExpression;
-
 	QTextCharFormat keywordFormat;
 	QTextCharFormat classFormat;
 	QTextCharFormat singleLineCommentFormat;
 	QTextCharFormat multiLineCommentFormat;
 	QTextCharFormat quotationFormat;
-	QTextCharFormat functionFormat;
 	QTextCharFormat numberFormat;
     QTextCharFormat precompileFormat;
 };

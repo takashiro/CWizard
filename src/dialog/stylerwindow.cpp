@@ -199,6 +199,9 @@ void StylerWindow::openFile(QString filePath){
 
 	//保存历史记录
 	saveHistory();
+
+	info.setFile(*file);
+	this->setWindowTitle(info.fileName() + " - " + tr("CStyler"));
 }
 
 void StylerWindow::on_actionSave_triggered(){
@@ -228,7 +231,7 @@ void StylerWindow::on_actionExit_triggered()
 {
 	this->hide();
 	ui->plainTextEdit->clear();
-	file->close();
+	on_actionClose_triggered();
 }
 
 Action::Action(QWidget *parent):QWidgetAction(parent){
@@ -305,4 +308,9 @@ void StylerWindow::saveHistory(){
 
 void StylerWindow::on_actionToHTML_triggered(){
 
+}
+
+void StylerWindow::on_actionClose_triggered(){
+	file->close();
+	setWindowTitle(tr("CStyler"));
 }

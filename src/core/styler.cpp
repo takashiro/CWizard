@@ -19,7 +19,7 @@ Styler *Styler::getInstance(){
 	return instance;
 }
 
-void Styler::inputCode(QString &code){
+void Styler::inputCode(QString code){
 	this->code = code;
 	this->codeStatus = 0;
 }
