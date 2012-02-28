@@ -32,7 +32,7 @@ private:
 
 	FileMode filemode;
 
-	QVector<HighlightingRule> highlightingRules;
+	QVector<HighlightingRule> commonRules, extraRules;
 
 	QTextCharFormat keywordFormat;
 	QTextCharFormat classFormat;
@@ -40,7 +40,7 @@ private:
 	QTextCharFormat multiLineCommentFormat;
 	QTextCharFormat quotationFormat;
 	QTextCharFormat numberFormat;
-    QTextCharFormat precompileFormat;
+	QTextCharFormat processorFormat;
 };
 
 #endif // HIGHLIGHTER_H

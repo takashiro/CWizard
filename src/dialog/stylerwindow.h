@@ -49,6 +49,7 @@ private slots:
 	void on_actionFullScreen_triggered();
 	void on_actionExit_triggered();
     void on_actionToHTML_triggered();
+	void setFileMode();
 	void setFileMode(FileMode mode);
 
 signals:

@@ -7,6 +7,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 {
 	HighlightingRule rule;
 
+	//关键词
 	keywordFormat.setForeground(QColor(0x80, 0x80, 0x00));
 	QStringList keywordPatterns;
 	keywordPatterns << "\\bclass\\b" << "\\bconst\\b" << "\\bexplicit\\b"
@@ -31,34 +32,38 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 	foreach(const QString &pattern, keywordPatterns){
 		rule.pattern = QRegExp(pattern);
 		rule.format = keywordFormat;
-		highlightingRules.append(rule);
+		commonRules.append(rule);
 	}
 
+	//数字
 	numberFormat.setForeground(QColor(0x00, 0x00, 0x80));
 	rule.pattern = QRegExp("\\b(?:0x)?[0-9]+\\b");
 	rule.format = numberFormat;
-	highlightingRules.append(rule);
+	commonRules.append(rule);
 
+	//Qt类
 	classFormat.setForeground(Qt::darkMagenta);
 	rule.pattern = QRegExp("\\bQ[A-Za-z]+\\b");
 	rule.format = classFormat;
-	highlightingRules.append(rule);
+	commonRules.append(rule);
 
-    precompileFormat.setForeground(Qt::darkBlue);
+	//预编译语句
+	processorFormat.setForeground(Qt::darkBlue);
     rule.pattern = QRegExp("#[a-z]+");
-    rule.format = precompileFormat;
-    highlightingRules.append(rule);
+	rule.format = processorFormat;
+	commonRules.append(rule);
 
-	quotationFormat.setForeground(Qt::darkGreen);
-	singleLineCommentFormat.setForeground(Qt::darkGreen);
-	multiLineCommentFormat.setForeground(Qt::darkGreen);
+	quotationFormat.setForeground(Qt::darkGreen);			//字符串
+	singleLineCommentFormat.setForeground(Qt::darkGreen);	//单行注释
+	multiLineCommentFormat.setForeground(Qt::darkGreen);	//块注释
 
 	setFileMode(mode);
 	setCurrentBlockState(0);
 }
 
 void Highlighter::highlightBlock(const QString &text){
-	foreach(const HighlightingRule &rule, highlightingRules){
+	QVector<HighlightingRule> rules = this->commonRules + this->extraRules;
+	foreach(const HighlightingRule &rule, rules){
 		QRegExp expression(rule.pattern);
 		int index = expression.indexIn(text);
 		int length = expression.matchedLength();
@@ -138,14 +143,32 @@ FileMode Highlighter::fileMode() const{
 
 void Highlighter::setFileMode(FileMode mode){
 	filemode = mode;
+	extraRules.clear();
 
 	HighlightingRule rule;
 
 	//PHP
 	if(filemode == PHP){
+		//全局变量高亮
 		rule.pattern = QRegExp("\\$\\_[a-zA-Z0-9_\\x7f-\\xff]+");
-		rule.format.setForeground(Qt::darkBlue);
-		highlightingRules.append(rule);
+		rule.format.setForeground(Qt::darkMagenta);
+		extraRules.append(rule);
+
+		//PHP系统函数高亮
+		static QStringList funcs;
+		if(funcs.isEmpty() && QFile::exists("./php_function.dat")){
+			QFile file("./php_function.dat");
+			file.open(QFile::ReadOnly);
+			funcs = QString(file.readAll()).split(" ");
+			file.close();
+		}
+		if(!funcs.isEmpty()){
+			foreach(const QString &func, funcs){
+				rule.pattern = QRegExp("\\b" + func + "\\b");
+				rule.format.setForeground(Qt::darkBlue);
+				extraRules.append(rule);
+			}
+		}
 	}
 
 	rehighlight();

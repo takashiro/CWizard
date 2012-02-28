@@ -141,22 +141,14 @@ StylerWindow *StylerWindow::getInstance(QWidget *parent){
 void StylerWindow::on_actionFormat_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
-
-	styler->setMode(mode);
-	styler->inputCode(code);
-	code = styler->formatCode();
-
+	code = styler->formatCode(code, mode);
 	ui->plainTextEdit->setPlainText(code);
 }
 
 void StylerWindow::on_actionCompress_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
-
-	styler->setMode(mode);
-	styler->inputCode(code);
-	code = styler->compressCode();
-
+	code = styler->compressCode(code, mode);
 	ui->plainTextEdit->setPlainText(code);
 }
 
@@ -203,17 +195,7 @@ void StylerWindow::openFile(QString filePath){
 	ui->plainTextEdit->moveCursor(QTextCursor::Start);
 
 	//设置高亮以及优化模式
-	info.setFile(*file);
-	QString ext = info.suffix().toLower();
-	if(ext == "h" || ext == "c" || ext == "cpp"){
-		emit fileModeChanged(CPP);
-	}else if(ext.left(3) == "php"){
-		emit fileModeChanged(PHP);
-	}else if(ext == "java"){
-		emit fileModeChanged(Java);
-	}else if(ext == "js"){
-		emit fileModeChanged(JavaScript);
-	}
+	setFileMode();
 
 	//设置标题
 	this->setWindowTitle(info.fileName() + " - " + tr("CStyler"));
@@ -235,7 +217,7 @@ void StylerWindow::on_actionSave_triggered(){
 		file->write(code);
 	}
 
-	//保存历史记录
+	setFileMode();
 	saveHistory();
 }
 
@@ -335,4 +317,18 @@ void StylerWindow::on_actionClose_triggered(){
 
 void StylerWindow::setFileMode(FileMode mode){
 	this->mode = mode;
+}
+
+void StylerWindow::setFileMode(){
+	info.setFile(*file);
+	QString ext = info.suffix().toLower();
+	if(ext == "h" || ext == "c" || ext == "cpp"){
+		emit fileModeChanged(CPP);
+	}else if(ext.left(3) == "php"){
+		emit fileModeChanged(PHP);
+	}else if(ext == "java"){
+		emit fileModeChanged(Java);
+	}else if(ext == "js"){
+		emit fileModeChanged(JavaScript);
+	}
 }
