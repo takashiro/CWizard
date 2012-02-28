@@ -2,6 +2,8 @@
 #define WRITER_H
 
 #include <QString>
+
+#ifdef Q_WS_WIN
 #include <windows.h>
 
 class Writer{
@@ -41,5 +43,6 @@ private:
 	bool keyboardHooked;
 	bool mouseHooked;
 };
+#endif
 
 #endif // WRITER_H

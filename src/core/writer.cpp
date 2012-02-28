@@ -68,11 +68,12 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 		return CallNextHookEx(instance->keyHook, nCode, wParam, lParam);
 	}
 
-	/*HWND currentbox = GetFocus();
-	char buf[255];
-	*((LPWORD) buf) = 255;
-	SendMessage(currentbox, EM_GETLINE, 0, (LPARAM) buf);
-	qWarning(buf);*/
+	HWND curWindow = GetForegroundWindow();
+	DWORD pid = GetWindowThreadProcessId(curWindow, NULL);
+	AttachThreadInput(pid, GetCurrentThreadId(), true);
+	HWND curBox = GetFocus();
+	int nLen = SendMessage(curBox, EM_GETLINECOUNT, 0, 0);
+	qWarning("%d", nLen);
 
 	//在WH_KEYBOARD_LL模式下lParam 是指向KBDLLHOOKSTRUCT类型地址
 	KBDLLHOOKSTRUCT *pkbhs = (KBDLLHOOKSTRUCT *) lParam;
