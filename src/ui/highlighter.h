@@ -2,9 +2,10 @@
 #define HIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
-
 #include <QHash>
 #include <QTextCharFormat>
+
+#include "core/structs.h"
 
 class QTextDocument;
 
@@ -12,12 +13,9 @@ class Highlighter : public QSyntaxHighlighter
 {
 	Q_OBJECT
 
-	Q_PROPERTY(Highlighter::FileMode filemode READ fileMode WRITE setFileMode)
+	Q_PROPERTY(FileMode filemode READ fileMode WRITE setFileMode)
 
 public:
-	enum FileMode{PHP, Java, CPP, Javascript};
-    Q_ENUMS(FileMode)
-
 	Highlighter(QTextDocument *parent = 0, FileMode mode = CPP);
 
 	FileMode fileMode() const;

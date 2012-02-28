@@ -87,7 +87,7 @@ void Highlighter::highlightBlock(const QString &text){
 					setCurrentBlockState(5);	//¿é×¢ÊÍ
 				}else if(text.at(i + 1) == '/'){
 					setCurrentBlockState(6);	//ÐÐ×¢ÊÍ
-				}else if(filemode == Javascript){
+				}else if(filemode == JavaScript){
 					setCurrentBlockState(4);	//JSÕýÔò
 				}
 				break;
@@ -132,7 +132,7 @@ void Highlighter::highlightBlock(const QString &text){
 }
 
 
-Highlighter::FileMode Highlighter::fileMode() const{
+FileMode Highlighter::fileMode() const{
 	return filemode;
 }
 

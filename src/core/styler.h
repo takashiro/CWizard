@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QMap>
 
+#include "structs.h"
+
 class Styler{
 private:
 	QString code;
@@ -15,9 +17,7 @@ private:
 	//变量命名方式
 	enum Nomenclature {CamelCase, UnderlineSplitted, Pascal, Hungary};
 	Nomenclature nomenclature;
-
-	enum FileExt{PHP, Javascript, CPP, Java};
-	FileExt mode;
+	FileMode mode;
 
 	QMap<QString, QStringList> protectedLine;		//保护字符串/注释
 
@@ -32,11 +32,13 @@ public:
 	Styler();
 	static Styler *getInstance();
 
+	void setMode(FileMode ext);			//文件格式
 	void inputCode(QString code);		//输入原始代码
 	QString formatCode();				//规范化代码
+	QString formatCode(QString code, FileMode mode = Text);
 	QString compressCode();				//压缩代码
+	QString compressCode(QString code, FileMode mode = Text);
 	QString getCode() const;
-	void setMode(FileExt ext);			//文件格式
 
 private:
 	void protectQuoted();

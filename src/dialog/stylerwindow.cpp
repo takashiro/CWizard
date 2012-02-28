@@ -4,6 +4,7 @@
 
 #include "core/cwizard.h"
 #include "core/styler.h"
+#include "core/structs.h"
 
 #include <QFileInfo>
 
@@ -97,6 +98,8 @@ StylerWindow::StylerWindow(QWidget *parent) :
     connect(ui->actionSelectAll, SIGNAL(triggered()), ui->plainTextEdit, SLOT(selectAll()));
     connect(ui->actionUndo, SIGNAL(triggered()), ui->plainTextEdit, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), ui->plainTextEdit, SLOT(redo()));
+	connect(this, SIGNAL(fileModeChanged(FileMode)), this, SLOT(setFileMode(FileMode)));
+	connect(this, SIGNAL(fileModeChanged(FileMode)), ui->plainTextEdit, SLOT(setFileMode(FileMode)));
 
 	setting->endGroup();
 }
@@ -139,6 +142,7 @@ void StylerWindow::on_actionFormat_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
 
+	styler->setMode(mode);
 	styler->inputCode(code);
 	code = styler->formatCode();
 
@@ -149,6 +153,7 @@ void StylerWindow::on_actionCompress_triggered()
 {
 	QString code = this->ui->plainTextEdit->toPlainText();
 
+	styler->setMode(mode);
 	styler->inputCode(code);
 	code = styler->compressCode();
 
@@ -197,11 +202,24 @@ void StylerWindow::openFile(QString filePath){
 	ui->plainTextEdit->setPlainText(QString::fromLocal8Bit(file->readAll()));
 	ui->plainTextEdit->moveCursor(QTextCursor::Start);
 
+	//设置高亮以及优化模式
+	info.setFile(*file);
+	QString ext = info.suffix().toLower();
+	if(ext == "h" || ext == "c" || ext == "cpp"){
+		emit fileModeChanged(CPP);
+	}else if(ext.left(3) == "php"){
+		emit fileModeChanged(PHP);
+	}else if(ext == "java"){
+		emit fileModeChanged(Java);
+	}else if(ext == "js"){
+		emit fileModeChanged(JavaScript);
+	}
+
+	//设置标题
+	this->setWindowTitle(info.fileName() + " - " + tr("CStyler"));
+
 	//保存历史记录
 	saveHistory();
-
-	info.setFile(*file);
-	this->setWindowTitle(info.fileName() + " - " + tr("CStyler"));
 }
 
 void StylerWindow::on_actionSave_triggered(){
@@ -313,4 +331,8 @@ void StylerWindow::on_actionToHTML_triggered(){
 void StylerWindow::on_actionClose_triggered(){
 	file->close();
 	setWindowTitle(tr("CStyler"));
+}
+
+void StylerWindow::setFileMode(FileMode mode){
+	this->mode = mode;
 }

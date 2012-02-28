@@ -4,13 +4,14 @@
 #include <QPlainTextEdit>
 #include <QObject>
 
+#include "highlighter.h"
+
 class QPaintEvent;
 class QResizeEvent;
 class QSize;
 class QWidget;
 
 class LineNumberArea;
-class Highlighter;
 
 class CodeEditor : public QPlainTextEdit
 {
@@ -24,6 +25,9 @@ public:
 
 protected:
     void resizeEvent(QResizeEvent *event);
+
+public slots:
+	void setFileMode(FileMode mode);
 
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);

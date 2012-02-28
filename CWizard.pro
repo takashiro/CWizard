@@ -37,7 +37,8 @@ HEADERS  += src/core/styler.h \
     src/ui/highlighter.h \
     src/ui/codeeditor.h \
     src/ui/unicornstyle.h \
-    src/ui/statgraphics.h
+    src/ui/statgraphics.h \
+    src/core/structs.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \

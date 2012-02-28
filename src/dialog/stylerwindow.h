@@ -9,6 +9,8 @@
 #include <QSettings>
 #include <QWidgetAction>
 
+#include "core/structs.h"
+
 class Styler;
 
 namespace Ui {
@@ -23,6 +25,7 @@ private:
 	QFile *file;						//当前打开的文件
     static const QString extFilters;	//可用扩展名
 	QSettings *setting;					//配置信息
+	FileMode mode;
 
 	Styler *styler;
 
@@ -46,6 +49,10 @@ private slots:
 	void on_actionFullScreen_triggered();
 	void on_actionExit_triggered();
     void on_actionToHTML_triggered();
+	void setFileMode(FileMode mode);
+
+signals:
+	void fileModeChanged(FileMode mode);
 };
 
 class Action: public QWidgetAction{

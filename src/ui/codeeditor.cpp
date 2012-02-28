@@ -1,7 +1,6 @@
 #include <QtGui>
 
 #include "codeeditor.h"
-#include "highlighter.h"
 
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent){
     lineNumberArea = new LineNumberArea(this);
@@ -89,4 +88,8 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event){
         bottom = top + (int) blockBoundingRect(block).height();
         ++blockNumber;
     }
+}
+
+void CodeEditor::setFileMode(FileMode mode){
+	highlighter->setFileMode(mode);
 }

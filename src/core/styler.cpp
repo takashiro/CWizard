@@ -219,8 +219,8 @@ void Styler::protectQuoted(){
 	}
 }
 
-void Styler::setMode(FileExt ext){
-	this->mode = ext;
+void Styler::setMode(FileMode mode){
+	this->mode = mode;
 }
 
 
@@ -242,4 +242,16 @@ void Styler::restoreQuoted(){
 		index += str.length() + 4;
 		protectedLine["cmt"].removeFirst();
 	}
+}
+
+QString Styler::formatCode(QString code, FileMode mode){
+	inputCode(code);
+	setMode(mode);
+	return formatCode();
+}
+
+QString Styler::compressCode(QString code, FileMode mode){
+	inputCode(code);
+	setMode(mode);
+	return compressCode();
 }
