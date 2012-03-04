@@ -1,7 +1,5 @@
 #include "writer.h"
 
-#include <QDebug>
-
 const char Writer::keyHookEnabled = 0x01;
 const char Writer::mouseHookEnabled = 0x02;
 
@@ -64,16 +62,22 @@ bool Writer::isMouseHooked() const{
 
 LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 	Writer *instance = Writer::getInstance();
-	if(nCode < 0){
-		return CallNextHookEx(instance->keyHook, nCode, wParam, lParam);
+	if(nCode < 0 || wParam != WM_CHAR){
+		return CallNextHookEx(instance->keyHook, nCode, wParam, lParam);;
 	}
 
-	HWND curWindow = GetForegroundWindow();
-	DWORD pid = GetWindowThreadProcessId(curWindow, NULL);
-	AttachThreadInput(pid, GetCurrentThreadId(), true);
+	/*HWND curWindow = GetForegroundWindow();
+	if(IsWindow(curWindow)){
+		DWORD pid = GetWindowThreadProcessId(curWindow, NULL);
+		AttachThreadInput(pid, GetCurrentThreadId(), true);
+		HWND curBox = GetFocus();
+		int iLen = SendMessage(curBox, EM_GETLINECOUNT, 0, 0);
+		qWarning("%d", iLen);
+	}*/
+
 	HWND curBox = GetFocus();
-	int nLen = SendMessage(curBox, EM_GETLINECOUNT, 0, 0);
-	qWarning("%d", nLen);
+	int iLen = SendMessage(curBox, EM_GETLINECOUNT, 0, 0);
+	qWarning("%d", iLen);
 
 	//在WH_KEYBOARD_LL模式下lParam 是指向KBDLLHOOKSTRUCT类型地址
 	KBDLLHOOKSTRUCT *pkbhs = (KBDLLHOOKSTRUCT *) lParam;
@@ -82,7 +86,7 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 		instance->currentLine.clear();
 	}
 
-	return 0;
+	return CallNextHookEx(instance->keyHook, nCode, wParam, lParam);;
 }
 
 LRESULT CALLBACK Writer::mouseProc(int nCode,WPARAM wParam,LPARAM lParam){
