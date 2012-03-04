@@ -7,6 +7,7 @@
 #include "core/structs.h"
 
 #include <QFileInfo>
+#include <QProgressDialog>
 
 const QString StylerWindow::extFilters =
         StylerWindow::tr("All Types") + " (*.h *.c *.cpp *.cs *.java *.php *.php3 *php4 *.php5 *.asp *.aspx *.js *.txt);;"
@@ -91,7 +92,6 @@ StylerWindow::StylerWindow(QWidget *parent) :
 	}
 
 	//信号与槽的链接
-	//connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(hide()));
     connect(ui->actionCut, SIGNAL(triggered()), ui->plainTextEdit, SLOT(cut()));
     connect(ui->actionCopy, SIGNAL(triggered()), ui->plainTextEdit, SLOT(copy()));
     connect(ui->actionPaste, SIGNAL(triggered()), ui->plainTextEdit, SLOT(paste()));
@@ -320,15 +320,57 @@ void StylerWindow::setFileMode(FileMode mode){
 }
 
 void StylerWindow::setFileMode(){
-	info.setFile(*file);
+	emit fileModeChanged(extToMode(file->fileName()));
+}
+
+FileMode StylerWindow::extToMode(QString fileName) const{
+	QFileInfo info(fileName);
 	QString ext = info.suffix().toLower();
 	if(ext == "h" || ext == "c" || ext == "cpp"){
-		emit fileModeChanged(CPP);
+		return CPP;
 	}else if(ext.left(3) == "php"){
-		emit fileModeChanged(PHP);
+		return PHP;
 	}else if(ext == "java"){
-		emit fileModeChanged(Java);
+		return Java;
 	}else if(ext == "js"){
-		emit fileModeChanged(JavaScript);
+		return JavaScript;
+	}else{
+		return Text;
 	}
+}
+
+void StylerWindow::on_actionBatchProcess_triggered(){
+	QString dirPath = setting->value("styler/batchPath", "./").toString();
+	QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"), dirPath, extFilters);
+
+	QProgressDialog dialog(this);
+	dialog.setWindowModality(Qt::WindowModal);
+	dialog.resize(400, 100);
+	dialog.setRange(0, fileNames.length());
+	dialog.show();
+
+	int progress = 0;
+
+	QFile file;
+	foreach(const QString &fileName, fileNames){
+		if(dialog.wasCanceled()){
+			break;
+		}
+
+		file.setFileName(fileName);
+		file.open(QFile::ReadWrite);
+
+		QString code = QString::fromLocal8Bit(file.readAll());
+		code = styler->formatCode(code, extToMode(fileName));
+
+		file.resize(0);
+		file.write(code.toLocal8Bit());
+		file.close();
+
+		progress++;
+		dialog.setValue(progress);
+		dialog.setLabelText(file.fileName());
+	}
+
+	dialog.close();
 }
