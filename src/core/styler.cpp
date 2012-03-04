@@ -173,6 +173,8 @@ void Styler::protectQuoted(){
 				}else if(code.at(i + 1) == '/'){
 					inBlockComment = false;
 					goto InComment;
+				}else if(mode == JavaScript){
+					//
 				}
 				continue;
 				InComment:
@@ -227,7 +229,7 @@ void Styler::setMode(FileMode mode){
 void Styler::restoreQuoted(){
 	int index = 0;
 	const QRegExp quotation("\"\"|''|``");
-	while((index = code.indexOf(quotation, index)) != -1){
+	while(!protectedLine["str"].isEmpty() && (index = code.indexOf(quotation, index)) != -1){
 		QString &str = protectedLine["str"].first();
 		code.insert(index + 1, str);
 		index += str.length() + 2;
@@ -236,7 +238,7 @@ void Styler::restoreQuoted(){
 
 	index = 0;
 	const QRegExp comment("/\\*\\*/|//\n");
-	while((index = code.indexOf(comment, index)) != -1){
+	while(!protectedLine["cmt"].isEmpty() && (index = code.indexOf(comment, index)) != -1){
 		QString &str = protectedLine["cmt"].first();
 		code.insert(index + 2, str);
 		index += str.length() + 4;
