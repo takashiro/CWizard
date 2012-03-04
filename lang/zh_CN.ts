@@ -161,7 +161,7 @@
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="353"/>
         <source>Show CStyler on start</source>
-        <translation type="unfinished"></translation>
+        <translation>启动时显示CStyler</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.cpp" line="16"/>
@@ -183,6 +183,8 @@
     <name>StylerWindow</name>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="20"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="201"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="315"/>
         <source>CStyler</source>
         <translation>CStyler</translation>
     </message>
@@ -197,20 +199,20 @@
         <translation>编辑(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="120"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="123"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="73"/>
         <source>Help</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="245"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="249"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
         <source>Settings</source>
         <translation>设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="165"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="63"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="169"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
         <source>Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
@@ -225,137 +227,153 @@
         <translation>最近打开的文档</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="127"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="130"/>
         <source>View</source>
         <translation>查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="136"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="139"/>
         <source>Tools</source>
         <translation>工具(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="149"/>
-        <location filename="../src/dialog/stylerwindow.ui" line="256"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="153"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="260"/>
         <source>Tool Bar</source>
         <translation>常用工具栏</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="177"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="181"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
         <source>Save</source>
         <translation>保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="189"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="193"/>
         <source>Save As..</source>
         <translation>另存为..</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="197"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="201"/>
         <source>Exit</source>
         <translation>退出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="209"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="213"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Format</source>
         <translation>规范化(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="221"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="225"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
         <source>Compress</source>
         <translation>压缩(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="233"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="237"/>
         <source>Context Help</source>
         <translation>内容帮助(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="267"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="271"/>
         <source>Lock the Tool Bar</source>
         <translation>锁定工具栏</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="276"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="280"/>
         <source>Full Screen</source>
         <translation>全屏显示</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="281"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="285"/>
         <source>About CStyler</source>
         <translation>关于CStyler</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="286"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="290"/>
         <source>Batch Process</source>
         <translation>批处理</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="295"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="299"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="303"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="307"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="312"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="316"/>
         <source>Copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="324"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="328"/>
         <source>Paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="336"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="340"/>
         <source>Search/Replace</source>
         <translation>查找/替换</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="341"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="345"/>
         <source>Editor Lists</source>
         <translation>编辑器列表</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="350"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="354"/>
         <source>Cut</source>
         <translation>剪切</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.ui" line="358"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="362"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
         <source>Tips</source>
         <translation>规范提示</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="11"/>
+        <location filename="../src/dialog/stylerwindow.ui" line="367"/>
+        <source>Redo</source>
+        <translation>撤销</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.ui" line="375"/>
+        <source>Undo</source>
+        <translation>恢复</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.ui" line="383"/>
+        <source>To HTML</source>
+        <translation>导出HTML</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.cpp" line="13"/>
         <source>All Types</source>
         <translation>所有类型</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="18"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="20"/>
         <source>Plain Text</source>
         <translation>纯文本</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="19"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="21"/>
         <source>Any Files</source>
         <translation>任何文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="176"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="179"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="344"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="204"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="213"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
