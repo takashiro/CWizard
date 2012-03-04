@@ -62,8 +62,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 }
 
 void Highlighter::highlightBlock(const QString &text){
-	QVector<HighlightingRule> rules = this->commonRules + this->extraRules;
-	foreach(const HighlightingRule &rule, rules){
+	foreach(const HighlightingRule &rule, commonRules + extraRules){
 		QRegExp expression(rule.pattern);
 		int index = expression.indexIn(text);
 		int length = expression.matchedLength();
@@ -150,7 +149,7 @@ void Highlighter::setFileMode(FileMode mode){
 	//PHP
 	if(filemode == PHP){
 		//全局变量高亮
-		rule.pattern = QRegExp("\\$\\_[a-zA-Z0-9_\\x7f-\\xff]+");
+		rule.pattern = QRegExp("\\$\\_[A-Z]+");
 		rule.format.setForeground(Qt::darkMagenta);
 		extraRules.append(rule);
 
