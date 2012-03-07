@@ -198,7 +198,8 @@ void StylerWindow::openFile(QString filePath){
 	setFileMode();
 
 	//设置标题
-	this->setWindowTitle(info.fileName() + " - " + tr("CStyler"));
+	info.setFile(*file);
+	setWindowTitle(info.fileName() + " - " + tr("CStyler"));
 
 	//保存历史记录
 	saveHistory();
