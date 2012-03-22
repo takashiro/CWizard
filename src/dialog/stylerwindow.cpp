@@ -187,7 +187,13 @@ void StylerWindow::openFile(QString filePath){
 	if(file->isOpen()){
 		file->close();
 	}
-	file->setFileName(filePath);
+
+	if(!QFile::exists(filePath)){
+		QMessageBox::warning(this, tr("Error"), "File does not exist!");
+		return;
+	}
+
+	file->setFileName(filePath);	
 	file->open(QFile::ReadWrite);
 
 	//显示文件内容

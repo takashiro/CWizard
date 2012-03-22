@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <QWidgetAction>
+#include <QMessageBox>
 
 #include "core/structs.h"
 
@@ -26,7 +27,6 @@ private:
     static const QString extFilters;	//可用扩展名
 	QSettings *setting;					//配置信息
 	FileMode mode;
-
 	Styler *styler;
 
 public:
