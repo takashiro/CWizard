@@ -3,13 +3,7 @@
 StatGraphics::StatGraphics(QObject *parent) :
 	QGraphicsScene(parent)
 {
-	QMap<QString, int> labels;
-	labels["03-22"] = 98;
-	labels["03-21"] = 90;
-	labels["03-20"] = 76;
-	labels["03-19"] = 120;
 
-	setLabels(labels);
 }
 
 void StatGraphics::loadData(QString &data){
