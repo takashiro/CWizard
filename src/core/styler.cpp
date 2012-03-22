@@ -48,8 +48,9 @@ QString Styler::formatCode(){
 		.replace("- > ", "->")
 		.replace(" ++", "++")
 		.replace(" --", "--")
+		.replace(QRegExp("\\s*(&&|\\|\\|)\\s*"), " \\1 ")
 		.replace(QRegExp("\\b(public|private|protected)( slots| signals)?\\s*\\:\\s*"), "\\1\\2:\r\n")
-	;	
+	;
 
 	//×ó²à´óÀ¨ºÅ
 	code.replace(QRegExp("[\\s]*\\{[\\s]*"), optLeftBraceNewLine ? "\r\n{\r\n" : "{\r\n");
@@ -114,8 +115,9 @@ QString Styler::formatCode(){
 	code.replace(QRegExp("\\t(public|private|protected)( slots| signals)?\\:"), "\\1\\2:");
 
 	//ÐÞÕýÔ¤±àÒëÓï¾ä
-	rx.setPattern(" *#([a-z]+)\\s*\\< (.*) \\>\\s*");
 	rx.setPatternSyntax(QRegExp::RegExp2);
+	rx.setPattern(" *#([a-z]+)\\s*\\< (.*) \\> ");
+	rx.setMinimal(true);
 	code.replace(rx, "#\\1 <\\2>\r\n");
 
 	//»Ö¸´±»±£»¤µÄ×Ö·û´®
