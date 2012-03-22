@@ -41,6 +41,7 @@ private:
 	SettingDialog *settingDialog;					//设置对话框
 	StylerWindow *stylerWindow;						//CStyler小工具窗口
 	QDialog *aboutusDialog;							//关于我们
+	QDialog *statDialog;							//统计信息
 	Tray *tray;										//系统托盘
 
 	static MainWindow *instance;
@@ -55,6 +56,7 @@ private slots:
 	void on_hide_clicked();
 	void on_exit_clicked();
     void on_setting_clicked();
+	void on_stat_clicked();
 
 	void trayActivated(QSystemTrayIcon::ActivationReason reason);
 };

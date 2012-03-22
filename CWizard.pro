@@ -23,7 +23,8 @@ SOURCES += src/main.cpp \
     src/ui/highlighter.cpp \
     src/ui/codeeditor.cpp \
     src/ui/unicornstyle.cpp \
-    src/ui/statgraphics.cpp
+    src/ui/statgraphics.cpp \
+    src/dialog/statdialog.cpp
 
 HEADERS  += src/core/styler.h \
 	src/core/cwizard.h \
@@ -38,12 +39,14 @@ HEADERS  += src/core/styler.h \
     src/ui/codeeditor.h \
     src/ui/unicornstyle.h \
     src/ui/statgraphics.h \
-    src/core/structs.h
+    src/core/structs.h \
+    src/dialog/statdialog.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \
 	src/dialog/stylerwindow.ui \
-    src/dialog/aboutusdialog.ui
+    src/dialog/aboutusdialog.ui \
+    src/dialog/statdialog.ui
 
 TRANSLATIONS	+= lang/en_US.ts \
 	lang/zh_CN.ts \

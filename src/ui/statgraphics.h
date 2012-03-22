@@ -1,18 +1,22 @@
 #ifndef STATGRAPHICS_H
 #define STATGRAPHICS_H
 
-#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QSettings>
+#include <QFile>
+#include <QMap>
 
-class StatGraphics : public QGraphicsView
+class StatGraphics : public QGraphicsScene
 {
     Q_OBJECT
 public:
-	explicit StatGraphics(QWidget *parent = 0);
+	explicit StatGraphics(QObject *parent = 0);
 
-signals:
+	void loadData(QString &data);
+	void loadFile(QFile &file);
 
-public slots:
-
+	void setLabels(QMap<QString, int> &labels);
 };
 
 #endif // STATGRAPHICS_H

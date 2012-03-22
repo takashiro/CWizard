@@ -7,6 +7,7 @@
 #include "dialog/stylerwindow.h"
 #include "dialog/settingdialog.h"
 #include "dialog/aboutusdialog.h"
+#include "dialog/statdialog.h"
 #include "ui/tray.h"
 
 MainWindow *MainWindow::instance = NULL;
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
 	stylerWindow = StylerWindow::getInstance();
+
 	settingDialog = SettingDialog::getInstance(this);
 	settingDialog->loadSetting(Wizard->getSetting());
 
@@ -33,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	tray->show();
 
 	aboutusDialog = NULL;
+	statDialog = NULL;
 
 	move(Wizard->getSetting("popupBar/position", QPoint(0, 0)).toPoint());
 }
@@ -133,4 +136,12 @@ void MainWindow::on_cstyler_clicked()
 	}else{
 		stylerWindow->hide();
 	}
+}
+
+void MainWindow::on_stat_clicked(){
+	if(statDialog == NULL){
+		statDialog = new StatDialog(this);
+	}
+
+	statDialog->show();
 }
