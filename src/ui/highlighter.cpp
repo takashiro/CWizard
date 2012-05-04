@@ -153,6 +153,13 @@ void Highlighter::setFileMode(FileMode mode){
 		rule.format.setForeground(Qt::darkMagenta);
 		extraRules.append(rule);
 
+		//Tag高亮
+		rule.format.setForeground(Qt::red);
+		rule.pattern = QRegExp("(\\<\\?php)\\s*");
+		extraRules.append(rule);
+		rule.pattern = QRegExp("\\s*(\\?\\>)");
+		extraRules.append(rule);
+
 		//PHP系统函数高亮
 		static QStringList funcs;
 		if(funcs.isEmpty() && QFile::exists("./php_function.dat")){
