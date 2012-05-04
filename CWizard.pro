@@ -9,7 +9,6 @@ QT       += core gui
 TARGET = CWizard
 TEMPLATE = app
 
-
 SOURCES += src/main.cpp \
 	src/core/styler.cpp \
 	src/core/cwizard.cpp \
@@ -24,7 +23,8 @@ SOURCES += src/main.cpp \
     src/ui/codeeditor.cpp \
     src/ui/unicornstyle.cpp \
     src/ui/statgraphics.cpp \
-    src/dialog/statdialog.cpp
+    src/dialog/statdialog.cpp \
+    src/core/writinghabit.cpp
 
 HEADERS  += src/core/styler.h \
 	src/core/cwizard.h \
@@ -40,7 +40,8 @@ HEADERS  += src/core/styler.h \
     src/ui/unicornstyle.h \
     src/ui/statgraphics.h \
 	src/core/structs.h \
-    src/dialog/statdialog.h
+    src/dialog/statdialog.h \
+    src/core/writinghabit.h
 
 FORMS    += src/dialog/settingdialog.ui \
 	src/dialog/mainwindow.ui \

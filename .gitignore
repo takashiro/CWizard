@@ -1,3 +1,4 @@
 Thumbs.db
 *.pro.user
 /config.ini
+/log/*.*
