@@ -26,6 +26,9 @@ public:
 
 	void show();									//显示托盘
 	void setPowerOnText(bool on = true);			//设置【开启/关闭改写】菜单项的文字
+
+public slots:
+	void alertError(QString msg);
 };
 
 #endif // TRAY_H

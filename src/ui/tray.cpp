@@ -66,3 +66,7 @@ void Tray::show(){
 		isFirstBoot = false;
 	}
 }
+
+void Tray::alertError(QString msg){
+	showMessage(Wizard->getAppName(), msg, Warning, 3000);
+}

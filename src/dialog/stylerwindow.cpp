@@ -324,6 +324,9 @@ void StylerWindow::on_actionClose_triggered(){
 
 void StylerWindow::setFileMode(FileMode mode){
 	this->mode = mode;
+
+	Styler *styler = Styler::getInstance();
+	styler->setMode(mode);
 }
 
 void StylerWindow::setFileMode(){
