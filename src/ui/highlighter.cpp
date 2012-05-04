@@ -26,7 +26,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 					<< "\\bswitch\\b" << "\\bcase\\b" << "\\bbreak\\b"
 					<< "\\bcontinue\\b" << "\\bfor\\b" << "\\bwhile\\b"
 					<< "\\bforeach\\b" << "\\bforever\\b" << "\\btry\\b"
-					<< "\\bcatch\\b" << "\\bfinally\\b" << "\\breturn\\n"
+					<< "\\bcatch\\b" << "\\bfinally\\b" << "\\breturn\\b"
 					<< "\\btypeof\\b" << "\\binstanceof\\b" << "\\binclude(?:\\_once)?\\b"
 					<< "\\brequire(?:\\_once)?\\b" << "\\bbool\\b";
 	foreach(const QString &pattern, keywordPatterns){

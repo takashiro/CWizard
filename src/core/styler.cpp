@@ -38,8 +38,8 @@ QString Styler::formatCode(){
 	//保护注释 保护字符串
 	protectQuoted();
 
-    //去除原有Tab
-	code.replace("\\t", "");
+	//去除原有Tab
+	code.replace(QRegExp("\\n\\s*"), "\n");
 
 	//双元运算符
 	code
@@ -48,6 +48,7 @@ QString Styler::formatCode(){
 		.replace("- > ", "->")
 		.replace(" ++", "++")
 		.replace(" --", "--")
+		.replace("<  =", "<=")
 		.replace(QRegExp("\\s*(&&|\\|\\|)\\s*"), " \\1 ")
 		.replace(QRegExp("\\b(public|private|protected)( slots| signals)?\\s*\\:\\s*"), "\\1\\2:\r\n")
 	;
@@ -79,7 +80,7 @@ QString Styler::formatCode(){
 
 	//一句一行
 	code.replace(QRegExp("\\s*;\\s*"), ";\r\n");
-	rx.setPattern("for\\(\\s*(.*)\\s*;\\s*(.*)\\s*;\\s*(.*)\\s*\\)");
+	rx.setPattern("for\\s*\\(\\s*(.*)\\s*;\\s*(.*)\\s*;\\s*(.*)\\s*\\)");
 	rx.setMinimal(true);
 	rx.setPatternSyntax(QRegExp::RegExp2);
 	code.replace(rx, "for(\\1; \\2; \\3)");
