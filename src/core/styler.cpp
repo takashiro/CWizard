@@ -1,5 +1,6 @@
 #include "styler.h"
 
+Styler *styler = NULL;
 const QString Styler::varRegExp = "((?:[a-zA-Z0-9_\\x7f-\\xff]+)(?:\\[[a-zA-Z0-9_\\-\\.\\\"\\'\\[\\]\\$\\x7f-\\xff]+\\])*)";
 
 Styler::Styler(){
@@ -12,6 +13,8 @@ Styler::Styler(){
 	this->optFunctionsSplitted = true;
 
 	this->mode = CPP;
+
+	styler = this;
 }
 
 Styler *Styler::getInstance(){
@@ -51,6 +54,7 @@ QString Styler::formatCode(){
 		.replace("<  =", "<=")
 		.replace(QRegExp("\\s*(&&|\\|\\|)\\s*"), " \\1 ")
 		.replace(QRegExp("\\b(public|private|protected)( slots| signals)?\\s*\\:\\s*"), "\\1\\2:\r\n")
+		.replace(QRegExp("case\\s*(.*)\\s*\\:\\s*"), "case \\1:\r\n")
 	;
 
 	//×ó²à´óÀ¨ºÅ
@@ -121,6 +125,11 @@ QString Styler::formatCode(){
 	rx.setMinimal(true);
 	code.replace(rx, "#\\1 <\\2>\r\n");
 
+	if(mode == PHP){
+		code.replace(" <  ? ", "<?").replace("?  > ", "?>")
+			.replace("=  >", "=>");
+	}
+
 	//»Ö¸´±»±£»¤µÄ×Ö·û´®
 	restoreQuoted();
 
@@ -161,7 +170,7 @@ void Styler::protectQuoted(){
 	bool inQuotation = false;
 	QChar ch = '"';
 	int offset = 0, length = 0;
-	bool inBlockComment = false;
+	bool inBlockComment = false, inRegExp = false;
 
 	for(int i = 0; i < code.length(); i++){
 		if(!inQuotation){
@@ -177,7 +186,15 @@ void Styler::protectQuoted(){
 					inBlockComment = false;
 					goto InComment;
 				}else if(mode == JavaScript){
-					//
+					int prev = qMax(0, i - 1);
+					while(code.at(prev) == ' '){
+						prev--;
+					}
+					if(prev < 0 || !code.at(prev).isLetterOrNumber()){
+						inQuotation = inRegExp = true;
+						ch = code.at(i);
+						offset = i + 1;
+					}
 				}
 				continue;
 				InComment:
@@ -205,10 +222,19 @@ void Styler::protectQuoted(){
 						length = i - offset;
 
 						protectedLine["cmt"].append(code.mid(offset, length));
-						code = code.remove(offset, length);
+						code.remove(offset, length);
 						i -= length;
 						inQuotation = false;
 					}
+
+				}else if(mode == JavaScript && inRegExp && code.at(i) == '/'){
+					length = i - offset;
+
+					protectedLine["str"].append(code.mid(offset, length));
+					code.remove(offset, length);
+					i -= length;
+					inQuotation = inRegExp = false;
+
 				}else{
 					if(code.at(i) == '\n'){
 						length = i - offset;
@@ -259,4 +285,8 @@ QString Styler::compressCode(QString code, FileMode mode){
 	inputCode(code);
 	setMode(mode);
 	return compressCode();
+}
+
+void Styler::convertNomenclature(Styler::Nomenclature from, Styler::Nomenclature to){
+
 }

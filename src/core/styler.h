@@ -39,14 +39,15 @@ public:
 	QString compressCode();				//压缩代码
 	QString compressCode(QString code, FileMode mode = Text);
 	QString getCode() const;
+    void convertNomenclature(Styler::Nomenclature from, Styler::Nomenclature to);	//转换标识符命名方式
 
 private:
 	void protectQuoted();
 	void restoreQuoted();
 
-	void convertNomenclature(Styler::Nomenclature from, Styler::Nomenclature to);	//转换标识符命名方式
-
 	static const QString varRegExp;
 };
+
+extern Styler *styler;
 
 #endif // STYLER_H
