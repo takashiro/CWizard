@@ -87,7 +87,7 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 	//在WH_KEYBOARD_LL模式下lParam 是指向KBDLLHOOKSTRUCT类型地址
 	KBDLLHOOKSTRUCT *key = (KBDLLHOOKSTRUCT *) lParam;
 
-	qWarning("vkCode: %d", (int) key->vkCode);
+	//qWarning("vkCode: %d", (int) key->vkCode);
 
 	bool result = false;
 
@@ -288,7 +288,7 @@ void Writer::recordChar(QChar ch){
 		current_line.remove(0, 1);
 	}
 
-	qWarning("char: %c", ch.toAscii());
+	//qWarning("char: %c", ch.toAscii());
 }
 
 void Writer::removeLastChar(){
