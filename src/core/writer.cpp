@@ -68,6 +68,7 @@ bool Writer::isMouseHooked() const{
 	return mouse_hooked;
 }
 
+#ifdef Q_OS_WIN
 LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 	Writer *writer = Writer::getInstance();
 	if(nCode < 0 || writer->isDisabled()){
@@ -86,16 +87,23 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 
 	qWarning("vkCode: %d", (int) key->vkCode);
 
+	bool result = false;
+
 	//转换为ASCII
 	if(wParam == WM_KEYUP){
-		BYTE buffer[300] = {0};
-		WORD ch;
-		GetKeyboardState(buffer);
-		ToAscii(key->vkCode, key->scanCode, buffer, &ch, 0);
-		writer->recordChar(QChar::fromAscii(ch));
+		if(key->vkCode != VK_BACK){
+			BYTE buffer[300] = {0};
+			WORD ch[2];
+			GetKeyboardState(buffer);
+			if(ToAscii(key->vkCode, key->scanCode, buffer, ch, 0) == 1){
+				writer->recordChar(QChar::fromAscii(ch[0]));
+				result = writer->keyHandler(wParam == WM_KEYDOWN ? Writer::KeyDown : Writer::KeyUp, key->vkCode);
+			}
+		}else{
+			writer->removeLastChar();
+		}
 	}
 
-	bool result = writer->keyHandler(wParam == WM_KEYDOWN ? Writer::KeyDown : Writer::KeyUp, key->vkCode);
 	if(!result){
 		return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);
 	}else{
@@ -113,9 +121,11 @@ LRESULT CALLBACK Writer::mouseProc(int nCode, WPARAM wParam, LPARAM lParam){
 
 	return CallNextHookEx(writer->mouse_hook, nCode, wParam, lParam);
 }
+#endif
 
 bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
-	QChar ch = curChar();
+	QChar cur = curChar();
+	QChar pre = prevChar();
 	if(event == KeyDown){
 		switch(key){
 		//键盘状态控制
@@ -128,20 +138,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 		}
 
 		if(!isShiftDown()){
-			switch(key){
-			//双元运算符
-			case 107:case 109:case 110:case 111://小键盘四则运算
-			case 191:case 187:case 189:
-				if(!ch.isSpace()){
-					emit styleWarning(tr("CodeStyleError:bioperator"));
-					setDisabled();
-					inputSpace(1);
-					sendKeyEvent(key);
-					inputSpace(1);
-					setEnabled();
-					return true;
-				}
-			}
+
 		}else{
 
 		}
@@ -161,35 +158,43 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 			return false;
 		}
 
-		/*
-		if(!isShiftDown()){
-			switch(key){
-			//逗号运算符
-			case 188:
-				inputSpace();
-				break;
 
-			case 186:
-				createNewLine();
+		if(!isShiftDown()){
+			//处理双元运算符
+			if(pre.category() == QChar::Symbol_Math && cur.isLetterOrNumber()){
+				QChar tmp = prevChar(2);
+				if(tmp.isSymbol()){
+					int i = 3;
+					do{
+						tmp = prevChar(i);
+					}while(!tmp.isNull() && tmp.isSymbol());
+
+					if(!tmp.isNull() && !tmp.isSpace()){
+						emit styleWarning(tr("CodeStyleError:bioperator"));
+
+						setDisabled();
+						sendKeyEvent(VK_LEFT, i);
+						inputSpace(1);
+						sendKeyEvent(VK_RIGHT, i - 1);
+						inputSpace(1);
+						sendKeyEvent(VK_RIGHT);
+						setEnabled();
+					}
+				}else if(!tmp.isSpace()){
+					emit styleWarning(tr("CodeStyleError:bioperator"));
+
+					setDisabled();
+					sendKeyEvent(VK_LEFT, 2);
+					inputSpace(1);
+					sendKeyEvent(VK_RIGHT);
+					inputSpace(1);
+					sendKeyEvent(VK_RIGHT);
+					setEnabled();
+				}
 			}
 		}else{
-			switch(key){
-			case 219://左侧大括号
-				changeCurrentSpan(1);
-				createNewLine();
-				break;
 
-			case 221://右侧大括号
-				setDisabled();
-				changeCurrentSpan(-1);
-				sendKeyEvent(VK_LEFT);
-				sendKeyEvent(VK_LEFT);
-				sendKeyEvent(221);
-				sendKeyEvent(VK_RETURN);
-				setEnabled();
-				break;
-			}
-		}*/
+		}
 	}
 
 	return false;
@@ -223,10 +228,12 @@ void Writer::createNewLine(){
 	}
 }
 
-void Writer::sendKeyEvent(UINT vkCode){
+void Writer::sendKeyEvent(UINT vkCode, int times){
 	UINT uScan = MapVirtualKey(vkCode, 0);
-	keybd_event(vkCode, uScan, 0, 0);
-	keybd_event(vkCode, uScan, KEYEVENTF_KEYUP, 0);
+	while(times--){
+		keybd_event(vkCode, uScan, 0, 0);
+		keybd_event(vkCode, uScan, KEYEVENTF_KEYUP, 0);
+	}
 }
 
 void Writer::wrapSpace(){
@@ -282,8 +289,12 @@ void Writer::recordChar(QChar ch){
 	qWarning("char: %c", ch.toAscii());
 }
 
-QChar Writer::prevChar() const{
-	return current_line.at(current_line.length() - 2);
+void Writer::removeLastChar(){
+	current_line.remove(current_line.length() - 1, 1);
+}
+
+QChar Writer::prevChar(int i) const{
+	return current_line.at(current_line.length() - 1 - i);
 }
 
 QChar Writer::curChar() const{

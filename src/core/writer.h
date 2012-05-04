@@ -32,18 +32,13 @@ public:
 	bool isKeyboardHooked() const;
 	bool isMouseHooked() const;
 
-	//Windows键盘消息处理
-	static LRESULT CALLBACK keyProc(int nCode, WPARAM wParam, LPARAM lParam);
-	//Windows鼠标消息处理
-	static LRESULT CALLBACK mouseProc(int nCode, WPARAM wParam, LPARAM lParam);
-
 	//键盘消息处理
 	bool keyHandler(Writer::KeyEvent event, unsigned int key);
 	//鼠标消息处理
 	bool mouseHandler();
 
 	//控制输入
-	static void sendKeyEvent(UINT vkCode);
+	static void sendKeyEvent(UINT vkCode, int times = 1);
 
 	void inputSpace(int num = 1);
 	void wrapSpace();
@@ -61,6 +56,13 @@ public:
 	void setCtrlDown(bool value);
 	bool isCtrlDown() const;
 
+#ifdef Q_OS_WIN
+	//Windows键盘消息处理
+	static LRESULT CALLBACK keyProc(int nCode, WPARAM wParam, LPARAM lParam);
+	//Windows鼠标消息处理
+	static LRESULT CALLBACK mouseProc(int nCode, WPARAM wParam, LPARAM lParam);
+#endif
+
 private:
 	bool isDisabled() const;
 	void setEnabled();
@@ -71,7 +73,8 @@ private:
 
 	void clearCurrentLine();
 	void recordChar(QChar ch);
-	QChar prevChar() const;
+	void removeLastChar();
+	QChar prevChar(int i = 1) const;
 	QChar curChar() const;
 
 	HHOOK key_hook;
@@ -79,6 +82,7 @@ private:
 
 	QString current_line;
 	int current_span;
+
 	bool keyboard_hooked;
 	bool mouse_hooked;
 
