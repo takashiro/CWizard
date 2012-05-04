@@ -23,7 +23,7 @@
     </message>
     <message>
         <location filename="../src/dialog/mainwindow.ui" line="40"/>
-        <location filename="../src/dialog/mainwindow.cpp" line="114"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="119"/>
         <source>Power On</source>
         <translation></translation>
     </message>
@@ -48,7 +48,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.cpp" line="118"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="123"/>
         <source>Power Off</source>
         <translation></translation>
     </message>
@@ -180,11 +180,19 @@
     </message>
 </context>
 <context>
+    <name>StatDialog</name>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="20"/>
+        <source>Statistics</source>
+        <translation>统计信息</translation>
+    </message>
+</context>
+<context>
     <name>StylerWindow</name>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="20"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="201"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="315"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="322"/>
         <source>CStyler</source>
         <translation></translation>
     </message>
@@ -339,17 +347,17 @@
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="367"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Redo</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="375"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Undo</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="383"/>
         <source>To HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>To HTML</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="13"/>
@@ -368,12 +376,17 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="179"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="344"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="354"/>
         <source>Open File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="213"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="192"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.cpp" line="220"/>
         <source>Save File</source>
         <translation></translation>
     </message>
@@ -440,6 +453,15 @@
         <location filename="../src/ui/tray.cpp" line="65"/>
         <source>Welcome to </source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>Writer</name>
+    <message>
+        <location filename="../src/core/writer.cpp" line="173"/>
+        <location filename="../src/core/writer.cpp" line="184"/>
+        <source>CodeStyleError:bioperator</source>
+        <translation>Please wrap bioperators with spaces.</translation>
     </message>
 </context>
 </TS>
