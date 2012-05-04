@@ -1,6 +1,7 @@
 #include "cwizard.h"
 #include "styler.h"
 #include "writer.h"
+#include "stats.h"
 
 #include <QApplication>
 
@@ -20,6 +21,9 @@ CWizard::CWizard()
 	styler = Styler::getInstance();
 	setting = new QSettings("config.ini", QSettings::IniFormat);
 	writer = Writer::getInstance();
+	stats = Stats::getInstance();
+
+	//connect(writer, SIGNAL(styleWarning(HabitType)), stats, SLOT(updateTodayLog(HabitType)));
 
 	Wizard = instance = this;
 
@@ -32,6 +36,7 @@ CWizard::~CWizard(){
 	delete setting;
 	delete styler;
 	delete writer;
+	delete stats;
 }
 
 CWizard *CWizard::getInstance(){
@@ -48,14 +53,6 @@ QVariant CWizard::getSetting(const QString &key, const QVariant &defaultValue) c
 
 void CWizard::setSetting(const QString &key, const QVariant &value){
 	this->setting->setValue(key, value);
-}
-
-Styler *CWizard::getStyler() const{
-	return styler;
-}
-
-Writer *CWizard::getWriter() const{
-	return writer;
 }
 
 QString CWizard::getAppName() const{
