@@ -9,11 +9,10 @@ enum FileMode{
 	Java
 };
 
-struct WritingHabit{
-	int bioperator;
-	int comma;
-
-	int total;
+enum HabitType{
+	Bioperator,
+	Comma,
+	Brace
 };
 
 #endif // STRUCTS_H
