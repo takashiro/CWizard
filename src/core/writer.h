@@ -5,6 +5,9 @@
 #include <QObject>
 #include <QtCore>
 
+#include "structs.h"
+#include "writinghabit.h"
+
 #ifdef Q_OS_WIN
 	#include <windows.h>
 #endif
@@ -91,8 +94,12 @@ private:
 	bool ctrl_down;
 	bool is_disabled;
 
+private slots:
+	void convertStyleWarning(HabitType type);
+
 signals:
-	void styleWarning(QString msg);
+	void styleWarning(HabitType type);
+	void styleWarning(QString str);
 };
 
 extern Writer *writer;

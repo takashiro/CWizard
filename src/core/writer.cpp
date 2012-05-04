@@ -19,6 +19,8 @@ Writer::Writer(){
 	is_disabled = false;
 
 	writer = this;
+
+	connect(this, SIGNAL(styleWarning(HabitType)), this, SLOT(convertStyleWarning(HabitType)));
 }
 
 Writer::~Writer(){
@@ -170,7 +172,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 					}while(!tmp.isNull() && tmp.isSymbol());
 
 					if(!tmp.isNull() && !tmp.isSpace()){
-						emit styleWarning(tr("CodeStyleError:bioperator"));
+						emit styleWarning("bioperator");
 
 						setDisabled();
 						sendKeyEvent(VK_LEFT, i);
@@ -181,7 +183,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 						setEnabled();
 					}
 				}else if(!tmp.isSpace()){
-					emit styleWarning(tr("CodeStyleError:bioperator"));
+					emit styleWarning("bioperator");
 
 					setDisabled();
 					sendKeyEvent(VK_LEFT, 2);
@@ -303,4 +305,19 @@ QChar Writer::curChar() const{
 
 void Writer::clearCurrentLine(){
 	current_line.clear();
+}
+
+void Writer::convertStyleWarning(HabitType type){
+	switch(type){
+	case Bioperator:
+		emit styleWarning("Code Style Error: Bioperator");
+		break;
+	case Comma:
+		emit styleWarning("Code Style Error: Comma");
+		break;
+	case Brace:
+		emit styleWarning("Code Style Error: Brace");
+		break;
+	default:;
+	}
 }
