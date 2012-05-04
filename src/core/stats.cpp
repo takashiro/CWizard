@@ -9,11 +9,7 @@ Stats::Stats(){
 	stats = this;
 
 	QString date = QDate::currentDate().toString(Qt::ISODate);
-	QFile file("./log/" + date + ".dat");
-	file.open(QFile::ReadOnly);
-	data[date] = WritingHabit::fromString(QString::fromLocal8Bit(file.readAll()));
-	file.close();
-
+	loadData(date);
 	today = &data[date];
 }
 
@@ -72,6 +68,28 @@ QMap<QString, WritingHabit> Stats::getLogs() const{
 	return data;
 }
 
-WritingHabit Stats::getLog(QString date) const{
-	return data.value(date);
+WritingHabit Stats::getLog(QString date){
+	if(data.contains(date)){
+		return data.value(date);
+	}else if(loadData(date)){
+		return data.value(date);
+	}
+
+	return WritingHabit();
+}
+
+WritingHabit Stats::getTodayLog() const{
+	return *today;
+}
+
+bool Stats::loadData(QString date){
+	if(QFile::exists("./data/" + date + ".dat")){
+		QFile file("./log/" + date + ".dat");
+		file.open(QFile::ReadOnly);
+		data[date] = WritingHabit::fromString(QString::fromLocal8Bit(file.readAll()));
+		file.close();
+		return true;
+	}else{
+		return false;
+	}
 }

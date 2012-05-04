@@ -172,7 +172,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 					}while(!tmp.isNull() && tmp.isSymbol());
 
 					if(!tmp.isNull() && !tmp.isSpace()){
-						emit styleWarning("bioperator");
+						emit styleWarning(Bioperator);
 
 						setDisabled();
 						sendKeyEvent(VK_LEFT, i);
@@ -183,7 +183,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 						setEnabled();
 					}
 				}else if(!tmp.isSpace()){
-					emit styleWarning("bioperator");
+					emit styleWarning(Bioperator);
 
 					setDisabled();
 					sendKeyEvent(VK_LEFT, 2);

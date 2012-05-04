@@ -23,7 +23,7 @@ CWizard::CWizard()
 	writer = Writer::getInstance();
 	stats = Stats::getInstance();
 
-	//connect(writer, SIGNAL(styleWarning(HabitType)), stats, SLOT(updateTodayLog(HabitType)));
+	connect(writer, SIGNAL(styleWarning(HabitType)), stats, SLOT(updateTodayLog(HabitType)));
 
 	Wizard = instance = this;
 

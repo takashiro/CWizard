@@ -21,8 +21,10 @@ public:
 	bool uploadLogs() const;
 
 	QMap<QString, WritingHabit> getLogs() const;
-	WritingHabit getLog(QString date) const;
+	WritingHabit getLog(QString date);
 	WritingHabit getTodayLog() const;
+
+	bool loadData(QString date);
 
 public slots:
 	void updateTodayLog(HabitType type);
