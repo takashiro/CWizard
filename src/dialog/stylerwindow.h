@@ -27,7 +27,6 @@ private:
     static const QString extFilters;	//可用扩展名
 	QSettings *setting;					//配置信息
 	FileMode mode;
-	Styler *styler;
 
 public:
 	explicit StylerWindow(QWidget *parent = 0);

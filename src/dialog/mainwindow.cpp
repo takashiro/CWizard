@@ -111,7 +111,6 @@ void MainWindow::on_hide_clicked(){
 }
 
 void MainWindow::on_powerOn_clicked(){
-	static Writer *writer = Writer::getInstance();
 	static Tray *tray = Tray::getInstance();
 
 	if(writer->isKeyboardHooked()){
