@@ -21,4 +21,6 @@ private:
 	QMap<QString, WritingHabit> data;
 };
 
+extern Stats *stats;
+
 #endif // STATS_H
