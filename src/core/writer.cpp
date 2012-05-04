@@ -1,6 +1,6 @@
 #include "writer.h"
 
-#ifdef Q_OS_WIN32
+Writer *writer = NULL;
 
 const char Writer::keyHookEnabled = 0x01;
 const char Writer::mouseHookEnabled = 0x02;
@@ -17,6 +17,8 @@ Writer::Writer(){
 	mouse_hooked = false;
 
 	is_disabled = false;
+
+	writer = this;
 }
 
 Writer::~Writer(){
@@ -48,13 +50,13 @@ void Writer::setHook(char args){
 
 void Writer::unsetHook(char args){
 	if((args & keyHookEnabled) == keyHookEnabled){
-		UnhookWindowsHookEx(this->key_hook);
-		this->keyboard_hooked = false;
+		UnhookWindowsHookEx(key_hook);
+		keyboard_hooked = false;
 	}
 
 	if((args & mouseHookEnabled) == mouseHookEnabled){
-		UnhookWindowsHookEx(this->mouse_hook);
-		this->mouse_hooked = false;
+		UnhookWindowsHookEx(mouse_hook);
+		mouse_hooked = false;
 	}
 }
 
@@ -72,87 +74,125 @@ LRESULT CALLBACK Writer::keyProc(int nCode, WPARAM wParam, LPARAM lParam){
 		return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);;
 	}
 
+	/*const DWORD tid = GetWindowThreadProcessId(GetForegroundWindow(), NULL);
+    AttachThreadInput(tid, GetCurrentThreadId(), true);
+    HWND hwnd = GetFocus();
+	WCHAR text[255];
+	GetWindowText(hwnd, text, sizeof(text));
+	qWarning("Title:%s", QString::fromWCharArray(text).toStdString().c_str());*/
+
 	//在WH_KEYBOARD_LL模式下lParam 是指向KBDLLHOOKSTRUCT类型地址
 	KBDLLHOOKSTRUCT *key = (KBDLLHOOKSTRUCT *) lParam;
-	if(wParam == WM_KEYDOWN){
-		switch(key->vkCode){
+
+	qWarning("vkCode: %d", (int) key->vkCode);
+
+	//转换为ASCII
+	if(wParam == WM_KEYUP){
+		BYTE buffer[300] = {0};
+		WORD ch;
+		GetKeyboardState(buffer);
+		ToAscii(key->vkCode, key->scanCode, buffer, &ch, 0);
+		writer->recordChar(QChar::fromAscii(ch));
+	}
+
+	bool result = writer->keyHandler(wParam == WM_KEYDOWN ? Writer::KeyDown : Writer::KeyUp, key->vkCode);
+	if(!result){
+		return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);
+	}else{
+		return 1;
+	}
+}
+
+LRESULT CALLBACK Writer::mouseProc(int nCode, WPARAM wParam, LPARAM lParam){
+	Writer *writer = Writer::getInstance();
+	if(nCode < 0 || writer->isDisabled()){
+		return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);;
+	}
+
+	writer->clearCurrentLine();
+
+	return CallNextHookEx(writer->mouse_hook, nCode, wParam, lParam);
+}
+
+bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
+	QChar ch = curChar();
+	if(event == KeyDown){
+		switch(key){
 		//键盘状态控制
 		case VK_SHIFT:case VK_LSHIFT:case VK_RSHIFT:
-			writer->setShiftDown(true);
-			goto EndReturn;
+			setShiftDown(true);
+			return false;
 		case VK_CONTROL:case VK_MENU:
-			writer->setCtrlDown(true);
-			goto EndReturn;
+			setCtrlDown(true);
+			return false;
 		}
 
-		if(!writer->isShiftDown()){
-			switch(key->vkCode){
+		if(!isShiftDown()){
+			switch(key){
 			//双元运算符
 			case 107:case 109:case 110:case 111://小键盘四则运算
 			case 191:case 187:case 189:
-				writer->setDisabled();
-				writer->inputSpace(1);
-				writer->sendKeyEvent(key->vkCode);
-				writer->inputSpace(1);
-				writer->setEnabled();
-				return 1;
+				if(!ch.isSpace()){
+					emit styleWarning(tr("CodeStyleError:bioperator"));
+					setDisabled();
+					inputSpace(1);
+					sendKeyEvent(key);
+					inputSpace(1);
+					setEnabled();
+					return true;
+				}
 			}
 		}else{
 
 		}
 
 	}else{
-		switch(key->vkCode){
+		switch(key){
 		//键盘状态控制
 		case VK_SHIFT:case VK_LSHIFT:case VK_RSHIFT:
-			writer->setShiftDown(false);
+			setShiftDown(false);
 			break;
 		case VK_CONTROL:case VK_MENU:
-			writer->setCtrlDown(false);
+			setCtrlDown(false);
 			break;
 		}
 
-		if(writer->isCtrlDown()){
-			goto EndReturn;
+		if(isCtrlDown()){
+			return false;
 		}
 
-		if(!writer->isShiftDown()){
-			switch(key->vkCode){
+		/*
+		if(!isShiftDown()){
+			switch(key){
 			//逗号运算符
 			case 188:
-				writer->inputSpace();
+				inputSpace();
 				break;
 
 			case 186:
-				writer->createNewLine();
+				createNewLine();
 			}
 		}else{
-			switch(key->vkCode){
+			switch(key){
 			case 219://左侧大括号
-				writer->changeCurrentSpan(1);
-				writer->createNewLine();
+				changeCurrentSpan(1);
+				createNewLine();
 				break;
 
 			case 221://右侧大括号
-				writer->setDisabled();
-				writer->changeCurrentSpan(-1);
-				writer->sendKeyEvent(VK_LEFT);
-				writer->sendKeyEvent(VK_LEFT);
-				writer->sendKeyEvent(221);
-				writer->sendKeyEvent(VK_RETURN);
-				writer->setEnabled();
+				setDisabled();
+				changeCurrentSpan(-1);
+				sendKeyEvent(VK_LEFT);
+				sendKeyEvent(VK_LEFT);
+				sendKeyEvent(221);
+				sendKeyEvent(VK_RETURN);
+				setEnabled();
 				break;
 			}
-		}
+		}*/
 	}
 
-	qWarning("%d", (int)key->vkCode);
-
-	EndReturn:return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);;
-}
-
-LRESULT CALLBACK Writer::mouseProc(int nCode,WPARAM wParam,LPARAM lParam){
-	return 0;
+	return false;
 }
 
 void Writer::inputSpace(int num){
@@ -161,7 +201,7 @@ void Writer::inputSpace(int num){
 	}
 
 	while(num-- > 0){
-		Writer::sendKeyEvent(VK_SPACE);
+		sendKeyEvent(VK_SPACE);
 	}
 }
 
@@ -170,16 +210,16 @@ void Writer::inputTab(int num){
 		num = current_span;
 	}
 	while(num-- > 0){
-		Writer::sendKeyEvent(VK_TAB);
+		sendKeyEvent(VK_TAB);
 	}
 }
 
 void Writer::createNewLine(){
-	Writer::sendKeyEvent(VK_RETURN);
+	sendKeyEvent(VK_RETURN);
 
 	int	num = current_span;
 	while(num-- > 0){
-		Writer::sendKeyEvent(VK_TAB);
+		sendKeyEvent(VK_TAB);
 	}
 }
 
@@ -190,10 +230,10 @@ void Writer::sendKeyEvent(UINT vkCode){
 }
 
 void Writer::wrapSpace(){
-	Writer::sendKeyEvent(VK_LEFT);
-	Writer::sendKeyEvent(VK_SPACE);
-	Writer::sendKeyEvent(VK_RIGHT);
-	Writer::sendKeyEvent(VK_SPACE);
+	sendKeyEvent(VK_LEFT);
+	sendKeyEvent(VK_SPACE);
+	sendKeyEvent(VK_RIGHT);
+	sendKeyEvent(VK_SPACE);
 }
 
 void Writer::setShiftDown(bool value){
@@ -232,4 +272,24 @@ void Writer::setDisabled(){
 	is_disabled = true;
 }
 
-#endif
+void Writer::recordChar(QChar ch){
+	current_line.append(ch);
+
+	if(current_line.length() > 100){
+		current_line.remove(0, 1);
+	}
+
+	qWarning("char: %c", ch.toAscii());
+}
+
+QChar Writer::prevChar() const{
+	return current_line.at(current_line.length() - 2);
+}
+
+QChar Writer::curChar() const{
+	return current_line.at(current_line.length() - 1);
+}
+
+void Writer::clearCurrentLine(){
+	current_line.clear();
+}

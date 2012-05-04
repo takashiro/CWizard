@@ -2,10 +2,27 @@
 #define WRITER_H
 
 #include <QString>
-#include <windows.h>
+#include <QObject>
+#include <QtCore>
 
-class Writer{
+#ifdef Q_OS_WIN
+	#include <windows.h>
+#endif
+
+#ifdef Q_OS_LINUX
+	//#include
+#endif
+
+#ifdef Q_OS_MAC
+	//#include
+#endif
+
+class Writer: public QObject{
+	Q_OBJECT
+
 public:
+	enum KeyEvent{KeyDown, KeyUp};
+
 	Writer();
 	~Writer();
 	static Writer *getInstance();
@@ -15,10 +32,15 @@ public:
 	bool isKeyboardHooked() const;
 	bool isMouseHooked() const;
 
-	//键盘消息处理
+	//Windows键盘消息处理
 	static LRESULT CALLBACK keyProc(int nCode, WPARAM wParam, LPARAM lParam);
-	//鼠标消息处理
+	//Windows鼠标消息处理
 	static LRESULT CALLBACK mouseProc(int nCode, WPARAM wParam, LPARAM lParam);
+
+	//键盘消息处理
+	bool keyHandler(Writer::KeyEvent event, unsigned int key);
+	//鼠标消息处理
+	bool mouseHandler();
 
 	//控制输入
 	static void sendKeyEvent(UINT vkCode);
@@ -39,6 +61,7 @@ public:
 	void setCtrlDown(bool value);
 	bool isCtrlDown() const;
 
+private:
 	bool isDisabled() const;
 	void setEnabled();
 	void setDisabled();
@@ -46,8 +69,11 @@ public:
 	int currentSpan() const;
 	void changeCurrentSpan(int change);
 
+	void clearCurrentLine();
+	void recordChar(QChar ch);
+	QChar prevChar() const;
+	QChar curChar() const;
 
-private:
 	HHOOK key_hook;
 	HHOOK mouse_hook;
 
@@ -60,6 +86,11 @@ private:
 	bool shift_down;
 	bool ctrl_down;
 	bool is_disabled;
+
+signals:
+	void styleWarning(QString msg);
 };
+
+extern Writer *writer;
 
 #endif // WRITER_H

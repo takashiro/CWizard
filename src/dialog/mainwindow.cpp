@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 	this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+	this->setFocusPolicy(Qt::NoFocus);
 
 	stylerWindow = StylerWindow::getInstance();
 
@@ -32,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	tray = Tray::getInstance(this);
 	connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
+	connect(writer, SIGNAL(styleWarning(QString)), tray, SLOT(alertError(QString)));
 	tray->show();
 
 	aboutusDialog = NULL;
