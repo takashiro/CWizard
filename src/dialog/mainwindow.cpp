@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 	this->setFocusPolicy(Qt::NoFocus);
+	this->setAttribute(Qt::WA_TranslucentBackground, true);
 
 	stylerWindow = StylerWindow::getInstance();
 
@@ -115,11 +116,13 @@ void MainWindow::on_powerOn_clicked(){
 
 	if(writer->isKeyboardHooked()){
 		writer->unsetHook();
-		ui->powerOn->setText(tr("Power On"));
+		ui->powerOn->setToolTip(tr("Power On"));
+		ui->powerOn->setIcon(QIcon("./image/rewrite_disabled.png"));
 		tray->setPowerOnText(true);
 	}else{
 		writer->setHook();
-		ui->powerOn->setText(tr("Power Off"));
+		ui->powerOn->setToolTip(tr("Power Off"));
+		ui->powerOn->setIcon(QIcon("./image/rewrite.png"));
 		tray->setPowerOnText(false);
 	}
 }
