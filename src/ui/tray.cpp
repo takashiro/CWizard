@@ -14,7 +14,7 @@ Tray::Tray(QWidget *mainWindow){
 	contextMenu->addSeparator();
 
 	contextMenu->addAction(tr("Popup Bar"), mainWindow, SLOT(show()));
-	contextMenu->addAction(tr("CStyler"), mainWindow, SLOT(showStyler()));
+	contextMenu->addAction(tr("CStyler"), mainWindow, SLOT(on_cstyler_clicked()));
 
 	contextMenu->addSeparator();
 
