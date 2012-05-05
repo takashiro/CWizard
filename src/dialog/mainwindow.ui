@@ -93,8 +93,18 @@
     <property name="focusPolicy">
      <enum>Qt::NoFocus</enum>
     </property>
-    <property name="text">
+    <property name="toolTip">
      <string>Hide</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>image/hide.png</normaloff>image/hide.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QToolButton" name="cstyler">
@@ -113,7 +123,20 @@
      <string notr="true"/>
     </property>
     <property name="text">
+     <string />
+    </property>
+    <property name="toolTip">
      <string>CStyler</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>image/cstyler.png</normaloff>image/cstyler.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="stat">
