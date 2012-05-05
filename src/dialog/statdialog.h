@@ -2,6 +2,7 @@
 #define STATDIALOG_H
 
 #include <QDialog>
+#include <QDate>
 
 #include "ui/statgraphics.h"
 
@@ -16,6 +17,9 @@ class StatDialog : public QDialog
 public:
     explicit StatDialog(QWidget *parent = 0);
     ~StatDialog();
+
+public slots:
+	void setLabels(QDate date);
 
 private:
     Ui::StatDialog *ui;
