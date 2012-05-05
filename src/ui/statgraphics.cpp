@@ -25,9 +25,9 @@ void StatGraphics::loadFile(QFile &file){
 void StatGraphics::setLabels(QMap<QString, int> &labels){
 	clear();
 
-	const int width = 20;
+	const int width = 40;
 	int x = 0;
-	int maxHeight = 0;
+	int maxHeight = 1;
 	int height;
 
 	QMapIterator<QString, int> i(labels);
@@ -43,11 +43,13 @@ void StatGraphics::setLabels(QMap<QString, int> &labels){
 	while(i.hasNext()){
 		i.next();
 
-		height = i.value();
+		height = 40.0 / maxHeight * i.value();
 		QGraphicsRectItem *item = addRect(x, -height, width, height);
 		QGraphicsSimpleTextItem *text = addSimpleText(i.key());
 		text->setPos(x - 5, 10 - item->y());
+		QGraphicsSimpleTextItem *number = addSimpleText(QString("%1").arg(i.value()) + tr("time(s)"));
+		number->setPos(x - 5, 23 - item->y());
 
-		x += width + 30;
+		x += width + 50;
 	}
 }

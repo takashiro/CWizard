@@ -34,7 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	tray = Tray::getInstance(this);
 	connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
-	connect(writer, SIGNAL(styleWarning(QString)), tray, SLOT(alertError(QString)));
+	if(!Wizard->getSetting("rewrite/silentMode").toBool()){
+		connect(writer, SIGNAL(styleWarning(QString)), tray, SLOT(alertError(QString)));
+	}
 	tray->show();
 
 	aboutusDialog = NULL;
