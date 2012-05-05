@@ -25,13 +25,14 @@ class Writer: public QObject{
 
 public:
 	enum KeyEvent{KeyDown, KeyUp};
+	enum WritingStatus{None, InQuote1, InQuote2, InIf, InComment};
 
 	Writer();
 	~Writer();
 	static Writer *getInstance();
 
-	void setHook(char args = Writer::keyHookEnabled);		//开启全局钩子
-	void unsetHook(char args = Writer::keyHookEnabled);		//关闭全局钩子
+	void setHook(char args = 0xF);			//开启全局钩子
+	void unsetHook(char args = 0xF);		//关闭全局钩子
 	bool isKeyboardHooked() const;
 	bool isMouseHooked() const;
 
@@ -93,6 +94,9 @@ private:
 	bool shift_down;
 	bool ctrl_down;
 	bool is_disabled;
+
+	//书写状态
+	WritingStatus writing_status;
 
 private slots:
 	void convertStyleWarning(HabitType type);

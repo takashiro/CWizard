@@ -40,12 +40,16 @@ Writer *Writer::getInstance(){
 
 void Writer::setHook(char args){
 	if((args & keyHookEnabled) == keyHookEnabled){
+#ifdef Q_OS_WIN
 		key_hook = SetWindowsHookEx(WH_KEYBOARD_LL, Writer::keyProc, GetModuleHandle(NULL), 0);
+#endif
 		keyboard_hooked = true;
 	}
 
 	if((args & mouseHookEnabled) == mouseHookEnabled){
+#ifdef Q_OS_WIN
 		mouse_hook = SetWindowsHookEx(WH_MOUSE_LL, Writer::mouseProc, GetModuleHandle(NULL), 0);
+#endif
 		mouse_hooked = false;
 	}
 }
@@ -193,6 +197,18 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 					sendKeyEvent(VK_RIGHT);
 					setEnabled();
 				}
+			}else if(pre == ',' && cur != ' '){
+				emit styleWarning(Comma);
+
+				setDisabled();
+				sendKeyEvent(VK_LEFT);
+				inputSpace(1);
+				sendKeyEvent(VK_RIGHT);
+				setEnabled();
+			}else if(cur == '"'){
+
+			}else if(cur == '\''){
+
 			}
 		}else{
 
@@ -287,8 +303,6 @@ void Writer::recordChar(QChar ch){
 	if(current_line.length() > 100){
 		current_line.remove(0, 1);
 	}
-
-	//qWarning("char: %c", ch.toAscii());
 }
 
 void Writer::removeLastChar(){
@@ -305,18 +319,19 @@ QChar Writer::curChar() const{
 
 void Writer::clearCurrentLine(){
 	current_line.clear();
+	writing_status = None;
 }
 
 void Writer::convertStyleWarning(HabitType type){
 	switch(type){
 	case Bioperator:
-		emit styleWarning("Code Style Error: Bioperator");
+		emit styleWarning(tr("Code Style Error: Bioperator"));
 		break;
 	case Comma:
-		emit styleWarning("Code Style Error: Comma");
+		emit styleWarning(tr("Code Style Error: Comma"));
 		break;
 	case Brace:
-		emit styleWarning("Code Style Error: Brace");
+		emit styleWarning(tr("Code Style Error: Brace"));
 		break;
 	default:;
 	}
