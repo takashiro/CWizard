@@ -77,6 +77,8 @@ void SettingDialog::loadSetting(QSettings *setting){
 
 	ui->autoStart->setChecked(setting->value("autoStart").toBool());
 	ui->autoUpdate->setChecked(setting->value("autoUpdate").toBool());
+
+	ui->silentMode->setChecked(setting->value("rewrite/silentMode").toBool());
 }
 
 void SettingDialog::saveSetting(){
@@ -109,6 +111,8 @@ void SettingDialog::saveSetting(){
 
 	setting->setValue("autoStart", ui->autoStart->isChecked());
 	setting->setValue("autoUpdate", ui->autoUpdate->isChecked());
+
+	setting->setValue("rewrite/silentMode", ui->silentMode->isChecked());
 }
 
 void SettingDialog::on_buttonBox_clicked(QAbstractButton* button){
