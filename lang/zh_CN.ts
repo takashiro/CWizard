@@ -191,11 +191,38 @@
         <source>Statistics</source>
         <translation>统计</translation>
     </message>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="52"/>
+        <source>Stat Date</source>
+        <translation>统计日期</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="65"/>
+        <source>a week</source>
+        <translation>最近7天</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="68"/>
+        <location filename="../src/dialog/statdialog.ui" line="84"/>
+        <location filename="../src/dialog/statdialog.ui" line="100"/>
+        <source>statOption</source>
+        <translation>统计选项</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="81"/>
+        <source>a month</source>
+        <translation>最近30天</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/statdialog.ui" line="97"/>
+        <source>a day</source>
+        <translation type="unfinished">单日</translation>
+    </message>
 </context>
 <context>
     <name>StatGraphics</name>
     <message>
-        <location filename="../src/ui/statgraphics.cpp" line="50"/>
+        <location filename="../src/ui/statgraphics.cpp" line="61"/>
         <source>time(s)</source>
         <translation>次</translation>
     </message>
