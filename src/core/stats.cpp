@@ -83,7 +83,7 @@ WritingHabit Stats::getTodayLog() const{
 }
 
 bool Stats::loadData(QString date){
-	if(QFile::exists("./data/" + date + ".dat")){
+	if(QFile::exists("./log/" + date + ".dat")){
 		QFile file("./log/" + date + ".dat");
 		file.open(QFile::ReadOnly);
 		data[date] = WritingHabit::fromString(QString::fromLocal8Bit(file.readAll()));
