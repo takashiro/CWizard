@@ -1,9 +1,15 @@
 #include "statgraphics.h"
 
 StatGraphics::StatGraphics(QObject *parent) :
-	QGraphicsScene(parent)
+	QGraphicsScene(parent),
+	item_width(40),
+	item_height(140)
 {
-
+	g.setStart(0, 0);
+	g.setFinalStop(item_width * 1.5, 0);
+	g.setColorAt(0, Qt::white);
+	g.setColorAt(1, QColor(0x29,0xBD, 0xDF));
+	g.setSpread(QGradient::RepeatSpread);
 }
 
 void StatGraphics::loadData(QString &data){
@@ -25,7 +31,6 @@ void StatGraphics::loadFile(QFile &file){
 void StatGraphics::setLabels(QMap<QString, int> &labels){
 	clear();
 
-	const int width = 40;
 	int x = 0;
 	int maxHeight = 1;
 	int height;
@@ -39,17 +44,23 @@ void StatGraphics::setLabels(QMap<QString, int> &labels){
 		}
 	}
 
+	QGraphicsRectItem *item;
+	QGraphicsSimpleTextItem *text;
+
 	i.toFront();
 	while(i.hasNext()){
 		i.next();
 
-		height = 40.0 / maxHeight * i.value();
-		QGraphicsRectItem *item = addRect(x, -height, width, height);
-		QGraphicsSimpleTextItem *text = addSimpleText(i.key());
-		text->setPos(x - 5, 10 - item->y());
-		QGraphicsSimpleTextItem *number = addSimpleText(QString("%1").arg(i.value()) + tr("time(s)"));
-		number->setPos(x - 5, 23 - item->y());
+		height = (float) item_height / maxHeight * i.value();
+		item = addRect(x, -height, item_width, height);
+		item->setBrush(QBrush(g));
 
-		x += width + 50;
+		text = addSimpleText(i.key());
+		text->setPos(x - 5, 10 - item->y());
+
+		text = addSimpleText(QString("%1").arg(i.value()) + tr("time(s)"));
+		text->setPos(x - 5, 23 - item->y());
+
+		x += item_width + 50;
 	}
 }

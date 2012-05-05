@@ -20,6 +20,9 @@ public:
 
 public slots:
 	void setLabels(QDate date);
+	void showLastNDays(int days);
+	void showLastWeek();
+	void showLastMonth();
 
 private:
     Ui::StatDialog *ui;

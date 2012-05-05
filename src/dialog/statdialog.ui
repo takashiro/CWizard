@@ -22,17 +22,17 @@
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>4</x>
-     <y>36</y>
-     <width>501</width>
-     <height>281</height>
+     <x>9</x>
+     <y>40</y>
+     <width>491</width>
+     <height>271</height>
     </rect>
    </property>
   </widget>
   <widget class="QDateEdit" name="dateEdit">
    <property name="geometry">
     <rect>
-     <x>66</x>
+     <x>70</x>
      <y>8</y>
      <width>110</width>
      <height>22</height>
@@ -49,7 +49,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>统计日期</string>
+    <string>Stat Date</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="week">
@@ -62,7 +62,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>最近7天</string>
+    <string>a week</string>
    </property>
    <attribute name="buttonGroup">
     <string>statOption</string>
@@ -78,23 +78,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>最近30天</string>
-   </property>
-   <attribute name="buttonGroup">
-    <string>statOption</string>
-   </attribute>
-  </widget>
-  <widget class="QRadioButton" name="all">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>10</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>全部</string>
+    <string>a month</string>
    </property>
    <attribute name="buttonGroup">
     <string>statOption</string>
@@ -103,14 +87,14 @@
   <widget class="QRadioButton" name="day">
    <property name="geometry">
     <rect>
-     <x>243</x>
+     <x>240</x>
      <y>10</y>
      <width>51</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>单日</string>
+    <string>a day</string>
    </property>
    <attribute name="buttonGroup">
     <string>statOption</string>

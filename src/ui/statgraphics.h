@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QMap>
 
+
 class StatGraphics : public QGraphicsScene
 {
     Q_OBJECT
@@ -17,6 +18,12 @@ public:
 	void loadFile(QFile &file);
 
 	void setLabels(QMap<QString, int> &labels);
+
+private:
+	const int item_width;
+	const int item_height;
+
+	QLinearGradient g;
 };
 
 #endif // STATGRAPHICS_H
