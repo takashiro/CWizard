@@ -12,43 +12,43 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="14"/>
+        <location filename="../src/dialog/mainwindow.ui" line="17"/>
         <source>MainWindow</source>
         <translation>主窗口</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="27"/>
+        <location filename="../src/dialog/mainwindow.ui" line="39"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="40"/>
-        <location filename="../src/dialog/mainwindow.cpp" line="119"/>
+        <location filename="../src/dialog/mainwindow.ui" line="68"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="121"/>
         <source>Power On</source>
         <translation>开启改写</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="53"/>
+        <location filename="../src/dialog/mainwindow.ui" line="97"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="79"/>
-        <source>Stats</source>
-        <translation>统计</translation>
+        <location filename="../src/dialog/mainwindow.ui" line="155"/>
+        <source>Statistics</source>
+        <translation>统计(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="92"/>
+        <location filename="../src/dialog/mainwindow.ui" line="184"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="66"/>
+        <location filename="../src/dialog/mainwindow.ui" line="129"/>
         <source>CStyler</source>
         <translation>CStyler</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.cpp" line="123"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="126"/>
         <source>Power Off</source>
         <translation>关闭改写</translation>
     </message>
@@ -134,32 +134,37 @@
         <translation>忽略全大写的标识符</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="251"/>
+        <location filename="../src/dialog/settingdialog.ui" line="258"/>
+        <source>Do not alert me when code style is corrected</source>
+        <translation>代码风格改写后不弹出提示</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/settingdialog.ui" line="264"/>
         <source>Global</source>
         <translation>全局</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="263"/>
+        <location filename="../src/dialog/settingdialog.ui" line="276"/>
         <source>Display Popup Tool Bar on start</source>
         <translation>启动后立即显示浮动工具条</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="314"/>
+        <location filename="../src/dialog/settingdialog.ui" line="327"/>
         <source>Display Language</source>
         <translation>显示语言</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="327"/>
+        <location filename="../src/dialog/settingdialog.ui" line="340"/>
         <source>Auto start CWizard on system start</source>
         <translation>系统启动时自动开启CWizard</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="340"/>
+        <location filename="../src/dialog/settingdialog.ui" line="353"/>
         <source>Check up for updates</source>
         <translation>自动检查可用的更新</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="353"/>
+        <location filename="../src/dialog/settingdialog.ui" line="366"/>
         <source>Show CStyler on start</source>
         <translation>启动时显示CStyler</translation>
     </message>
@@ -184,7 +189,15 @@
     <message>
         <location filename="../src/dialog/statdialog.ui" line="20"/>
         <source>Statistics</source>
-        <translation>统计(&amp;A)</translation>
+        <translation>统计</translation>
+    </message>
+</context>
+<context>
+    <name>StatGraphics</name>
+    <message>
+        <location filename="../src/ui/statgraphics.cpp" line="50"/>
+        <source>time(s)</source>
+        <translation>次</translation>
     </message>
 </context>
 <context>
@@ -458,10 +471,19 @@
 <context>
     <name>Writer</name>
     <message>
-        <location filename="../src/core/writer.cpp" line="173"/>
-        <location filename="../src/core/writer.cpp" line="184"/>
-        <source>CodeStyleError:bioperator</source>
-        <translation>请在双元运算符两边加上空格</translation>
+        <location filename="../src/core/writer.cpp" line="328"/>
+        <source>Code Style Error: Bioperator</source>
+        <translation>代码风格提示：双元运算符两边记得加上空格哟</translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="331"/>
+        <source>Code Style Error: Comma</source>
+        <translation>代码风格提示：逗号后面要记得加上一个空格呀</translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="334"/>
+        <source>Code Style Error: Brace</source>
+        <translation>左大括号不要另外空行噢</translation>
     </message>
 </context>
 </TS>

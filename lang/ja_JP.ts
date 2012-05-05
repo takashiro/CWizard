@@ -6,51 +6,51 @@
     <message>
         <location filename="../src/dialog/aboutusdialog.ui" line="14"/>
         <source>About Us</source>
-        <translation type="unfinished"></translation>
+        <translation>作成者</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="14"/>
+        <location filename="../src/dialog/mainwindow.ui" line="17"/>
         <source>MainWindow</source>
-        <translation type="unfinished"></translation>
+        <translation>メインウインドウ</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="27"/>
+        <location filename="../src/dialog/mainwindow.ui" line="39"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="40"/>
-        <location filename="../src/dialog/mainwindow.cpp" line="119"/>
+        <location filename="../src/dialog/mainwindow.ui" line="68"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="121"/>
         <source>Power On</source>
-        <translation type="unfinished"></translation>
+        <translation>修正オン</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="53"/>
+        <location filename="../src/dialog/mainwindow.ui" line="97"/>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>隠す</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="79"/>
-        <source>Stats</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/dialog/mainwindow.ui" line="155"/>
+        <source>Statistics</source>
+        <translation>統計</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="92"/>
+        <location filename="../src/dialog/mainwindow.ui" line="184"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>エグジット</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="66"/>
+        <location filename="../src/dialog/mainwindow.ui" line="129"/>
         <source>CStyler</source>
-        <translation type="unfinished"></translation>
+        <translation>CStyler</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.cpp" line="123"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="126"/>
         <source>Power Off</source>
-        <translation type="unfinished"></translation>
+        <translation>修正オッフ</translation>
     </message>
 </context>
 <context>
@@ -58,47 +58,47 @@
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="14"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="49"/>
         <source>Syntax</source>
-        <translation type="unfinished"></translation>
+        <translation>シンタクス</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="61"/>
         <source>Add blanks beside bioperators</source>
-        <translation type="unfinished"></translation>
+        <translation>二重演算子の前後に空白を追加する</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="74"/>
         <source>Keep left brace in the front of a new line</source>
-        <translation type="unfinished"></translation>
+        <translation>新しい行にブレースを置く</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="87"/>
         <source>Add a space after each comma</source>
-        <translation type="unfinished"></translation>
+        <translation>各カンマの後にスペースを追加する</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="100"/>
         <source>Always quote blocks with braces</source>
-        <translation type="unfinished"></translation>
+        <translation>括弧でブロックを囲む</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="113"/>
         <source>Split functions with blank lines</source>
-        <translation type="unfinished"></translation>
+        <translation>空行で分割関数</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="126"/>
         <source>Do not erase the comments</source>
-        <translation type="unfinished"></translation>
+        <translation>コメントを消去しない</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="152"/>
         <source>Camel Case</source>
-        <translation type="unfinished"></translation>
+        <translation>キャメルケース</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="158"/>
@@ -106,77 +106,82 @@
         <location filename="../src/dialog/settingdialog.ui" line="190"/>
         <location filename="../src/dialog/settingdialog.ui" line="206"/>
         <source>syntax_nomenclature</source>
-        <translation type="unfinished"></translation>
+        <translation>シンタクスノメンクラトゥーラ</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="171"/>
         <source>Underline-splitted</source>
-        <translation type="unfinished"></translation>
+        <translation>下線分かれ</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="187"/>
         <source>Pascal</source>
-        <translation type="unfinished"></translation>
+        <translation>パスカル</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="203"/>
         <source>Hungary</source>
-        <translation type="unfinished"></translation>
+        <translation>ハンガリー</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="219"/>
         <source>Nomenclature</source>
-        <translation type="unfinished"></translation>
+        <translation>ノメンクラトゥーラ</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="245"/>
         <source>Skip Upper-case identifiers</source>
+        <translation>大文字の識別子をスキップする</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/settingdialog.ui" line="258"/>
+        <source>Do not alert me when code style is corrected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="251"/>
+        <location filename="../src/dialog/settingdialog.ui" line="264"/>
         <source>Global</source>
-        <translation type="unfinished"></translation>
+        <translation>グローバル</translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="263"/>
+        <location filename="../src/dialog/settingdialog.ui" line="276"/>
         <source>Display Popup Tool Bar on start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/dialog/settingdialog.ui" line="314"/>
-        <source>Display Language</source>
-        <translation type="unfinished"></translation>
+        <translation>起動時にアップツールバーを表示</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="327"/>
-        <source>Auto start CWizard on system start</source>
-        <translation type="unfinished"></translation>
+        <source>Display Language</source>
+        <translation>言語</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="340"/>
-        <source>Check up for updates</source>
-        <translation type="unfinished"></translation>
+        <source>Auto start CWizard on system start</source>
+        <translation>システム起動時に自動起動</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="353"/>
+        <source>Check up for updates</source>
+        <translation>自動更新</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/settingdialog.ui" line="366"/>
         <source>Show CStyler on start</source>
-        <translation type="unfinished"></translation>
+        <translation>開始時にCstylerを表示</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.cpp" line="16"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>確認</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.cpp" line="17"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.cpp" line="18"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>適用</translation>
     </message>
 </context>
 <context>
@@ -184,7 +189,15 @@
     <message>
         <location filename="../src/dialog/statdialog.ui" line="20"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>統計</translation>
+    </message>
+</context>
+<context>
+    <name>StatGraphics</name>
+    <message>
+        <location filename="../src/ui/statgraphics.cpp" line="50"/>
+        <source>time(s)</source>
+        <translation>回</translation>
     </message>
 </context>
 <context>
@@ -194,201 +207,201 @@
         <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="322"/>
         <source>CStyler</source>
-        <translation type="unfinished"></translation>
+        <translation>シースタイル</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="68"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="103"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>エヂット</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="123"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="73"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>支援</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="249"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="169"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>オープン</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="72"/>
         <source>Recent Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>最近のパース</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="81"/>
         <source>Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>最近のファイル</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="130"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>視覚</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="139"/>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>ツール</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="153"/>
         <location filename="../src/dialog/stylerwindow.ui" line="260"/>
         <source>Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>ツールバー</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="181"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>セイブ</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="193"/>
         <source>Save As..</source>
-        <translation type="unfinished"></translation>
+        <translation>セイブアース..</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="201"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>エグジット</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="213"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>フォーマット</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="225"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
         <source>Compress</source>
-        <translation type="unfinished"></translation>
+        <translation>圧縮する</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="237"/>
         <source>Context Help</source>
-        <translation type="unfinished"></translation>
+        <translation>内容支援</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="271"/>
         <source>Lock the Tool Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>ツールバーをロックする</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="280"/>
         <source>Full Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>フールスクリーン</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="285"/>
         <source>About CStyler</source>
-        <translation type="unfinished"></translation>
+        <translation>CStylerの作成者</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="290"/>
         <source>Batch Process</source>
-        <translation type="unfinished"></translation>
+        <translation>バッチ処理</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="299"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>クロス</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="307"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>全選択</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="316"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>コーピー</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="328"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>ペースト</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="340"/>
         <source>Search/Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>検索</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="345"/>
         <source>Editor Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>エディタのリスト</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="354"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>カット</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="362"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
         <source>Tips</source>
-        <translation type="unfinished"></translation>
+        <translation>チップス</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="367"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="375"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="383"/>
         <source>To HTML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="13"/>
         <source>All Types</source>
-        <translation type="unfinished"></translation>
+        <translation>すべてのタイプ</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="20"/>
         <source>Plain Text</source>
-        <translation type="unfinished"></translation>
+        <translation>プレインテキスト</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="21"/>
         <source>Any Files</source>
-        <translation type="unfinished"></translation>
+        <translation>任意のファイル</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="179"/>
         <location filename="../src/dialog/stylerwindow.cpp" line="354"/>
         <source>Open File</source>
-        <translation type="unfinished"></translation>
+        <translation>オープンファイル</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="192"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>エラー</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.cpp" line="220"/>
         <source>Save File</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを保存し</translation>
     </message>
 </context>
 <context>
@@ -397,70 +410,79 @@
         <location filename="../src/ui/tray.cpp" line="11"/>
         <location filename="../src/ui/tray.cpp" line="57"/>
         <source>Power On</source>
-        <translation type="unfinished"></translation>
+        <translation>修正オン</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="16"/>
         <source>Popup Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>ツールバー</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="12"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>統計</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="17"/>
         <source>CStyler</source>
-        <translation type="unfinished"></translation>
+        <translation>CStyler</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="21"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="24"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>支援</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="25"/>
         <source>Context Help</source>
-        <translation type="unfinished"></translation>
+        <translation>内容支援</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="26"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>更新</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="27"/>
         <source>About Us</source>
-        <translation type="unfinished"></translation>
+        <translation>作成者</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="32"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>エグジット</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="55"/>
         <source>Power Off</source>
-        <translation type="unfinished"></translation>
+        <translation>修正オッフ</translation>
     </message>
     <message>
         <location filename="../src/ui/tray.cpp" line="65"/>
         <source>Welcome to </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>Writer</name>
     <message>
-        <location filename="../src/core/writer.cpp" line="173"/>
-        <location filename="../src/core/writer.cpp" line="184"/>
-        <source>CodeStyleError:bioperator</source>
+        <location filename="../src/core/writer.cpp" line="328"/>
+        <source>Code Style Error: Bioperator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="331"/>
+        <source>Code Style Error: Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="334"/>
+        <source>Code Style Error: Brace</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -6,49 +6,49 @@
     <message>
         <location filename="../src/dialog/aboutusdialog.ui" line="14"/>
         <source>About Us</source>
-        <translation></translation>
+        <translation>About Us</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="14"/>
+        <location filename="../src/dialog/mainwindow.ui" line="17"/>
         <source>MainWindow</source>
         <translation>Main Window</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="27"/>
+        <location filename="../src/dialog/mainwindow.ui" line="39"/>
         <source>Settings</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="40"/>
-        <location filename="../src/dialog/mainwindow.cpp" line="119"/>
+        <location filename="../src/dialog/mainwindow.ui" line="68"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="121"/>
         <source>Power On</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="53"/>
+        <location filename="../src/dialog/mainwindow.ui" line="97"/>
         <source>Hide</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="66"/>
+        <location filename="../src/dialog/mainwindow.ui" line="129"/>
         <source>CStyler</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="79"/>
-        <source>Stats</source>
-        <translation></translation>
+        <location filename="../src/dialog/mainwindow.ui" line="155"/>
+        <source>Statistics</source>
+        <translation>Statistics</translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.ui" line="92"/>
+        <location filename="../src/dialog/mainwindow.ui" line="184"/>
         <source>Exit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/mainwindow.cpp" line="123"/>
+        <location filename="../src/dialog/mainwindow.cpp" line="126"/>
         <source>Power Off</source>
         <translation></translation>
     </message>
@@ -58,7 +58,7 @@
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="14"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <location filename="../src/dialog/settingdialog.ui" line="49"/>
@@ -134,32 +134,37 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="251"/>
+        <location filename="../src/dialog/settingdialog.ui" line="258"/>
+        <source>Do not alert me when code style is corrected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/settingdialog.ui" line="264"/>
         <source>Global</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="263"/>
+        <location filename="../src/dialog/settingdialog.ui" line="276"/>
         <source>Display Popup Tool Bar on start</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="314"/>
+        <location filename="../src/dialog/settingdialog.ui" line="327"/>
         <source>Display Language</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="327"/>
+        <location filename="../src/dialog/settingdialog.ui" line="340"/>
         <source>Auto start CWizard on system start</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="340"/>
+        <location filename="../src/dialog/settingdialog.ui" line="353"/>
         <source>Check up for updates</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/settingdialog.ui" line="353"/>
+        <location filename="../src/dialog/settingdialog.ui" line="366"/>
         <source>Show CStyler on start</source>
         <translation></translation>
     </message>
@@ -184,7 +189,15 @@
     <message>
         <location filename="../src/dialog/statdialog.ui" line="20"/>
         <source>Statistics</source>
-        <translation>统计信息</translation>
+        <translation>Statistics</translation>
+    </message>
+</context>
+<context>
+    <name>StatGraphics</name>
+    <message>
+        <location filename="../src/ui/statgraphics.cpp" line="50"/>
+        <source>time(s)</source>
+        <translation>time(s)</translation>
     </message>
 </context>
 <context>
@@ -458,10 +471,19 @@
 <context>
     <name>Writer</name>
     <message>
-        <location filename="../src/core/writer.cpp" line="173"/>
-        <location filename="../src/core/writer.cpp" line="184"/>
-        <source>CodeStyleError:bioperator</source>
-        <translation>Please wrap bioperators with spaces.</translation>
+        <location filename="../src/core/writer.cpp" line="328"/>
+        <source>Code Style Error: Bioperator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="331"/>
+        <source>Code Style Error: Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="334"/>
+        <source>Code Style Error: Brace</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
