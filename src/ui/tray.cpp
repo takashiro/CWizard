@@ -35,7 +35,7 @@ Tray::Tray(QWidget *mainWindow){
 	setToolTip(Wizard->getAppName() + " " + Wizard->getAppVersion());
 
 	//œµÕ≥Õ–≈ÃÕº±Í
-	setIcon(QIcon("image/trayicon.ico"));
+	setIcon(QIcon("image/appicon.ico"));
 	setContextMenu(contextMenu);
 
 	isFirstBoot = true;

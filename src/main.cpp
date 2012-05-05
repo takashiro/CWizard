@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
 	a.setApplicationVersion(cwizard.getAppVersion());
 	a.setOrganizationName(cwizard.getOrgName());
 	a.setQuitOnLastWindowClosed(false);
-	a.setWindowIcon(QIcon("image/trayicon.ico"));
+	a.setWindowIcon(QIcon("image/appicon.ico"));
 
 	//º”‘ÿ≥Ã–Ú”Ô—‘
 	QString appLang = cwizard.getSetting("displayLanguage", "zh_CN").toString();
