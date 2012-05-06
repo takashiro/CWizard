@@ -37,7 +37,6 @@ StylerWindow::StylerWindow(QWidget *parent) :
 	if(!recentPaths.isEmpty()){
 		foreach(QString str, recentPaths){
 			Action *action = new Action(str, ui->menuRecentPaths);
-			connect(action, SIGNAL(triggered()), action, SLOT(triggerWithText()));
 			connect(action, SIGNAL(triggered(QString)), this, SLOT(openFile(QString)));
 			ui->menuRecentPaths->addAction(action);
 		}
@@ -189,7 +188,7 @@ void StylerWindow::openFile(QString filePath){
 	}
 
 	if(!QFile::exists(filePath)){
-		QMessageBox::warning(this, tr("Error"), "File does not exist!");
+		QMessageBox::warning(this, tr("Error"), tr("File does not exist!"));
 		return;
 	}
 
@@ -197,7 +196,11 @@ void StylerWindow::openFile(QString filePath){
 	file->open(QFile::ReadWrite);
 
 	//显示文件内容
-	ui->plainTextEdit->setPlainText(QString::fromLocal8Bit(file->readAll()));
+	QByteArray content = file->readAll();
+	QString local8bit = QString::fromLocal8Bit(content);
+	QString utf8 = QString::fromUtf8(content);
+	ui->plainTextEdit->setPlainText(local8bit.length() < utf8.length() ? local8bit : utf8);
+
 	ui->plainTextEdit->moveCursor(QTextCursor::Start);
 
 	//设置高亮以及优化模式
@@ -242,7 +245,7 @@ void StylerWindow::on_actionExit_triggered()
 }
 
 Action::Action(QWidget *parent):QWidgetAction(parent){
-
+	connect(this, SIGNAL(triggered()), this, SLOT(triggerWithText()));
 }
 
 Action::Action(QString text, QWidget *parent):QWidgetAction(parent){
@@ -333,7 +336,7 @@ void StylerWindow::setFileMode(){
 	emit fileModeChanged(extToMode(file->fileName()));
 }
 
-FileMode StylerWindow::extToMode(QString fileName) const{
+FileMode StylerWindow::extToMode(QString fileName){
 	QFileInfo info(fileName);
 	QString ext = info.suffix().toLower();
 	if(ext == "h" || ext == "c" || ext == "cpp"){
@@ -352,6 +355,10 @@ FileMode StylerWindow::extToMode(QString fileName) const{
 void StylerWindow::on_actionBatchProcess_triggered(){
 	QString dirPath = setting->value("styler/batchPath", "./").toString();
 	QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"), dirPath, extFilters);
+
+	if(fileNames.isEmpty()){
+		return;
+	}
 
 	QProgressDialog dialog(this);
 	dialog.setWindowModality(Qt::WindowModal);

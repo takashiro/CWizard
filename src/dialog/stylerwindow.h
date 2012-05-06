@@ -51,7 +51,7 @@ private slots:
     void on_actionToHTML_triggered();
 	void setFileMode();
 	void setFileMode(FileMode mode);
-	FileMode extToMode(QString fileName) const;
+	static FileMode extToMode(QString fileName);
 
 signals:
 	void fileModeChanged(FileMode mode);
@@ -64,7 +64,7 @@ public:
 	explicit Action(QWidget *parent = 0);
 	Action(QString text, QWidget *parent = 0);
 
-public slots:
+private slots:
 	void triggerWithText();
 
 signals:
