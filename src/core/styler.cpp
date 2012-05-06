@@ -75,7 +75,7 @@ QString Styler::formatCode(){
 	}
 
 	//returnÓÒ²à¿Õ¸ñ
-	code.replace(QRegExp("return[ \\t]*"), "return ");
+	code.replace(QRegExp("return[ \t]*"), "return ");
 
 	//¶ººÅ
 	if(optCommaBlank){
@@ -91,10 +91,10 @@ QString Styler::formatCode(){
 
 	//¿é×¢ÊÍ¿ÕÐÐ
 	code.replace(QRegExp("\\*\\/[\r\n]*"), "*/\r\n");
-	code.replace(QRegExp("\\r\\n(\\s*//)"), "\r\n\r\n\\1");
+	code.replace(QRegExp("\r\n(\\s*//)"), "\r\n\r\n\\1");
 
 	//Ëõ½ø
-	QStringList block = code.split("\r\n");
+	QStringList block = code.split(QRegExp("\r\n|\n"));
 	int indent = 0;
 	for(int i = 0; i < block.length(); i++){
 		if(block[i].length() >= 1 && block[i].indexOf("}") != -1){
@@ -117,7 +117,7 @@ QString Styler::formatCode(){
 		}
 	}
 	code = block.join("\r\n");
-	code.replace(QRegExp("\\t(public|private|protected)( slots| signals)?\\:"), "\\1\\2:");
+	code.replace(QRegExp("\t(public|private|protected)( slots| signals)?\\:"), "\\1\\2:");
 
 	//ÐÞÕýÔ¤±àÒëÓï¾ä
 	rx.setPatternSyntax(QRegExp::RegExp2);
@@ -142,6 +142,11 @@ QString Styler::compressCode(){
 		return code;
 	}
 
+	protectQuoted();
+	protectedLine["cmt"].clear();
+	code.remove(QRegExp("/\\*\\*/"));
+	code.replace(QRegExp("//\r?\n"), "\r\n");
+
 	//Ë«ÔªÔËËã·û
 	code.replace(QRegExp("[\\s]*([\\*\\n+\\-\\/\\=]{1})[\\s]*"), "\\1");
 	//×ó²à´óÀ¨ºÅ
@@ -151,7 +156,9 @@ QString Styler::compressCode(){
 	//ÓÒ²à´óÀ¨ºÅ
 	code.replace(QRegExp("[\\s]*\\}[\\s]*"), "}");
 	//Ëõ½ø
-	code.replace("\\t", "").replace("\\r", "").replace("\\n", "");
+	code.remove("\\t");
+
+	restoreQuoted();
 
 	codeStatus = 2;
 	return code;
@@ -165,6 +172,9 @@ void Styler::protectQuoted(){
 	protectedLine["str"].clear();
 	if(!optNoComment){
 		protectedLine["cmt"].clear();
+	}
+	if(mode == JavaScript){
+		protectedLine["regexp"].clear();
 	}
 
 	bool inQuotation = false;
@@ -237,15 +247,13 @@ void Styler::protectQuoted(){
 					i += 6;
 					inQuotation = inRegExp = false;
 
-				}else{
-					if(code.at(i) == '\n'){
-						length = i - offset;
+				}else if(code.at(i) == '\n'){
+					length = i - offset;
 
-						protectedLine["cmt"].append(code.mid(offset, length));
-						code.remove(offset, length);
-						i -= length;
-						inQuotation = false;
-					}
+					protectedLine["cmt"].append(code.mid(offset, length));
+					code.remove(offset, length);
+					i -= length;
+					inQuotation = false;
 				}
 			}
 		}
@@ -268,7 +276,7 @@ void Styler::restoreQuoted(){
 	}
 
 	index = 0;
-	const QRegExp comment("/\\*\\*/|//\n");
+	const QRegExp comment("/\\*\\*/|//\r?\n");
 	while(!protectedLine["cmt"].isEmpty() && (index = code.indexOf(comment, index)) != -1){
 		QString &str = protectedLine["cmt"].first();
 		code.insert(index + 2, str);
