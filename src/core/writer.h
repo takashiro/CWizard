@@ -97,6 +97,7 @@ private:
 
 	//ÊéĞ´×´Ì¬
 	WritingStatus writing_status;
+	QMap<QChar, int> char_num;
 
 private slots:
 	void convertStyleWarning(HabitType type);

@@ -123,9 +123,11 @@ LRESULT CALLBACK Writer::mouseProc(int nCode, WPARAM wParam, LPARAM lParam){
 		return CallNextHookEx(writer->key_hook, nCode, wParam, lParam);;
 	}
 
-	writer->clearCurrentLine();
-
-	return CallNextHookEx(writer->mouse_hook, nCode, wParam, lParam);
+	if(!writer->mouseHandler()){
+		return CallNextHookEx(writer->mouse_hook, nCode, wParam, lParam);
+	}else{
+		return 1;
+	}
 }
 #endif
 
@@ -163,7 +165,6 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 		if(isCtrlDown()){
 			return false;
 		}
-
 
 		if(!isShiftDown()){
 			//处理双元运算符
@@ -205,15 +206,36 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 				inputSpace(1);
 				sendKeyEvent(VK_RIGHT);
 				setEnabled();
-			}else if(cur == '"'){
-
-			}else if(cur == '\''){
-
+			}else if(current_line.right(2) == "if" || current_line.right(5) == "while"){
+				writing_status = InIf;
 			}
 		}else{
 
 		}
+
+		if(writing_status == InIf){
+			if(pre == '=' && cur != '=' && prevChar(2) != '='){
+				emit styleWarning(tr("Suspected Logic Error: Equal"));
+
+			}else if(cur == '('){
+				char_num['(']++;
+			}else if(cur == ')'){
+				char_num['(']--;
+
+				if(char_num['('] <= 0){
+					writing_status = None;
+				}
+			}
+		}
 	}
+
+	return false;
+}
+
+bool Writer::mouseHandler(){
+	clearCurrentLine();
+	char_num.clear();
+	writing_status = None;
 
 	return false;
 }
