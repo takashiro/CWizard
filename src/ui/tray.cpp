@@ -9,7 +9,7 @@ Tray::Tray(QWidget *mainWindow){
 	contextMenu = new QMenu();
 
 	powerOnAction = contextMenu->addAction(tr("Power On"), mainWindow, SLOT(on_powerOn_clicked()));
-	contextMenu->addAction(tr("Statistics"));
+	contextMenu->addAction(tr("Statistics"), mainWindow, SLOT(on_stat_clicked()));
 
 	contextMenu->addSeparator();
 
