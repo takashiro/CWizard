@@ -43,7 +43,7 @@ Highlighter::Highlighter(QTextDocument *parent, FileMode mode)
 
 	//Qt¿‡
 	classFormat.setForeground(Qt::darkMagenta);
-	rule.pattern = QRegExp("\\bQ[A-Za-z]+\\b");
+	rule.pattern = QRegExp("\\bQ[A-Za-z\\_]+\\b");
 	rule.format = classFormat;
 	commonRules.append(rule);
 
