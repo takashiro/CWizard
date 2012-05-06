@@ -9,23 +9,23 @@
 #include <QFileInfo>
 #include <QProgressDialog>
 
-const QString StylerWindow::extFilters =
-        StylerWindow::tr("All Types") + " (*.h *.c *.cpp *.cs *.java *.php *.php3 *php4 *.php5 *.asp *.aspx *.js *.txt);;"
-      + "C/C++ (*.h *.c *.cpp);;"
-      + "C# (*.cs);;"
-      + "Java (*.java);;"
-      + "PHP (*.php *.php3 *php4 *.php5);;"
-      + "ASP (*.asp *.aspx);;"
-      + "Javascript (*.js);;"
-      + StylerWindow::tr("Plain Text") + " (*.txt);;"
-      + StylerWindow::tr("Any Files") + " (*.*)";
-
 StylerWindow::StylerWindow(QWidget *parent) :
     QMainWindow(parent),
 	ui(new Ui::StylerWindow)
 {
     ui->setupUi(this);
-	styler = Styler::getInstance();
+	if(extFilters.isEmpty()){
+		extFilters =
+				tr("All Types") + " (*.h *.c *.cpp *.cs *.java *.php *.php3 *php4 *.php5 *.asp *.aspx *.js *.txt);;"
+			  + "C/C++ (*.h *.c *.cpp);;"
+			  + "C# (*.cs);;"
+			  + "Java (*.java);;"
+			  + "PHP (*.php *.php3 *php4 *.php5);;"
+			  + "ASP (*.asp *.aspx);;"
+			  + "Javascript (*.js);;"
+			  + tr("Plain Text") + " (*.txt);;"
+			  + tr("Any Files") + " (*.*)";
+	}
 
 	file = new QFile();
 	setting = Wizard->getSetting();

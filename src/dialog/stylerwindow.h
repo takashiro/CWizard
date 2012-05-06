@@ -24,7 +24,7 @@ class StylerWindow : public QMainWindow
 private:
 	Ui::StylerWindow *ui;
 	QFile *file;						//当前打开的文件
-    static const QString extFilters;	//可用扩展名
+	QString extFilters;					//可用扩展名
 	QSettings *setting;					//配置信息
 	FileMode mode;
 

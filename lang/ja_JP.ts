@@ -231,8 +231,8 @@
     <name>StylerWindow</name>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="20"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="322"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="211"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="325"/>
         <source>CStyler</source>
         <translation>シースタイル</translation>
     </message>
@@ -248,19 +248,19 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="123"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="73"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
         <source>Help</source>
         <translation>支援</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="249"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="169"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
         <source>Open</source>
         <translation>オープン</translation>
     </message>
@@ -292,7 +292,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="181"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
         <source>Save</source>
         <translation>セイブ</translation>
     </message>
@@ -308,13 +308,13 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="213"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
         <source>Format</source>
         <translation>フォーマット</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="225"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Compress</source>
         <translation>圧縮する</translation>
     </message>
@@ -380,7 +380,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="362"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
         <source>Tips</source>
         <translation>チップス</translation>
     </message>
@@ -415,18 +415,23 @@
         <translation>任意のファイル</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="179"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="354"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="178"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="357"/>
         <source>Open File</source>
         <translation>オープンファイル</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="192"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="191"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="220"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="191"/>
+        <source>File does not exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.cpp" line="223"/>
         <source>Save File</source>
         <translation>ファイルを保存し</translation>
     </message>
@@ -498,17 +503,22 @@
 <context>
     <name>Writer</name>
     <message>
-        <location filename="../src/core/writer.cpp" line="328"/>
+        <location filename="../src/core/writer.cpp" line="218"/>
+        <source>Suspected Logic Error: Equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="350"/>
         <source>Code Style Error: Bioperator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/writer.cpp" line="331"/>
+        <location filename="../src/core/writer.cpp" line="353"/>
         <source>Code Style Error: Comma</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/writer.cpp" line="334"/>
+        <location filename="../src/core/writer.cpp" line="356"/>
         <source>Code Style Error: Brace</source>
         <translation type="unfinished"></translation>
     </message>

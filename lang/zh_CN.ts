@@ -216,7 +216,7 @@
     <message>
         <location filename="../src/dialog/statdialog.ui" line="97"/>
         <source>a day</source>
-        <translation type="unfinished">单日</translation>
+        <translation>单日</translation>
     </message>
 </context>
 <context>
@@ -231,8 +231,8 @@
     <name>StylerWindow</name>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="20"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="208"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="322"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="211"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="325"/>
         <source>CStyler</source>
         <translation>CStyler</translation>
     </message>
@@ -248,19 +248,19 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="123"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="73"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
         <source>Help</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="249"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="72"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="71"/>
         <source>Settings</source>
         <translation>设置(&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="169"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="64"/>
         <source>Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
@@ -292,7 +292,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="181"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="66"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="65"/>
         <source>Save</source>
         <translation>保存(&amp;S)</translation>
     </message>
@@ -308,13 +308,13 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="213"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="67"/>
         <source>Format</source>
         <translation>规范化(&amp;F)</translation>
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="225"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="68"/>
         <source>Compress</source>
         <translation>压缩(&amp;C)</translation>
     </message>
@@ -380,7 +380,7 @@
     </message>
     <message>
         <location filename="../src/dialog/stylerwindow.ui" line="362"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="70"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="69"/>
         <source>Tips</source>
         <translation>规范提示</translation>
     </message>
@@ -415,18 +415,23 @@
         <translation>任何文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="179"/>
-        <location filename="../src/dialog/stylerwindow.cpp" line="354"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="178"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="357"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="192"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="191"/>
         <source>Error</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dialog/stylerwindow.cpp" line="220"/>
+        <location filename="../src/dialog/stylerwindow.cpp" line="191"/>
+        <source>File does not exist!</source>
+        <translation>文件不存在！</translation>
+    </message>
+    <message>
+        <location filename="../src/dialog/stylerwindow.cpp" line="223"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
@@ -498,17 +503,22 @@
 <context>
     <name>Writer</name>
     <message>
-        <location filename="../src/core/writer.cpp" line="328"/>
+        <location filename="../src/core/writer.cpp" line="218"/>
+        <source>Suspected Logic Error: Equal</source>
+        <translation>可能的拼写错误：您是不是把等于“==”误写成“=”了？</translation>
+    </message>
+    <message>
+        <location filename="../src/core/writer.cpp" line="350"/>
         <source>Code Style Error: Bioperator</source>
         <translation>代码风格提示：双元运算符两边记得加上空格哟</translation>
     </message>
     <message>
-        <location filename="../src/core/writer.cpp" line="331"/>
+        <location filename="../src/core/writer.cpp" line="353"/>
         <source>Code Style Error: Comma</source>
         <translation>代码风格提示：逗号后面要记得加上一个空格呀</translation>
     </message>
     <message>
-        <location filename="../src/core/writer.cpp" line="334"/>
+        <location filename="../src/core/writer.cpp" line="356"/>
         <source>Code Style Error: Brace</source>
         <translation>左大括号不要另外空行噢</translation>
     </message>
