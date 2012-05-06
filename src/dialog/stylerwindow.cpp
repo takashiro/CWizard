@@ -323,6 +323,7 @@ void StylerWindow::on_actionToHTML_triggered(){
 void StylerWindow::on_actionClose_triggered(){
 	file->close();
 	setWindowTitle(tr("CStyler"));
+	ui->plainTextEdit->clear();
 }
 
 void StylerWindow::setFileMode(FileMode mode){
@@ -377,11 +378,15 @@ void StylerWindow::on_actionBatchProcess_triggered(){
 		file.setFileName(fileName);
 		file.open(QFile::ReadWrite);
 
-		QString code = QString::fromLocal8Bit(file.readAll());
+		QByteArray content = file.readAll();
+		QString local = QString::fromLocal8Bit(content);
+		QString utf8 = QString::fromUtf8(content);
+		bool isUtf8 = local.length() > utf8.length();
+		QString &code = isUtf8 ? local : utf8;
 		code = styler->formatCode(code, extToMode(fileName));
 
 		file.resize(0);
-		file.write(code.toLocal8Bit());
+		file.write(isUtf8 ? code.toUtf8() : code.toLocal8Bit());
 		file.close();
 
 		progress++;
