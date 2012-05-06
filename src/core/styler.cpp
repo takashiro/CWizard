@@ -187,7 +187,7 @@ void Styler::protectQuoted(){
 					goto InComment;
 				}else if(mode == JavaScript){
 					int prev = qMax(0, i - 1);
-					while(code.at(prev) == ' '){
+					while(prev >= 0 && code.at(prev).isSpace()){
 						prev--;
 					}
 					if(prev < 0 || !code.at(prev).isLetterOrNumber()){
@@ -227,12 +227,14 @@ void Styler::protectQuoted(){
 						inQuotation = inBlockComment = false;
 					}
 
-				}else if(mode == JavaScript && inRegExp && code.at(i) == '/'){
+				}else if(mode == JavaScript && inRegExp && code.at(i) == '/' && code.at(i - 1) != '\\'){
 					length = i - offset;
 
-					protectedLine["str"].append(code.mid(offset, length));
+					protectedLine["regexp"].append(code.mid(offset, length));
 					code.remove(offset, length);
 					i -= length;
+					code.insert(offset, "regexp");
+					i += 6;
 					inQuotation = inRegExp = false;
 
 				}else{
@@ -272,6 +274,18 @@ void Styler::restoreQuoted(){
 		code.insert(index + 2, str);
 		index += str.length() + 4;
 		protectedLine["cmt"].removeFirst();
+	}
+
+	if(mode == JavaScript){
+		index = 0;
+		const QRegExp regexp("\\/regexp\\/");
+		while(!protectedLine["regexp"].isEmpty() && (index = code.indexOf(regexp, index)) != -1){
+			code.remove(index + 1, 6);
+			QString &str = protectedLine["regexp"].first();
+			code.insert(index + 1, str);
+			index += str.length() - 6 + 2;
+			protectedLine["regexp"].removeFirst();
+		}
 	}
 }
 

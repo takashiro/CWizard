@@ -92,7 +92,13 @@ void Highlighter::highlightBlock(const QString &text){
 				}else if(text.at(i + 1) == '/'){
 					setCurrentBlockState(6);	//行注释
 				}else if(filemode == JavaScript){
-					setCurrentBlockState(4);	//JS正则
+					int tmp = i - 1;
+					while(tmp >= 0 && text.at(tmp).isSpace()){
+						tmp--;
+					}
+					if(tmp < 0 || !text.at(tmp).isLetterOrNumber()){
+						setCurrentBlockState(4);	//JS正则
+					}
 				}
 				break;
 			default:setCurrentBlockState(0);
