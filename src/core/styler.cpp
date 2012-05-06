@@ -54,7 +54,7 @@ QString Styler::formatCode(){
 		.replace("<  =", "<=")
 		.replace(QRegExp("\\s*(&&|\\|\\|)\\s*"), " \\1 ")
 		.replace(QRegExp("\\b(public|private|protected)( slots| signals)?\\s*\\:\\s*"), "\\1\\2:\r\n")
-		.replace(QRegExp("case\\s*(.*)\\s*\\:\\s*"), "case \\1:\r\n")
+		.replace(QRegExp("case\\s*(.+)\\s*\\:\\s*"), "case \\1:\r\n")
 	;
 
 	//×ó²à´óÀ¨ºÅ
@@ -224,7 +224,7 @@ void Styler::protectQuoted(){
 						protectedLine["cmt"].append(code.mid(offset, length));
 						code.remove(offset, length);
 						i -= length;
-						inQuotation = false;
+						inQuotation = inBlockComment = false;
 					}
 
 				}else if(mode == JavaScript && inRegExp && code.at(i) == '/'){
