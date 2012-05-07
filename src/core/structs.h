@@ -15,4 +15,11 @@ enum HabitType{
 	Brace
 };
 
+enum Nomenclature {
+	CamelCase,
+	UnderlineSplitted,
+	Pascal,
+	Hungary
+};
+
 #endif // STRUCTS_H
