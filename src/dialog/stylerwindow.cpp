@@ -8,6 +8,7 @@
 
 #include <QFileInfo>
 #include <QProgressDialog>
+#include <QInputDialog>
 
 StylerWindow::StylerWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -395,4 +396,73 @@ void StylerWindow::on_actionBatchProcess_triggered(){
 	}
 
 	dialog.close();
+}
+
+void StylerWindow::on_actionConvertNomenclature_triggered(){
+	bool ok;
+
+	QStringList varNameList = QInputDialog::getText(this, tr("Please input a variable name:"), tr("Variable Name:"), QLineEdit::Normal, QString(), &ok).split(',');
+	QString newName;
+	QRegExp regexp;
+
+	if(ok){
+		Nomenclature to = Nomenclature(Wizard->getSetting("syntax/nomenclature").toInt());
+		//Nomenclature from;
+		int index = 0;
+
+		foreach(const QString varName, varNameList){
+			newName = varName;
+			if(newName.contains('_')){
+				//from = UnderlineSplitted;
+				switch(to){
+				case Pascal:
+					newName[0] = newName[0].toUpper();
+				case CamelCase:
+					regexp.setPattern("\\_([a-z])");
+					while((index = regexp.indexIn(newName)) >= 0){
+						newName.remove(index, 1);
+						newName[index] = newName[index].toUpper();
+					}
+					break;
+
+				case UnderlineSplitted:case Hungary:default:;
+				}
+			}else if(varName.at(0).isUpper()){
+				//from = Pascal;
+				regexp.setPattern("[a-z]{1}[A-Z]{1}");
+				switch(to){
+				case UnderlineSplitted:
+					while((index = regexp.indexIn(newName)) >= 0){
+						newName[index + 1] = newName[index + 1].toLower();
+						newName.insert(index + 1, '_');
+					}
+				case CamelCase:
+					newName[0] = newName[0].toLower();
+					break;
+
+				case Pascal:case Hungary:default:;
+				}
+			}else{
+				//from = CamelCase;
+				regexp.setPattern("[a-z]{1}[A-Z]{1}");
+				switch(to){
+				case UnderlineSplitted:
+					while((index = regexp.indexIn(newName)) >= 0){
+						newName[index + 1] = newName[index + 1].toLower();
+						newName.insert(index + 1, '_');
+					}
+					break;
+				case Pascal:
+					newName[0] = newName[0].toUpper();
+					break;
+
+				case CamelCase:case Hungary:default:;
+				}
+			}
+
+			QString code = ui->plainTextEdit->toPlainText();
+			code.replace(varName, newName);
+			ui->plainTextEdit->setPlainText(code);
+		}
+	}
 }

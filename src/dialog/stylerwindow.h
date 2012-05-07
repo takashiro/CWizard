@@ -38,7 +38,8 @@ public slots:
 	void saveHistory();									//保存历史记录
 
 private slots:
-	void on_actionBatchProcess_triggered();
+	void on_actionConvertNomenclature_triggered();
+ void on_actionBatchProcess_triggered();
 	void on_actionSettings_triggered();					//批处理
 	void on_actionOpen_triggered();						//打开文件
 	void on_actionSave_triggered();						//保存文件

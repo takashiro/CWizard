@@ -141,6 +141,7 @@
     <addaction name="actionToHTML"/>
     <addaction name="actionEditorLists"/>
     <addaction name="separator"/>
+    <addaction name="actionConvertNomenclature"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -381,6 +382,11 @@
   <action name="actionToHTML">
    <property name="text">
     <string>To HTML</string>
+   </property>
+  </action>
+  <action name="actionConvertNomenclature">
+   <property name="text">
+    <string>Convert Nomenclature</string>
    </property>
   </action>
  </widget>
