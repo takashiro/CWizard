@@ -168,7 +168,7 @@ bool Writer::keyHandler(Writer::KeyEvent event, unsigned int key){
 
 		if(!isShiftDown()){
 			//处理双元运算符
-			if(pre.category() == QChar::Symbol_Math && cur.isLetterOrNumber()){
+			if(pre.isSymbol() && cur.isLetterOrNumber()){
 				QChar tmp = prevChar(2);
 				if(tmp.isSymbol()){
 					int i = 3;
